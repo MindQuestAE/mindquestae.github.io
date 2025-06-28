@@ -656,13 +656,18 @@ h3 a {
   color: var(--oxford-blue);
 }
 
-.features-list i {
-  color: var(--minion-yellow);
-  margin-right: 1rem;
-  font-size: 18px;
-  filter: drop-shadow(0 2px 5px rgba(249, 216, 75, 0.3));
+.features-list li i {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background-color: var(--minion-yellow);
+  color: var(--olive-blue);
+  border-radius: 8px;
+  margin-right: 1em;
+  font-size: 1.1em;
 }
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -711,13 +716,13 @@ h3 a {
 }
 
 /* Organizers Section */
-.organizers-section {
+/* .organizers-section {
   background: linear-gradient(
     135deg,
     var(--white) 0%,
     var(--sky-blue-light) 100%
   );
-}
+} */
 
 .organizers-grid {
   display: grid;
@@ -758,6 +763,11 @@ h3 a {
   .organizers-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  .organizer-logo, .organizer-logo img {
+    width: 228px;
+    height: 285px;
+    object-fit: contain;
   }
 }
 /* Enhanced Details Section */
@@ -1260,7 +1270,11 @@ h3 a {
 
 /* Schedule Section */
 .schedule-section {
-  background: var(--white);
+  background: linear-gradient(
+    135deg,
+    var(--white) 0%,
+    var(--sky-blue-light) 100%
+  );
 }
 
 .timeline {
@@ -1552,7 +1566,7 @@ h3 a {
 
   .footer-grid {
     grid-template-columns: 1fr;
-    text-align: center;
+    text-align: left;
   }
 }
 
