@@ -127,6 +127,18 @@ h3 a {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("./pattern-01.png");
+  background-repeat: repeat;
+  background-size: 1000px 1000px;
+  opacity: 0.05;
+}
 
 .navbar.scrolled {
   background: rgba(10, 33, 85, 0.98);
@@ -1453,6 +1465,19 @@ h3 a {
 }
 
 /* Footer */
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("./pattern-01.png");
+  background-repeat: repeat;
+  background-size: 1000px 1000px;
+  opacity: 0.05;
+}
 .footer {
   background: #061433;
   color: var(--white);
