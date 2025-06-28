@@ -1017,7 +1017,7 @@ h3 a {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 3rem;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 10rem 1rem;
   }
 
   .hero-visual {
@@ -1033,7 +1033,9 @@ h3 a {
   .hero-shape i {
     font-size: 80px;
   }
-
+  .event-info {
+    text-align: left;
+  }
   .hero-logo {
     max-width: 280px;
   }
