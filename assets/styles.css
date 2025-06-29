@@ -363,7 +363,14 @@ h3 a {
   margin-bottom: 1rem;
   gap: 1rem;
   transition: transform 0.2s ease;
+  text-decoration: none;
 }
+.event-detail a {
+  color: var(--white);
+  text-decoration: none;
+
+}
+
 
 .event-detail:hover {
   transform: translateX(5px);
@@ -928,7 +935,11 @@ h3 a {
   color: var(--slate-gray);
   line-height: 1.6;
 }
-
+.contact-details a {
+  color: var(--slate-gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 .social-links {
   display: flex;
   gap: 1rem;
