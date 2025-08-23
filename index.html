@@ -180,8 +180,7 @@
                 <i class="fas fa-trophy"></i>Win exciting prizes and recognition
               </li>
               <li>
-                <i class="fas fa-chalkboard-teacher"></i>Build confidence &
-                General knowledge
+                <i class="fas fa-chalkboard-teacher"></i>Build confidence
               </li>
               <li>
                 <i class="fas fa-users"></i>Network with like-minded peers
@@ -327,104 +326,123 @@
               required documents ready before filling out the registration form.
             </p>
           </blockquote>
-          <!-- Registration not opened
-            <div class="registration-form">
-            <form id="registrationForm">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstName">First Name *</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    placeholder="Enter first name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="lastName">Last Name *</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    placeholder="Enter last name"
-                  />
-                </div>
-              </div>
+          <div class="registration-form">
+  <form id="registrationForm">
+    <h2>Participant 1 Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName1">First Name *</label>
+        <input type="text" id="firstName1" name="firstName1" required placeholder="Enter first name"/>
+      </div>
+      <div class="form-group">
+        <label for="lastName1">Last Name *</label>
+        <input type="text" id="lastName1" name="lastName1" required placeholder="Enter last name"/>
+      </div>
+    </div>
 
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="email">Email Address *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="Enter email address"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="phone">Phone Number *</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    placeholder="Enter phone number"
-                  />
-                </div>
-              </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email1">Email Address *</label>
+        <input type="email" id="email1" name="email1" required placeholder="Enter email address"/>
+      </div>
+      <div class="form-group">
+        <label for="phone1">Phone Number *</label>
+        <input type="tel" id="phone1" name="phone1" required placeholder="Enter phone number"/>
+      </div>
+    </div>
 
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="school">School Name *</label>
-                  <input
-                    type="text"
-                    id="school"
-                    name="school"
-                    required
-                    placeholder="Enter school name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="grade">Grade/Class *</label>
-                  <select id="grade" name="grade" required>
-                    <option value="">Select Grade</option>
-                    <option value="9">Grade 9</option>
-                    <option value="10">Grade 10</option>
-                    <option value="11">Grade 11</option>
-                    <option value="12">Grade 12</option>
-                  </select>
-                </div>
-              </div>
+    <hr />
 
-              <div class="form-group">
-                <label for="documents">Required Documents</label>
-                <p>Please ensure you have the following documents ready:</p>
-                <ul class="document-list">
-                  <li>Valid student ID card</li>
-                  <li>Emirates ID</li>
+    <h2>Participant 2 Details</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName2">First Name *</label>
+        <input type="text" id="firstName2" name="firstName2" required placeholder="Enter first name"/>
+      </div>
+      <div class="form-group">
+        <label for="lastName2">Last Name *</label>
+        <input type="text" id="lastName2" name="lastName2" required placeholder="Enter last name"/>
+      </div>
+    </div>
 
-                </ul>
-              </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email2">Email Address *</label>
+        <input type="email" id="email2" name="email2" required placeholder="Enter email address"/>
+      </div>
+      <div class="form-group">
+        <label for="phone2">Phone Number *</label>
+        <input type="tel" id="phone2" name="phone2" required placeholder="Enter phone number"/>
+      </div>
+    </div>
 
-              <button
-                type="submit"
-                class="btn btn-primary btn-full-width btn-large"
-              >
-                <i class="fas fa-paper-plane"></i>
-                Submit Registration
-              </button>
-            </form>
+    <hr />
 
-            <div class="text-center-spaced text-sky-blue">
-              <p class="caption-text-dark-bg">
-                <strong>Deadline:</strong> September 30, 2025
-              </p>
-            </div>
-          </div>
-        --></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="school">School Name *</label>
+        <input type="text" id="school" name="school" required placeholder="Enter school name"/>
+      </div>
+      <div class="form-group">
+        <label for="grade">Grade/Class *</label>
+        <select id="grade" name="grade" required>
+          <option value="">Select Grade</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Required Documents</label>
+      <ul class="document-list">
+        <li>Valid student ID card</li>
+        <li>Emirates ID</li>
+      </ul>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-full-width btn-large">
+      <i class="fas fa-paper-plane"></i>
+      Submit Registration
+    </button>
+  </form>
+
+  <div id="serialOutput" class="text-center-spaced text-sky-blue" style="display:none; margin-top:20px;">
+    <p class="caption-text-dark-bg">
+      ✅ <strong>Registration Successful!</strong><br />
+      Your Team Serial Number is: <span id="serialNumber"></span>
+    </p>
+  </div>
+
+  <div class="text-center-spaced text-sky-blue">
+    <p class="caption-text-dark-bg">
+      <strong>Deadline:</strong> September 30, 2025
+    </p>
+  </div>
+</div>
+
+<script>
+  // Team counter (kept in browser memory)
+  let teamCounter = 1000; // Starting team number
+
+  document.getElementById("registrationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Increment team number
+    teamCounter++;
+    let serial = "TEAM" + teamCounter;
+
+    // Show the serial number
+    document.getElementById("serialOutput").style.display = "block";
+    document.getElementById("serialNumber").textContent = serial;
+
+    // Reset form for new entry
+    this.reset();
+  });
+</script>
+</div>
       </div>
     </section>
 
@@ -459,9 +477,8 @@
               </div>
               <div class="timeline-title">Preliminary Round</div>
               <p class="body-text">
-                Written test covering all subject areas. Top performers advance
-                to the finals. Venue details will be shared with registered
-                participants.
+                Written test for which the top performers advance will
+                to the finals. Venue is The Millennium School, Al Qusais, Dubai.
               </p>
             </div>
             <div class="timeline-marker"></div>
