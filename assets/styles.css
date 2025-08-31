@@ -1677,3 +1677,17 @@ h3 a {
 .img-hide-on-error {
   /* This class is for semantic purposes - actual hiding is handled by onerror */
 }
+#serialOutput {
+  display: none; /* initially hidden */
+  margin-top: 1.5rem; /* spacing consistent with other sections */
+  padding: 1.5rem; /* matches padding scale in your theme */
+  border: 2px solid var(--minion-yellow); /* brand accent color */
+  border-radius: var(--border-radius-md); /* consistent with your border-radius scale */
+  background-color: rgba(179, 212, 252, 0.15); /* light sky-blue variant, matches theme */
+  color: var(--oxford-blue); /* primary text color */
+  font-family: var(--font-body);
+  font-size: 16px; /* same as body-text */
+  text-align: center;
+  box-shadow: var(--shadow-soft); /* uses your defined shadow */
+  transition: all 0.3s ease; /* smooth appearance/disappearance */
+}

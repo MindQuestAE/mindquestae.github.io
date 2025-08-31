@@ -274,7 +274,7 @@
               Mark your calendars for these crucial milestones.
             </p>
             <ul>
-              <li><strong>Registration Opens:</strong> July 15, 2025</li>
+              <li><strong>Registration Opens:</strong> September 5, 2025</li>
               <li>
                 <strong>Registration Deadline:</strong> September 30, 2025
               </li>
@@ -321,13 +321,13 @@
           <br />
           <blockquote>
             <p class="hero-tagline">
-              Registration is open from July 15, 2025, to September 30, 2025.<br />
+              Registration is open from September 5, 2025, to September 30, 2025.<br />
               Please ensure you meet the eligibility criteria and have the
               required documents ready before filling out the registration form.
             </p>
           </blockquote>
           <div class="registration-form">
-  <form id="registrationForm">
+  <form id="registrationForm" method="POST">
     <h2>Participant 1 Details</h2>
     <div class="form-row">
       <div class="form-group">
@@ -346,9 +346,25 @@
         <input type="email" id="email1" name="email1" required placeholder="Enter email address"/>
       </div>
       <div class="form-group">
-        <label for="phone1">Phone Number *</label>
-        <input type="tel" id="phone1" name="phone1" required placeholder="Enter phone number"/>
+        <label for="dob1">Date of Birth *</label>
+        <input type="date" id="dob1" name="dob1" required />
       </div>
+       <div class="form-group">
+        <label for="phone1">Phone Number (UAE) *</label>
+        <input 
+          type="tel" 
+          id="phone1" 
+          name="phone1" 
+          pattern="^\+971[0-9]{8,9}$" 
+          required 
+          placeholder="+971XXXXXXXX"
+        />
+      </div>
+      <div class="form-group">
+  <label for="emiratesId1">Emirates ID *</label>
+  <input type="text" id="emiratesId1" name="emiratesId1" placeholder="Enter Emirates ID" required />
+</div>
+
     </div>
 
     <hr />
@@ -371,50 +387,40 @@
         <input type="email" id="email2" name="email2" required placeholder="Enter email address"/>
       </div>
       <div class="form-group">
-        <label for="phone2">Phone Number *</label>
-        <input type="tel" id="phone2" name="phone2" required placeholder="Enter phone number"/>
+        <label for="dob2">Date of Birth *</label>
+        <input type="date" id="dob2" name="dob2" required />
       </div>
+      <div class="form-group">
+        <label for="phone2">Phone Number (UAE) *</label>
+        <input 
+          type="tel" 
+          id="phone2" 
+          name="phone2" 
+          pattern="^\+971[0-9]{8,9}$" 
+          required 
+          placeholder="+971XXXXXXXX"
+        />
+      </div>
+      <div class="form-group">
+  <label for="emiratesId2">Emirates ID *</label>
+  <input type="text" id="emiratesId2" name="emiratesId2" placeholder="Enter Emirates ID" required />
+</div>
+
     </div>
 
     <hr />
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="school">School Name *</label>
-        <input type="text" id="school" name="school" required placeholder="Enter school name"/>
-      </div>
-      <div class="form-group">
-        <label for="grade">Grade/Class *</label>
-        <select id="grade" name="grade" required>
-          <option value="">Select Grade</option>
-          <option value="9">Grade 9</option>
-          <option value="10">Grade 10</option>
-          <option value="11">Grade 11</option>
-          <option value="12">Grade 12</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Required Documents</label>
-      <ul class="document-list">
-        <li>Valid student ID card</li>
-        <li>Emirates ID</li>
-      </ul>
-    </div>
+    <div class="form-row"> <div class="form-group"> <label for="school">School Name *</label> <input type="text" id="school" name="school" required placeholder="Enter school name"/> </div> <div class="form-group"> <label for="grade">Grade/Class *</label> <select id="grade" name="grade" required> <option value="">Select Grade</option> <option value="9">Grade 9</option> <option value="10">Grade 10</option> <option value="11">Grade 11</option> <option value="12">Grade 12</option> </select> </div> </div>
 
     <button type="submit" class="btn btn-primary btn-full-width btn-large">
       <i class="fas fa-paper-plane"></i>
       Submit Registration
     </button>
   </form>
-
-  <div id="serialOutput" class="text-center-spaced text-sky-blue" style="display:none; margin-top:20px;">
-    <p class="caption-text-dark-bg">
-      ✅ <strong>Registration Successful!</strong><br />
-      Your Team Serial Number is: <span id="serialNumber"></span>
-    </p>
+  <div id="serialOutput" ></div>
   </div>
+          <!-- Confirmation card will appear here -->
+          <div id="confirmationContainer"></div>
 
   <div class="text-center-spaced text-sky-blue">
     <p class="caption-text-dark-bg">
@@ -422,26 +428,6 @@
     </p>
   </div>
 </div>
-
-<script>
-  // Team counter (kept in browser memory)
-  let teamCounter = 1000; // Starting team number
-
-  document.getElementById("registrationForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    // Increment team number
-    teamCounter++;
-    let serial = "TEAM" + teamCounter;
-
-    // Show the serial number
-    document.getElementById("serialOutput").style.display = "block";
-    document.getElementById("serialNumber").textContent = serial;
-
-    // Reset form for new entry
-    this.reset();
-  });
-</script>
 </div>
       </div>
     </section>
@@ -459,7 +445,7 @@
         <div class="timeline">
           <div class="timeline-item fade-in">
             <div class="timeline-content">
-              <div class="timeline-date">July 15 - September 30, 2025</div>
+              <div class="timeline-date">September 5, 2025 - September 30, 2025</div>
               <div class="timeline-title">Registration Phase</div>
               <p class="body-text">
                 Online registration opens for all eligible students. Submit your
@@ -896,5 +882,33 @@
 
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
+    <script>
+ const scriptURL = "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
+const form = document.getElementById("registrationForm");
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: new FormData(form),
+    mode: "no-cors" // optional: allows request, but response will be opaque
+  })
+  .then(res => {
+    // Note: if using 'no-cors', res.text() won't return content
+    const serialOutput = document.getElementById("serialOutput");
+    serialOutput.style.display = "block";
+    serialOutput.innerHTML = "Form submitted successfully!";
+    form.reset();
+  })
+  .catch(err => {
+    console.error("❌ Error!", err);
+    alert("Something went wrong. Please try again.");
+  });
+});
+
+</script>
+
+
   </body>
 </html>
