@@ -1250,6 +1250,13 @@ h3 a {
   margin-bottom: 1.5rem;
 }
 
+.registration-form h2{
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--minion-yellow);
+  margin-bottom: 1.5rem;
+}
+
 .registration-form .form-group {
   margin-bottom: 1.5rem;
 }
@@ -1280,7 +1287,11 @@ h3 a {
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 0 0 2px var(--minion-yellow);
 }
-
+.registration-form .form-group input:invalid,
+.registration-form .form-group select:invalid {
+  background: rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0 0 2px var(--red);
+}
 .registration-form .form-group input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
