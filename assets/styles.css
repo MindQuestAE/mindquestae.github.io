@@ -1677,3 +1677,75 @@ h3 a {
 .img-hide-on-error {
   /* This class is for semantic purposes - actual hiding is handled by onerror */
 }
+#serialOutput {
+  display: none; /* initially hidden */
+  margin-top: 1.5rem; /* spacing consistent with other sections */
+  padding: 1.5rem; /* matches padding scale in your theme */
+  border: 2px solid var(--minion-yellow); /* brand accent color */
+  border-radius: var(--border-radius-md); /* consistent with your border-radius scale */
+  background-color: rgba(179, 212, 252, 0.15); /* light sky-blue variant, matches theme */
+  color: var(--oxford-blue); /* primary text color */
+  font-family: var(--font-body);
+  font-size: 16px; /* same as body-text */
+  text-align: center;
+  box-shadow: var(--shadow-soft); /* uses your defined shadow */
+  transition: all 0.3s ease; /* smooth appearance/disappearance */
+}
+.prizes-section {
+  background: #f5f9ff;
+  padding: 80px 0;
+}
+
+.prizes-section .section-header {
+  margin-bottom: 60px;
+}
+
+.prizes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.prize-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 30px 25px;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.prize-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.prize-card h3 {
+  font-size: 1.5rem;
+  margin: 20px 0 15px;
+  color: #0a2155; /* Oxford blue */
+}
+
+.prize-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.prize-card ul li {
+  padding: 8px 0;
+  font-size: 1rem;
+}
+
+.prize-icon {
+  font-size: 3rem;
+}
+
+.text-center-spaced {
+  margin-top: 40px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.6;
+}
