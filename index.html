@@ -304,7 +304,6 @@
       </div>
     </section>
     <!-- Prizes & Recognition Section -->
-    <!-- Prizes & Recognition Section -->
     <section id="prizes" class="section prizes-section">
       <div class="container">
         <div class="section-header fade-in text-center">
@@ -312,9 +311,7 @@
             🎁 Prizes & Recognition – MindQuest 2025
           </h1>
           <p class="section-subtitle">
-            At MindQuest 2025, knowledge deserves to be rewarded! Celebrate the
-            brightest minds with prestigious awards and cash prizes totaling AED
-            10,000!
+            At MindQuest 2025, we believe knowledge deserves to be celebrated! Join us in honoring the brightest minds with prestigious awards and cash prizes totaling AED 10,000!
           </p>
         </div>
 
@@ -323,28 +320,19 @@
             <div class="prize-icon">🏆</div>
             <h3>Grand Finale Cash Prizes</h3>
             <ul>
-              <li>🥇 1st Place Team – AED 5,000 + Trophy + Gold Medals</li>
-              <li>🥈 2nd Place Team – AED 3,000 + Trophy + Silver Medals</li>
-              <li>🥉 3rd Place Team – AED 2,000 + Trophy + Bronze Medals</li>
+              <li>🥇 <strong>1st Place Team</strong> – AED 5,000 + Trophy + Gold Medals</li>
+              <li>🥈 <strong>2nd Place Team</strong> – AED 3,000 + Trophy + Silver Medals</li>
+              <li>🥉 <strong>3rd Place Team</strong> – AED 2,000 + Trophy + Bronze Medals</li>
             </ul>
           </div>
 
           <div class="prize-card fade-in">
-            <div class="prize-icon">🎖</div>
+            <div class="prize-icon">🎖️</div>
             <h3>Special Awards</h3>
             <ul>
-              <li>
-                Best School Delegation – For the school with the highest team
-                participation
-              </li>
-              <li>
-                Quizzer of the Day – Individual recognition for standout
-                performance
-              </li>
-              <li>
-                Young Achievers – Spotlight awards for Grade 8/9 participants
-                with exceptional scores
-              </li>
+              <li>🏫 <strong>Best School Delegation</strong> – Recognizing the school with the highest team participation</li>
+              <li>🌟 <strong>Quizzer of the Day</strong> – Celebrating individual standout performances</li>
+              <li>🧒 <strong>Young Achievers</strong> – Spotlighting Grade 8/9 participants with exceptional scores</li>
             </ul>
           </div>
 
@@ -352,16 +340,14 @@
             <div class="prize-icon">📜</div>
             <h3>Certificates of Excellence</h3>
             <p>
-              All Grand Finale qualifiers will receive official certificates
-              from GECBTA & AKCAF, honoring their achievement.
+              Every Grand Finale qualifier will proudly receive <strong>official certificates</strong> from <strong>GECBTA</strong> & <strong>AKCAF</strong>, commemorating their remarkable achievement.
             </p>
           </div>
         </div>
 
         <div class="text-center-spaced text-sky-blue fade-in">
           <p class="caption-text-dark-bg">
-            Join the journey, showcase your brilliance, and compete for glory —
-            and gold!<br />
+            Embark on this incredible journey, showcase your brilliance, and compete for glory and gold!<br />
             Registrations open on September 5, 2025.
           </p>
         </div>
@@ -1019,30 +1005,84 @@
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
     <script>
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
-      const form = document.getElementById("registrationForm");
+      (function () {
+        const scriptURL =
+          "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
+        const form = document.getElementById("registrationForm");
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+        // Utility function to display error messages
+        function displayError(input, message) {
+          const errorElement = input.nextElementSibling;
+          if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+          }
+        }
 
-        fetch(scriptURL, {
-          method: "POST",
-          body: new FormData(form),
-          mode: "no-cors", // optional: allows request, but response will be opaque
-        })
-          .then((res) => {
-            // Note: if using 'no-cors', res.text() won't return content
-            const serialOutput = document.getElementById("serialOutput");
-            serialOutput.style.display = "block";
-            serialOutput.innerHTML = "Form submitted successfully!";
-            form.reset();
-          })
-          .catch((err) => {
-            console.error("❌ Error!", err);
-            alert("Something went wrong. Please try again.");
+        // Utility function to clear error messages
+        function clearError(input) {
+          const errorElement = input.nextElementSibling;
+          if (errorElement) {
+            errorElement.textContent = "";
+            errorElement.style.display = "none";
+          }
+        }
+
+        // Input validation function
+        function validateInputs() {
+          let isValid = true;
+          const inputs = form.querySelectorAll("input");
+
+          inputs.forEach((input) => {
+            clearError(input);
+            if (input.hasAttribute("maxlength") && input.value.length > input.getAttribute("maxlength")) {
+              displayError(input, `Maximum ${input.getAttribute("maxlength")} characters allowed.`);
+              isValid = false;
+            }
           });
-      });
+
+          return isValid;
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          if (!validateInputs()) {
+            return;
+          }
+
+          fetch(scriptURL, {
+            method: "POST",
+            body: new FormData(form),
+            mode: "no-cors", // optional: allows request, but response will be opaque
+          })
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return res.json();
+            })
+            .then((data) => {
+              if (data.errors) {
+                Object.keys(data.errors).forEach((field) => {
+                  const input = form.querySelector(`[name="${field}"]`);
+                  if (input) {
+                    displayError(input, data.errors[field]);
+                  }
+                });
+              } else {
+                const serialOutput = document.getElementById("serialOutput");
+                serialOutput.style.display = "block";
+                serialOutput.innerHTML = "Form submitted successfully!";
+                form.reset();
+              }
+            })
+            .catch((err) => {
+              console.error("❌ Error!", err);
+              alert("Something went wrong. Please try again.");
+            });
+        });
+      })();
     </script>
   </body>
 </html>
