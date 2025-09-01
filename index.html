@@ -311,7 +311,9 @@
             🎁 Prizes & Recognition – MindQuest 2025
           </h1>
           <p class="section-subtitle">
-            At MindQuest 2025, we believe knowledge deserves to be celebrated! Join us in honoring the brightest minds with prestigious awards and cash prizes totaling AED 10,000!
+            At MindQuest 2025, we believe knowledge deserves to be celebrated!
+            Join us in honoring the brightest minds with prestigious awards and
+            cash prizes totaling AED 10,000!
           </p>
         </div>
 
@@ -320,9 +322,18 @@
             <div class="prize-icon">🏆</div>
             <h3>Grand Finale Cash Prizes</h3>
             <ul>
-              <li>🥇 <strong>1st Place Team</strong> – AED 5,000 + Trophy + Gold Medals</li>
-              <li>🥈 <strong>2nd Place Team</strong> – AED 3,000 + Trophy + Silver Medals</li>
-              <li>🥉 <strong>3rd Place Team</strong> – AED 2,000 + Trophy + Bronze Medals</li>
+              <li>
+                🥇 <strong>1st Place Team</strong> – AED 5,000 + Trophy + Gold
+                Medals
+              </li>
+              <li>
+                🥈 <strong>2nd Place Team</strong> – AED 3,000 + Trophy + Silver
+                Medals
+              </li>
+              <li>
+                🥉 <strong>3rd Place Team</strong> – AED 2,000 + Trophy + Bronze
+                Medals
+              </li>
             </ul>
           </div>
 
@@ -330,9 +341,18 @@
             <div class="prize-icon">🎖️</div>
             <h3>Special Awards</h3>
             <ul>
-              <li>🏫 <strong>Best School Delegation</strong> – Recognizing the school with the highest team participation</li>
-              <li>🌟 <strong>Quizzer of the Day</strong> – Celebrating individual standout performances</li>
-              <li>🧒 <strong>Young Achievers</strong> – Spotlighting Grade 8/9 participants with exceptional scores</li>
+              <li>
+                🏫 <strong>Best School Delegation</strong> – Recognizing the
+                school with the highest team participation
+              </li>
+              <li>
+                🌟 <strong>Quizzer of the Day</strong> – Celebrating individual
+                standout performances
+              </li>
+              <li>
+                🧒 <strong>Young Achievers</strong> – Spotlighting Grade 8/9
+                participants with exceptional scores
+              </li>
             </ul>
           </div>
 
@@ -340,14 +360,18 @@
             <div class="prize-icon">📜</div>
             <h3>Certificates of Excellence</h3>
             <p>
-              Every Grand Finale qualifier will proudly receive <strong>official certificates</strong> from <strong>GECBTA</strong> & <strong>AKCAF</strong>, commemorating their remarkable achievement.
+              Every Grand Finale qualifier will proudly receive
+              <strong>official certificates</strong> from
+              <strong>GECBTA</strong> & <strong>AKCAF</strong>, commemorating
+              their remarkable achievement.
             </p>
           </div>
         </div>
 
         <div class="text-center-spaced text-sky-blue fade-in">
           <p class="caption-text-dark-bg">
-            Embark on this incredible journey, showcase your brilliance, and compete for glory and gold!<br />
+            Embark on this incredible journey, showcase your brilliance, and
+            compete for glory and gold!<br />
             Registrations open on September 5, 2025.
           </p>
         </div>
@@ -419,7 +443,8 @@
                     type="date"
                     id="dob1"
                     name="dob1"
-                    pattern="^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+                    min="2007-01-01"
+                    max="2011-12-31"
                     required
                   />
                 </div>
@@ -492,7 +517,8 @@
                     type="date"
                     id="dob2"
                     name="dob2"
-                    pattern="^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+                    min="2007-01-01"
+                    max="2011-12-31"
                     required
                   />
                 </div>
@@ -530,7 +556,7 @@
                     type="text"
                     id="school"
                     name="school"
-                    pattern="^[a-zA-Z0-9 .,'-]+$"
+                    pattern="^[a-zA-Z0-9 .,'-]{4,}$"
                     required
                     placeholder="Enter school name"
                   />
@@ -1052,14 +1078,63 @@
 
           inputs.forEach((input) => {
             clearError(input);
-            if (input.hasAttribute("maxlength") && input.value.length > input.getAttribute("maxlength")) {
-              displayError(input, `Maximum ${input.getAttribute("maxlength")} characters allowed.`);
+            if (
+              input.hasAttribute("maxlength") &&
+              input.value.length > input.getAttribute("maxlength")
+            ) {
+              displayError(
+                input,
+                `Maximum ${input.getAttribute("maxlength")} characters allowed.`
+              );
               isValid = false;
             }
           });
 
           return isValid;
         }
+
+        // Add blur event listener for input validation
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach((input) => {
+          input.addEventListener("blur", () => {
+            clearError(input);
+            if (
+              input.hasAttribute("maxlength") &&
+              input.value.length > input.getAttribute("maxlength")
+            ) {
+              displayError(
+                input,
+                `Maximum ${input.getAttribute("maxlength")} characters allowed.`
+              );
+              input.classList.remove("valid");
+              input.classList.add("invalid");
+            } else if (
+              input.hasAttribute("pattern") &&
+              !new RegExp(input.getAttribute("pattern")).test(input.value)
+            ) {
+              displayError(
+                input,
+                `Invalid format. Please match the requested pattern.`
+              );
+              input.classList.remove("valid");
+              input.classList.add("invalid");
+            } else if (
+              input.type === "date" &&
+              ((input.hasAttribute("min") && new Date(input.value) < new Date(input.getAttribute("min"))) ||
+                (input.hasAttribute("max") && new Date(input.value) > new Date(input.getAttribute("max"))))
+            ) {
+              displayError(
+                input,
+                `Date must be between ${input.getAttribute("min")} and ${input.getAttribute("max")}.`
+              );
+              input.classList.remove("valid");
+              input.classList.add("invalid");
+            } else {
+              input.classList.remove("invalid");
+              input.classList.add("valid");
+            }
+          });
+        });
 
         form.addEventListener("submit", (e) => {
           e.preventDefault();

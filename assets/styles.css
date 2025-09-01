@@ -1287,12 +1287,13 @@ h3 a {
   box-shadow: 0 0 0 3px rgba(249, 216, 75, 0.4); /* Subtle yellow glow */
 
 }
-.registration-form .form-group input:invalid,
-.registration-form .form-group select:invalid {
-  border: 1px solid var(--slate-gray); /* Gray for invalid state */
+.registration-form .form-group input.invalid,
+.registration-form .form-group select.invalid {
+  border: 2px solid var(--red);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.3); /* Subtle red glow */
 }
-.registration-form .form-group input:valid,
-.registration-form .form-group select:valid {
+.registration-form .form-group input.valid,
+.registration-form .form-group select.valid {
   border: 2px solid var(--green); /* Green for valid state */
   box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.3); /* Subtle green glow */
 }
