@@ -609,13 +609,9 @@
         <div class="timeline">
           <div class="timeline-item fade-in">
             <div class="timeline-content">
-<<<<<<< HEAD
               <div class="timeline-date">
                 September 5, 2025 - September 30, 2025
               </div>
-=======
-              <div class="timeline-date">September 5, 2025 - September 30, 2025</div>
->>>>>>> main
               <div class="timeline-title">Registration Phase</div>
               <p class="body-text">
                 Online registration opens for all eligible students. Submit your
@@ -633,13 +629,8 @@
               </div>
               <div class="timeline-title">Preliminary Round</div>
               <p class="body-text">
-<<<<<<< HEAD
                 Written test for which the top performers advance will to the
                 finals. Venue is The Millennium School, Al Qusais, Dubai.
-=======
-                Written test for which the top performers advance will
-                to the finals. Venue is The Millennium School, Al Qusais, Dubai.
->>>>>>> main
               </p>
             </div>
             <div class="timeline-marker"></div>
@@ -1058,7 +1049,6 @@
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
     <script>
-<<<<<<< HEAD
       (function () {
         const scriptURL =
           "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
@@ -1187,34 +1177,5 @@
         });
       })();
     </script>
-=======
- const scriptURL = "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
-const form = document.getElementById("registrationForm");
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
-  fetch(scriptURL, {
-    method: "POST",
-    body: new FormData(form),
-    mode: "no-cors" // optional: allows request, but response will be opaque
-  })
-  .then(res => {
-    // Note: if using 'no-cors', res.text() won't return content
-    const serialOutput = document.getElementById("serialOutput");
-    serialOutput.style.display = "block";
-    serialOutput.innerHTML = "Form submitted successfully!";
-    form.reset();
-  })
-  .catch(err => {
-    console.error("❌ Error!", err);
-    alert("Something went wrong. Please try again.");
-  });
-});
-
-</script>
-
-
->>>>>>> main
   </body>
 </html>
