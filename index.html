@@ -254,7 +254,6 @@
             <ul>
               <li>Students in Grade 8-12 of Indian Curriculum</li>
               <li>Students in Year 9-13 of British Curriculum or equivalent</li>
-              <li>Age between 14-18 years</li>
               <li>Currently enrolled in UAE schools</li>
               <li>Valid student identification required</li>
             </ul>
@@ -304,80 +303,54 @@
         </div>
       </div>
     </section>
-    <!-- Prizes & Recognition Section -->
+
     <section id="prizes" class="section prizes-section">
-      <div class="container">
-        <div class="section-header fade-in text-center">
-          <h1 class="section-title">
-            🎁 Prizes & Recognition – MindQuest 2025
-          </h1>
-          <p class="section-subtitle">
-            At MindQuest 2025, we believe knowledge deserves to be celebrated!
-            Join us in honoring the brightest minds with prestigious awards and
-            cash prizes totaling AED 10,000!
-          </p>
-        </div>
+  <div class="container">
+    <div class="section-header fade-in text-center">
+      <h1 class="section-title">🎁 Prizes & Recognition – MindQuest 2025</h1>
+      <p class="section-subtitle">
+        At MindQuest 2025, knowledge deserves to be rewarded! Celebrate the brightest minds with prestigious awards and cash prizes totaling AED 10,000!
+      </p>
+    </div>
 
-        <div class="prizes-grid">
-          <div class="prize-card fade-in">
-            <div class="prize-icon">🏆</div>
-            <h3>Grand Finale Cash Prizes</h3>
-            <ul>
-              <li>
-                🥇 <strong>1st Place Team</strong> – AED 5,000 + Trophy + Gold
-                Medals
-              </li>
-              <li>
-                🥈 <strong>2nd Place Team</strong> – AED 3,000 + Trophy + Silver
-                Medals
-              </li>
-              <li>
-                🥉 <strong>3rd Place Team</strong> – AED 2,000 + Trophy + Bronze
-                Medals
-              </li>
-            </ul>
-          </div>
-
-          <div class="prize-card fade-in">
-            <div class="prize-icon">🎖️</div>
-            <h3>Special Awards</h3>
-            <ul>
-              <li>
-                🏫 <strong>Best School Delegation</strong> – Recognizing the
-                school with the highest team participation
-              </li>
-              <li>
-                🌟 <strong>Quizzer of the Day</strong> – Celebrating individual
-                standout performances
-              </li>
-              <li>
-                🧒 <strong>Young Achievers</strong> – Spotlighting Grade 8/9
-                participants with exceptional scores
-              </li>
-            </ul>
-          </div>
-
-          <div class="prize-card fade-in">
-            <div class="prize-icon">📜</div>
-            <h3>Certificates of Excellence</h3>
-            <p>
-              Every Grand Finale qualifier will proudly receive
-              <strong>official certificates</strong> from
-              <strong>GECBTA</strong> & <strong>AKCAF</strong>, commemorating
-              their remarkable achievement.
-            </p>
-          </div>
-        </div>
-
-        <div class="text-center-spaced text-sky-blue fade-in">
-          <p class="caption-text-dark-bg">
-            Embark on this incredible journey, showcase your brilliance, and
-            compete for glory and gold!<br />
-            Registrations open on September 5, 2025.
-          </p>
-        </div>
+    <div class="prizes-grid">
+      <div class="prize-card fade-in">
+        <div class="prize-icon">🏆</div>
+        <h3>Grand Finale Cash Prizes</h3>
+        <ul>
+          <li>🥇 1st Place Team – AED 5,000 + Trophy + Gold Medals</li>
+          <li>🥈 2nd Place Team – AED 3,000 + Trophy + Silver Medals</li>
+          <li>🥉 3rd Place Team – AED 2,000 + Trophy + Bronze Medals</li>
+        </ul>
       </div>
-    </section>
+
+      <div class="prize-card fade-in">
+        <div class="prize-icon">🎖</div>
+        <h3>Special Awards</h3>
+        <ul>
+          <li>Best School Delegation – For the school with the highest team participation</li>
+          <li>Young Achievers – Spotlight awards for Grade 8/9 participants with exceptional scores</li>
+        </ul>
+      </div>
+
+      <div class="prize-card fade-in">
+        <div class="prize-icon">📜</div>
+        <h3>Certificates of Excellence</h3>
+        <p>
+          All Grand Finale qualifiers will receive official certificates from GECBTA & AKCAF, honoring their achievement.
+        </p>
+      </div>
+    </div>
+
+    <div class="text-center-spaced text-sky-blue fade-in">
+      <p class="caption-text-dark-bg">
+        Join the journey, showcase your brilliance, and compete for glory — and gold!<br />
+        Registrations open on September 5, 2025.
+      </p>
+    </div>
+  </div>
+</section>
+
 
     <!-- Registration Section -->
     <section id="registration" class="section registration-section">
@@ -621,6 +594,34 @@
     </span>
   </label>
 </div>
+
+<script>
+  function addSchool(inputId, datalistId) {
+    const input = document.getElementById(inputId);
+    const datalist = document.getElementById(datalistId);
+
+    input.addEventListener("change", () => {
+      const value = input.value.trim();
+      if (value === "") return;
+
+      // Check if the school already exists
+      const exists = Array.from(datalist.options).some(
+        (option) => option.value.toLowerCase() === value.toLowerCase()
+      );
+
+      // If not in the list, add it
+      if (!exists) {
+        const newOption = document.createElement("option");
+        newOption.value = value;
+        datalist.appendChild(newOption);
+      }
+    });
+  }
+
+  // Apply to both participants
+  addSchool("school1", "schools1");
+  addSchool("school2", "schools2");
+</script>
 
 
 
