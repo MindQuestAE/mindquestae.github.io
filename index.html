@@ -326,9 +326,12 @@
               required documents ready before filling out the registration form.
             </p>
           </blockquote>
-          <div class="registration-form">
+         <!-- Load jQuery & Select2 for searchable dropdown -->
+<div class="registration-form">
   <form id="registrationForm" method="POST">
-    <h2>Participant 1 Details</h2>
+    <!-- Participant 1 -->
+    <h2 style="color: white; display: inline;">Participant 1 Details</h2>
+  </br>
     <div class="form-row">
       <div class="form-group">
         <label for="firstName1">First Name *</label>
@@ -343,33 +346,94 @@
     <div class="form-row">
       <div class="form-group">
         <label for="email1">Email Address *</label>
-        <input type="email" id="email1" name="email1" required placeholder="Enter email address"/>
+        <input type="email" id="email1" name="email1" required placeholder="Enter email address"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
-        <label for="dob1">Date of Birth *</label>
-        <input type="date" id="dob1" name="dob1" required />
-      </div>
-       <div class="form-group">
-        <label for="phone1">Phone Number (UAE) *</label>
-        <input 
-          type="tel" 
-          id="phone1" 
-          name="phone1" 
-          pattern="^\+971[0-9]{8,9}$" 
-          required 
-          placeholder="+971XXXXXXXX"
-        />
-      </div>
-      <div class="form-group">
-  <label for="emiratesId1">Emirates ID *</label>
-  <input type="text" id="emiratesId1" name="emiratesId1" placeholder="Enter Emirates ID" required />
+  <label for="dob1">Date of Birth *</label>
+  <input 
+    type="date" 
+    id="dob1" 
+    name="dob1" 
+    required 
+    min="2007-01-01" 
+    max="2012-12-31" 
+  />
 </div>
+    </div>
 
+   <div class="form-row">
+  <div class="form-group">
+    <label for="phone1">Phone Number (UAE) *</label>
+    <input 
+      type="tel" 
+      id="phone1" 
+      name="phone1" 
+      value="+971" 
+      pattern="^\+971[0-9]{9}$" 
+      maxlength="13"
+      required
+      oninput="
+        // force +971 at start
+        if(!this.value.startsWith('+971')) this.value='+971'; 
+        // strip all non-digits after +971
+        this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
+      "
+    />
+  </div>
+  <div class="form-group">
+    <label for="emiratesId1">Emirates ID *</label>
+    <input 
+      type="number" 
+      id="emiratesId1" 
+      name="emiratesId1" 
+      required 
+      placeholder="Enter Emirates ID" 
+      pattern="^[0-9]{15}$" 
+      maxlength="15"
+      oninput="
+        if(this.value.length > 15) this.value = this.value.slice(0,15);
+      "
+    />
+  </div>
+</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="school1">School Name *</label>
+        <input list="schools1" id="school1" name="school1" required placeholder="Select or type school"/>
+        <datalist id="schools1">
+          <option value="Dubai International Academy">
+          <option value="GEMS Wellington International School">
+          <option value="Dubai American Academy">
+          <option value="Jumeirah College">
+          <option value="Dubai College">
+          <option value="Repton School Dubai">
+          <option value="The Indian High School">
+          <option value="Swiss International Scientific School">
+          <option value="Dubai British School">
+          <option value="JSS Private School">
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="grade1">Grade/Class *</label>
+        <select id="grade1" name="grade1" required>
+          <option value="">Select Grade</option>
+          <option value="8">Grade 8</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
     </div>
 
     <hr />
+  </br>
 
-    <h2>Participant 2 Details</h2>
+    <!-- Participant 2 -->
+    <h2 style="color: white; display: inline;">Participant 2 Details</h2>
+</br>
     <div class="form-row">
       <div class="form-group">
         <label for="firstName2">First Name *</label>
@@ -381,44 +445,120 @@
       </div>
     </div>
 
-    <div class="form-row">
+   <div class="form-row">
       <div class="form-group">
         <label for="email2">Email Address *</label>
-        <input type="email" id="email2" name="email2" required placeholder="Enter email address"/>
+        <input type="email" id="email2" name="email2" required placeholder="Enter email address"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
-        <label for="dob2">Date of Birth *</label>
-        <input type="date" id="dob2" name="dob2" required />
-      </div>
-      <div class="form-group">
-        <label for="phone2">Phone Number (UAE) *</label>
-        <input 
-          type="tel" 
-          id="phone2" 
-          name="phone2" 
-          pattern="^\+971[0-9]{8,9}$" 
-          required 
-          placeholder="+971XXXXXXXX"
-        />
-      </div>
-      <div class="form-group">
-  <label for="emiratesId2">Emirates ID *</label>
-  <input type="text" id="emiratesId2" name="emiratesId2" placeholder="Enter Emirates ID" required />
+  <label for="dob1">Date of Birth *</label>
+  <input 
+    type="date" 
+    id="dob1" 
+    name="dob1" 
+    required 
+    min="2007-01-01" 
+    max="2012-12-31" 
+  />
 </div>
-
     </div>
 
-    <hr />
+    <div class="form-row">
+  <div class="form-group">
+    <label for="phone1">Phone Number (UAE) *</label>
+    <input 
+      type="tel" 
+      id="phone1" 
+      name="phone1" 
+      value="+971" 
+      pattern="^\+971[0-9]{9}$" 
+      maxlength="13"
+      required
+      oninput="
+        // force +971 at start
+        if(!this.value.startsWith('+971')) this.value='+971'; 
+        // strip all non-digits after +971
+        this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
+      "
+    />
+  </div>
+  <div class="form-group">
+    <label for="emiratesId2">Emirates ID *</label>
+    <input 
+      type="number" 
+      id="emiratesId2" 
+      name="emiratesId2" 
+      required 
+      placeholder="Enter Emirates ID" 
+      pattern="^[0-9]{15}$" 
+      maxlength="15"
+      oninput="
+        if(this.value.length > 15) this.value = this.value.slice(0,15);
+      "
+    />
+  </div>
+</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="school2">School Name *</label>
+        <input list="schools2" id="school2" name="school2" required placeholder="Select or type school"/>
+        <datalist id="schools2">
+          <option value="Dubai International Academy">
+          <option value="GEMS Wellington International School">
+          <option value="Dubai American Academy">
+          <option value="Jumeirah College">
+          <option value="Dubai College">
+          <option value="Repton School Dubai">
+          <option value="The Indian High School">
+          <option value="Swiss International Scientific School">
+          <option value="Dubai British School">
+          <option value="JSS Private School">
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="grade2">Grade/Class *</label>
+        <select id="grade2" name="grade2" required>
+          <option value="">Select Grade</option>
+          <option value="8">Grade 8</option>
+          <option value="9">Grade 9</option>
+          <option value="10">Grade 10</option>
+          <option value="11">Grade 11</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
+    </div>
 
-    <div class="form-row"> <div class="form-group"> <label for="school">School Name *</label> <input type="text" id="school" name="school" required placeholder="Enter school name"/> </div> <div class="form-group"> <label for="grade">Grade/Class *</label> <select id="grade" name="grade" required> <option value="">Select Grade</option> <option value="9">Grade 9</option> <option value="10">Grade 10</option> <option value="11">Grade 11</option> <option value="12">Grade 12</option> </select> </div> </div>
+    <!-- Consent -->
+<!-- Consent -->
+<div class="form-row" style="width: 100%; display: block;">
+  <label for="consent" style="display: flex; align-items: flex-start; gap: 10px; width: 100%;">
+    <input 
+      type="checkbox" 
+      id="consent" 
+      name="consent" 
+      required 
+      style="margin-top: 5px;" 
+    />
+    <span style="display: block; white-space: normal; line-height: 1.6; text-align: left; width: 100%;">
+      I confirm that all information provided is correct and consent to participation.
+    </span>
+  </label>
+</div>
+
+
 
     <button type="submit" class="btn btn-primary btn-full-width btn-large">
       <i class="fas fa-paper-plane"></i>
       Submit Registration
     </button>
   </form>
-  <div id="serialOutput" ></div>
-  </div>
+  <div id="serialOutput"></div>
+</div>
+
+
+
           <!-- Confirmation card will appear here -->
           <div id="confirmationContainer"></div>
 
@@ -883,7 +1023,7 @@
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
     <script>
- const scriptURL = "https://script.google.com/macros/s/AKfycbwVrLzmS3m3oswpnLeSPG5AmKgMOit459XYpjej-ot2_1oUT9seVkVa3hJNzJ6-mOPD0g/exec"; // replace with latest deployment URL
+ const scriptURL = "https://script.google.com/macros/s/AKfycbw_WI1Vk3HJZcJGUbUSwKyVl2hMe5VAzukqpJikchMOsZKbq8yq-iI8Qq9dxkotmpso/exec"; // replace with latest deployment URL
 const form = document.getElementById("registrationForm");
 
 form.addEventListener("submit", e => {
