@@ -368,9 +368,7 @@ h3 a {
 .event-detail a {
   color: var(--white);
   text-decoration: none;
-
 }
-
 
 .event-detail:hover {
   transform: translateX(5px);
@@ -772,7 +770,8 @@ h3 a {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  .organizer-logo, .organizer-logo img {
+  .organizer-logo,
+  .organizer-logo img {
     width: 228px;
     height: 285px;
     object-fit: contain;
@@ -1216,7 +1215,7 @@ h3 a {
   -webkit-backdrop-filter: blur(20px);
   padding: 3rem;
   border-radius: var(--border-radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   text-align: left;
 }
 .registration-form ul {
@@ -1250,6 +1249,13 @@ h3 a {
   margin-bottom: 1.5rem;
 }
 
+.registration-form h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
 .registration-form .form-group {
   margin-bottom: 1.5rem;
 }
@@ -1277,10 +1283,20 @@ h3 a {
 .registration-form .form-group input:focus,
 .registration-form .form-group select:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 0 2px var(--minion-yellow);
-}
+  border: 2px solid var(--minion-yellow); /* Yellow for focus on invalid */
+  box-shadow: 0 0 0 3px rgba(249, 216, 75, 0.4); /* Subtle yellow glow */
 
+}
+.registration-form .form-group input.invalid,
+.registration-form .form-group select.invalid {
+  border: 2px solid var(--red);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.3); /* Subtle red glow */
+}
+.registration-form .form-group input.valid,
+.registration-form .form-group select.valid {
+  border: 2px solid var(--green); /* Green for valid state */
+  box-shadow: 0 0 0 2px rgba(0, 128, 0, 0.3); /* Subtle green glow */
+}
 .registration-form .form-group input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
@@ -1682,8 +1698,15 @@ h3 a {
   margin-top: 1.5rem; /* spacing consistent with other sections */
   padding: 1.5rem; /* matches padding scale in your theme */
   border: 2px solid var(--minion-yellow); /* brand accent color */
-  border-radius: var(--border-radius-md); /* consistent with your border-radius scale */
-  background-color: rgba(179, 212, 252, 0.15); /* light sky-blue variant, matches theme */
+  border-radius: var(
+    --border-radius-md
+  ); /* consistent with your border-radius scale */
+  background-color: rgba(
+    179,
+    212,
+    252,
+    0.15
+  ); /* light sky-blue variant, matches theme */
   color: var(--oxford-blue); /* primary text color */
   font-family: var(--font-body);
   font-size: 16px; /* same as body-text */
