@@ -1773,3 +1773,33 @@ h3 a {
   line-height: 1.6;
 }
 
+/* Mobile fix for registration form */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr; /* stack inputs vertically */
+  }
+
+  .registration-form {
+    padding: 2rem 1.5rem; /* smaller padding on small screens */
+  }
+
+  .registration-form h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  /* Prevent input zoom & overflow on iOS/Android */
+  .registration-form input,
+  .registration-form select {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  /* Fix checkbox consent wrapping */
+  .registration-form label[for="consent"] {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}
