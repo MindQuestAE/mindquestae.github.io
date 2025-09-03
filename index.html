@@ -391,8 +391,8 @@
     <div class="form-row">
       <div class="form-group">
         <label for="email1">Email Address *</label>
-        <input type="email" id="email1" name="email1" required placeholder="Enter email address"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        <input type="email" id="email1" name="email1" required placeholder="e.g., name@example.com"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"  
           title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
@@ -429,20 +429,16 @@
   </div>
   <div class="form-group">
     <label for="emiratesId1">Emirates ID *</label>
-    <input 
-      type="number" 
-      id="emiratesId1" 
-      name="emiratesId1" 
-      required 
-      placeholder="Enter Emirates ID" 
-      pattern="^[0-9]{15}$" 
-      maxlength="15"
-      oninput="
-        if(this.value.length > 15) this.value = this.value.slice(0,15);
-      "
-    />
+   <input 
+    type="text" 
+    id="emiratesId1" 
+    name="emiratesId1" 
+    placeholder="15 digits e.g., 784198712345678" 
+    maxlength="15"
+  />
   </div>
 </div>
+
     <div class="form-row">
       <div class="form-group">
         <label for="school1">School Name *</label>
@@ -493,8 +489,8 @@
    <div class="form-row">
       <div class="form-group">
         <label for="email2">Email Address *</label>
-        <input type="email" id="email2" name="email2" required placeholder="Enter email address"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        <input type="email" id="email2" name="email2" required placeholder="e.g., name@example.com" 
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
           title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
@@ -531,20 +527,16 @@
   </div>
   <div class="form-group">
     <label for="emiratesId2">Emirates ID *</label>
-    <input 
-      type="number" 
-      id="emiratesId2" 
-      name="emiratesId2" 
-      required 
-      placeholder="Enter Emirates ID" 
-      pattern="^[0-9]{15}$" 
-      maxlength="15"
-      oninput="
-        if(this.value.length > 15) this.value = this.value.slice(0,15);
-      "
-    />
+   <input 
+    type="text" 
+    id="emiratesId2" 
+    name="emiratesId2" 
+    placeholder="15 digits e.g., 784198712345678" 
+    maxlength="15"
+  />
   </div>
 </div>
+
     <div class="form-row">
       <div class="form-group">
         <label for="school2">School Name *</label>
@@ -1096,32 +1088,124 @@
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
     <script>
- const scriptURL = "https://script.google.com/macros/s/AKfycbw_WI1Vk3HJZcJGUbUSwKyVl2hMe5VAzukqpJikchMOsZKbq8yq-iI8Qq9dxkotmpso/exec"; // replace with latest deployment URL
 const form = document.getElementById("registrationForm");
+const submitButton = form.querySelector('button[type="submit"]');
+const serialOutput = document.getElementById("serialOutput");
 
-form.addEventListener("submit", e => {
+// Validation functions
+function validateEmiratesId(input) {
+  const value = input.value.trim();
+  const isValid = /^\d{15}$/.test(value);
+  showValidation(input, isValid, "Emirates ID must be exactly 15 digits (e.g., 784198712345678)");
+  return isValid;
+}
+
+function validateEmail(input) {
+  const value = input.value.trim();
+  const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+  showValidation(input, isValid, "Invalid email format (e.g., name@example.com)");
+  return isValid;
+}
+
+function validateDobForGrade(gradeInput, dobInput) {
+  const gradeDobRanges = {
+    "8": { min: "2011-01-01", max: "2012-12-31" },
+    "9": { min: "2010-01-01", max: "2011-12-31" },
+    "10": { min: "2009-01-01", max: "2010-12-31" },
+    "11": { min: "2008-01-01", max: "2009-12-31" },
+    "12": { min: "2007-01-01", max: "2008-12-31" },
+  };
+
+  const selectedGrade = gradeInput.value;
+  const dobValue = new Date(dobInput.value);
+
+  if (selectedGrade && dobValue && gradeDobRanges[selectedGrade]) {
+    const range = gradeDobRanges[selectedGrade];
+    const minDate = new Date(range.min);
+    const maxDate = new Date(range.max);
+
+    const isValid = (dobValue >= minDate && dobValue <= maxDate);
+    showValidation(dobInput, isValid, `DOB doesn’t match Grade ${selectedGrade} (Allowed: ${range.min} → ${range.max})`);
+    return isValid;
+  }
+  return true; // If not filled yet, don’t block
+}
+
+function showValidation(input, isValid, message) {
+  // Remove old error
+  if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-msg')) {
+    input.nextElementSibling.remove();
+  }
+
+  if (!isValid) {
+    input.style.borderColor = "red";
+    const msg = document.createElement("div");
+    msg.className = "error-msg";
+    msg.style.color = "red";
+    msg.style.fontSize = "0.9rem";
+    msg.innerText = message;
+    input.parentNode.appendChild(msg);
+  } else {
+    input.style.borderColor = "";
+  }
+}
+
+// Handle submit
+form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  fetch(scriptURL, {
+  // Reset status
+  serialOutput.style.display = "none";
+  serialOutput.innerHTML = "";
+  submitButton.style.backgroundColor = ""; // reset
+
+  // Validate Emirates ID & Email
+  const validEID1 = validateEmiratesId(document.getElementById("emiratesId1"));
+  const validEID2 = validateEmiratesId(document.getElementById("emiratesId2"));
+  const validEmail1 = validateEmail(document.getElementById("email1"));
+  const validEmail2 = validateEmail(document.getElementById("email2"));
+
+  // Validate Grade & DOB
+  const validDob1 = validateDobForGrade(document.getElementById("grade1"), document.getElementById("dob1"));
+  const validDob2 = validateDobForGrade(document.getElementById("grade2"), document.getElementById("dob2"));
+
+  if (!validEID1 || !validEID2 || !validEmail1 || !validEmail2 || !validDob1 || !validDob2) {
+    return; // ❌ stop here, don’t show success
+  }
+
+  // ✅ All good → submit to Google Sheet
+  fetch("https://script.google.com/macros/s/AKfycbw_WI1Vk3HJZcJGUbUSwKyVl2hMe5VAzukqpJikchMOsZKbq8yq-iI8Qq9dxkotmpso/exec", {
     method: "POST",
     body: new FormData(form),
-    mode: "no-cors" // optional: allows request, but response will be opaque
+    mode: "no-cors"
   })
-  .then(res => {
-    // Note: if using 'no-cors', res.text() won't return content
-    const serialOutput = document.getElementById("serialOutput");
+  .then(() => {
     serialOutput.style.display = "block";
-    serialOutput.innerHTML = "Form submitted successfully!";
+    serialOutput.style.color = "yellow";
+    serialOutput.innerHTML = "Registration submitted successfully!";
+    submitButton.style.backgroundColor = "green";
     form.reset();
   })
-  .catch(err => {
-    console.error("❌ Error!", err);
+  .catch(() => {
     alert("Something went wrong. Please try again.");
-  });
+  });
 });
 
+// Live validation
+["emiratesId1","emiratesId2"].forEach(id => {
+  document.getElementById(id).addEventListener("input", (e) => validateEmiratesId(e.target));
+});
+["email1","email2"].forEach(id => {
+  document.getElementById(id).addEventListener("input", (e) => validateEmail(e.target));
+});
+["grade1","dob1"].forEach(id => {
+  document.getElementById(id).addEventListener("change", () => validateDobForGrade(document.getElementById("grade1"), document.getElementById("dob1")));
+});
+["grade2","dob2"].forEach(id => {
+  document.getElementById(id).addEventListener("change", () => validateDobForGrade(document.getElementById("grade2"), document.getElementById("dob2")));
+});
 </script>
 
 
-  </body>
+  </body>
 </html>
