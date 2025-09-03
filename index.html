@@ -460,6 +460,25 @@
         </datalist>
       </div>
       <div class="form-group">
+        <label for="curriculum1">Curriculum *</label>
+        <select id="curriculum1" name="curriculum1" required>
+          <option value="">Select Curriculum</option>
+          <option value="British">British</option>
+          <option value="American">American</option>
+          <option value="International Baccalaureate (IB)">International Baccalaureate (IB)</option>
+          <option value="Indian (CBSE)">Indian (CBSE)</option>
+          <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
+          <option value="Other">Other (please specify)</option>
+        </select>
+        <input 
+          type="text" 
+          id="curriculumOther1" 
+          name="curriculumOther1" 
+          placeholder="Enter curriculum if not listed" 
+          style="display:none; margin-top:5px;"
+        />
+      </div>
+      <div class="form-group">
         <label for="grade1">Grade/Class *</label>
         <select id="grade1" name="grade1" required>
           <option value="">Select Grade</option>
@@ -556,6 +575,25 @@
           <option value="Dubai British School">
           <option value="JSS Private School">
         </datalist>
+      </div>
+      <div class="form-group">
+        <label for="curriculum2">Curriculum *</label>
+        <select id="curriculum2" name="curriculum2" required>
+          <option value="">Select Curriculum</option>
+          <option value="British">British</option>
+          <option value="American">American</option>
+          <option value="International Baccalaureate (IB)">International Baccalaureate (IB)</option>
+          <option value="Indian (CBSE)">Indian (CBSE)</option>
+          <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
+          <option value="Other">Other (please specify)</option>
+        </select>
+        <input 
+          type="text" 
+          id="curriculumOther2" 
+          name="curriculumOther2" 
+          placeholder="Enter curriculum if not listed" 
+          style="display:none; margin-top:5px;"
+        />
       </div>
       <div class="form-group">
         <label for="grade2">Grade/Class *</label>
@@ -1112,30 +1150,6 @@ function validateEmail(input) {
   return isValid;
 }
 
-function validateDobForGrade(gradeInput, dobInput) {
-  const gradeDobRanges = {
-    "8": { min: "2011-01-01", max: "2012-12-31" },
-    "9": { min: "2010-01-01", max: "2011-12-31" },
-    "10": { min: "2009-01-01", max: "2010-12-31" },
-    "11": { min: "2008-01-01", max: "2009-12-31" },
-    "12": { min: "2007-01-01", max: "2008-12-31" },
-  };
-
-  const selectedGrade = gradeInput.value;
-  const dobValue = new Date(dobInput.value);
-
-  if (selectedGrade && dobValue && gradeDobRanges[selectedGrade]) {
-    const range = gradeDobRanges[selectedGrade];
-    const minDate = new Date(range.min);
-    const maxDate = new Date(range.max);
-
-    const isValid = (dobValue >= minDate && dobValue <= maxDate);
-    showValidation(dobInput, isValid, `DOB doesn’t match Grade ${selectedGrade} (Allowed: ${range.min} → ${range.max})`);
-    return isValid;
-  }
-  return true; // If not filled yet, don’t block
-}
-
 function showValidation(input, isValid, message) {
   // Remove old error
   if (input.nextElementSibling && input.nextElementSibling.classList.contains('error-msg')) {
@@ -1170,16 +1184,12 @@ form.addEventListener("submit", (e) => {
   const validEmail1 = validateEmail(document.getElementById("email1"));
   const validEmail2 = validateEmail(document.getElementById("email2"));
 
-  // Validate Grade & DOB
-  const validDob1 = validateDobForGrade(document.getElementById("grade1"), document.getElementById("dob1"));
-  const validDob2 = validateDobForGrade(document.getElementById("grade2"), document.getElementById("dob2"));
-
-  if (!validEID1 || !validEID2 || !validEmail1 || !validEmail2 || !validDob1 || !validDob2) {
+  if (!validEID1 || !validEID2 || !validEmail1 || !validEmail2) {
     return; // ❌ stop here, don’t show success
   }
 
   // ✅ All good → submit to Google Sheet
-  fetch("https://script.google.com/macros/s/AKfycbw_WI1Vk3HJZcJGUbUSwKyVl2hMe5VAzukqpJikchMOsZKbq8yq-iI8Qq9dxkotmpso/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzB_v9lJzKYIGL5oXyaLSaXNkhloGVjv4LwrW1b2l_Yd9h3kU4s7hEW9v3HNypMX7FM/exec", {
     method: "POST",
     body: new FormData(form),
     mode: "no-cors"
@@ -1203,13 +1213,26 @@ form.addEventListener("submit", (e) => {
 ["email1","email2"].forEach(id => {
   document.getElementById(id).addEventListener("input", (e) => validateEmail(e.target));
 });
-["grade1","dob1"].forEach(id => {
-  document.getElementById(id).addEventListener("change", () => validateDobForGrade(document.getElementById("grade1"), document.getElementById("dob1")));
-});
-["grade2","dob2"].forEach(id => {
-  document.getElementById(id).addEventListener("change", () => validateDobForGrade(document.getElementById("grade2"), document.getElementById("dob2")));
-});
 </script>
+<script>
+  function toggleOther(selectId, inputId) {
+    const select = document.getElementById(selectId);
+    const input = document.getElementById(inputId);
+    select.addEventListener("change", function() {
+      if (this.value === "Other") {
+        input.style.display = "block";
+        input.required = true;
+      } else {
+        input.style.display = "none";
+        input.required = false;
+      }
+    });
+  }
+
+  toggleOther("curriculum1", "curriculumOther1");
+  toggleOther("curriculum2", "curriculumOther2");
+</script>
+
 
   </body>
 </html>
