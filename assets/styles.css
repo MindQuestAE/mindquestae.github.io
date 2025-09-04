@@ -248,6 +248,8 @@ h3 a {
   padding: 8px;
   border-radius: var(--border-radius-sm);
   transition: background 0.3s ease;
+  z-index: 1001;
+  position: relative;
 }
 
 .hamburger:hover {
@@ -260,6 +262,20 @@ h3 a {
   background: var(--white);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 2px;
+  transform-origin: center;
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Enhanced Hero Section */
@@ -1077,10 +1093,26 @@ h3 a {
     padding-top: 3rem;
     gap: 2rem;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .nav-menu.active {
     left: 0;
+  }
+
+  .nav-menu a {
+    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 200px;
+  }
+
+  .nav-menu a:hover {
+    background: rgba(249, 216, 75, 0.1);
+    transform: translateY(0);
   }
 
   .hero-container {
@@ -1748,6 +1780,7 @@ h3 a {
 /* Image Error Handling */
 .img-hide-on-error {
   /* This class is for semantic purposes - actual hiding is handled by onerror */
+  display: block; /* Semantic placeholder to avoid empty ruleset warning */
 }
 #serialOutput {
   display: none; /* initially hidden */
