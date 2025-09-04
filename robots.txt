@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mindquestquiz.com/sitemap.xml
+
+# Block access to sensitive areas
+Disallow: /assets/script.js
+Disallow: /*.js$
+
+# Crawl delay for bots
+Crawl-delay: 1
