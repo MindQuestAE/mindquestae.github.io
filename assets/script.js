@@ -3,24 +3,83 @@ const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("navMenu");
 const navbar = document.getElementById("navbar");
 
-hamburger.addEventListener("click", () => {
+// Toggle mobile menu
+hamburger.addEventListener("click", (e) => {
+  e.stopPropagation();
   navMenu.classList.toggle("active");
   hamburger.classList.toggle("active");
+
+  // Prevent scrolling when menu is open
+  if (navMenu.classList.contains("active")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 });
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll(".nav-menu a").forEach((link) => {
   link.addEventListener("click", () => {
-    navMenu.classList.remove("active");
-    hamburger.classList.remove("active");
+    closeMobileMenu();
   });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (navMenu.classList.contains("active") &&
+      !navMenu.contains(e.target) &&
+      !hamburger.contains(e.target)) {
+    closeMobileMenu();
+  }
+});
+
+// Function to close mobile menu
+function closeMobileMenu() {
+  navMenu.classList.remove("active");
+  hamburger.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+// Close mobile menu on escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && navMenu.classList.contains("active")) {
+    closeMobileMenu();
+  }
+});
+
+// Handle window resize
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768 && navMenu.classList.contains("active")) {
+    closeMobileMenu();
+  }
 });
 
 // Enhanced smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
+    const targetId = this.getAttribute("href");
+    const target = document.querySelector(targetId);
+    if (target) {
+      const navHeight = navbar.offsetHeight;
+      const targetPosition = target.offsetTop - navHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+
+      // Update URL without triggering page reload
+      history.pushState(null, null, targetId);
+    }
+  });
+});
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function(e) {
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
     if (target) {
       const navHeight = navbar.offsetHeight;
       const targetPosition = target.offsetTop - navHeight;
@@ -30,7 +89,13 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         behavior: "smooth",
       });
     }
-  });
+  } else {
+    // If no hash, scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 });
 
 // Enhanced scroll progress and navbar effects

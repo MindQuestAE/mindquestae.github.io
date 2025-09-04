@@ -52,6 +52,27 @@ body {
   scroll-behavior: smooth;
 }
 
+/* General Link Styling - Brand Guidelines */
+a {
+  color: var(--oxford-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--minion-yellow);
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--minion-yellow);
+  text-decoration-color: var(--oxford-blue);
+  transform: translateY(-1px);
+}
+
+a:focus {
+  outline: 2px solid var(--minion-yellow);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Enhanced Typography */
 h1 {
   font-family: var(--font-title);
@@ -227,6 +248,8 @@ h3 a {
   padding: 8px;
   border-radius: var(--border-radius-sm);
   transition: background 0.3s ease;
+  z-index: 1001;
+  position: relative;
 }
 
 .hamburger:hover {
@@ -239,6 +262,20 @@ h3 a {
   background: var(--white);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 2px;
+  transform-origin: center;
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Enhanced Hero Section */
@@ -316,6 +353,25 @@ h3 a {
 .hero-logo:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 50px rgba(249, 216, 75, 0.3);
+}
+
+.hero-visual-subtitle {
+  font-family: var(--font-title);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 600;
+  color: var(--oxford-blue);
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  max-width: 400px;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(10, 33, 85, 0.1);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 .hero-tagline {
@@ -462,6 +518,7 @@ h3 a {
 /* Enhanced Hero Visual */
 .hero-visual {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -935,9 +992,17 @@ h3 a {
   line-height: 1.6;
 }
 .contact-details a {
-  color: var(--slate-gray);
-  text-decoration: none;
-  transition: color 0.3s ease;
+  color: var(--oxford-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--minion-yellow);
+  text-underline-offset: 2px;
+  transition: all 0.3s ease;
+}
+
+.contact-details a:hover {
+  color: var(--minion-yellow);
+  text-decoration-color: var(--oxford-blue);
+  transform: translateY(-1px);
 }
 .social-links {
   display: flex;
@@ -1028,10 +1093,26 @@ h3 a {
     padding-top: 3rem;
     gap: 2rem;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .nav-menu.active {
     left: 0;
+  }
+
+  .nav-menu a {
+    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 200px;
+  }
+
+  .nav-menu a:hover {
+    background: rgba(249, 216, 75, 0.1);
+    transform: translateY(0);
   }
 
   .hero-container {
@@ -1059,6 +1140,13 @@ h3 a {
   }
   .hero-logo {
     max-width: 280px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 4vw, 20px);
+    margin-top: 1.5rem;
+    max-width: 300px;
+    padding: 0 0.5rem;
   }
 
   .about-grid,
@@ -1692,6 +1780,7 @@ h3 a {
 /* Image Error Handling */
 .img-hide-on-error {
   /* This class is for semantic purposes - actual hiding is handled by onerror */
+  display: block; /* Semantic placeholder to avoid empty ruleset warning */
 }
 #serialOutput {
   display: none; /* initially hidden */
