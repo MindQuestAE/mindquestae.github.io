@@ -1294,6 +1294,14 @@ h3 a {
   opacity: 0.03;
 }
 
+.registration-highlight {
+  color: var(--minion-yellow);
+  margin-bottom: 1rem;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: var(--font-title);
+}
+
 .registration-content {
   position: relative;
   z-index: 2;
