@@ -52,6 +52,20 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="./assets/styles.css" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="author" content="MindQuest Team" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Image -->
+    <meta property="og:image" content="./assets/mindquest-logomark.png" />
+    <meta property="og:url" content="https://mindquestae.github.io" />
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MindQuest - Unlock Your Mind, Conquer The Quest" />
+    <meta name="twitter:description" content="Annual General Knowledge Quiz Competition for Indian high school students in UAE" />
+    <meta name="twitter:image" content="./assets/mindquest-logomark.png" />
   </head>
   <body class="loading">
     <!-- Scroll Progress -->
@@ -395,18 +409,18 @@
       <div class="form-group">
         <label for="email1">Email Address *</label>
         <input type="email" id="email1" name="email1" required placeholder="e.g., name@example.com"
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"  
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
   <label for="dob1">Date of Birth *</label>
-  <input 
-    type="date" 
-    id="dob1" 
-    name="dob1" 
-    required 
-    min="2007-01-01" 
-    max="2012-12-31" 
+  <input
+    type="date"
+    id="dob1"
+    name="dob1"
+    required
+    min="2007-01-01"
+    max="2012-12-31"
   />
 </div>
     </div>
@@ -414,17 +428,17 @@
    <div class="form-row">
   <div class="form-group">
     <label for="phone1">Phone Number (UAE) *</label>
-    <input 
-      type="tel" 
-      id="phone1" 
-      name="phone1" 
-      value="+971" 
-      pattern="^\+971[0-9]{9}$" 
+    <input
+      type="tel"
+      id="phone1"
+      name="phone1"
+      value="+971"
+      pattern="^\+971[0-9]{9}$"
       maxlength="13"
       required
       oninput="
         // force +971 at start
-        if(!this.value.startsWith('+971')) this.value='+971'; 
+        if(!this.value.startsWith('+971')) this.value='+971';
         // strip all non-digits after +971
         this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
       "
@@ -432,11 +446,11 @@
   </div>
   <div class="form-group">
     <label for="emiratesId1">Emirates ID *</label>
-   <input 
-    type="text" 
-    id="emiratesId1" 
-    name="emiratesId1" 
-    placeholder="15 digits e.g., 784198712345678" 
+   <input
+    type="text"
+    id="emiratesId1"
+    name="emiratesId1"
+    placeholder="15 digits e.g., 784198712345678"
     maxlength="15"
   />
   </div>
@@ -470,11 +484,11 @@
           <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
           <option value="Other">Other (please specify)</option>
         </select>
-        <input 
-          type="text" 
-          id="curriculumOther1" 
-          name="curriculumOther1" 
-          placeholder="Enter curriculum if not listed" 
+        <input
+          type="text"
+          id="curriculumOther1"
+          name="curriculumOther1"
+          placeholder="Enter curriculum if not listed"
           style="display:none; margin-top:5px;"
         />
       </div>
@@ -511,19 +525,19 @@
    <div class="form-row">
       <div class="form-group">
         <label for="email2">Email Address *</label>
-        <input type="email" id="email2" name="email2" required placeholder="e.g., name@example.com" 
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+        <input type="email" id="email2" name="email2" required placeholder="e.g., name@example.com"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           title="Enter a valid email like name@example.com"/>
       </div>
       <div class="form-group">
   <label for="dob1">Date of Birth *</label>
-  <input 
-    type="date" 
-    id="dob2" 
-    name="dob2" 
-    required 
-    min="2007-01-01" 
-    max="2012-12-31" 
+  <input
+    type="date"
+    id="dob2"
+    name="dob2"
+    required
+    min="2007-01-01"
+    max="2012-12-31"
   />
 </div>
     </div>
@@ -531,17 +545,17 @@
     <div class="form-row">
   <div class="form-group">
     <label for="phone1">Phone Number (UAE) *</label>
-    <input 
-      type="tel" 
-      id="phone2" 
-      name="phone2" 
-      value="+971" 
-      pattern="^\+971[0-9]{9}$" 
+    <input
+      type="tel"
+      id="phone2"
+      name="phone2"
+      value="+971"
+      pattern="^\+971[0-9]{9}$"
       maxlength="13"
       required
       oninput="
         // force +971 at start
-        if(!this.value.startsWith('+971')) this.value='+971'; 
+        if(!this.value.startsWith('+971')) this.value='+971';
         // strip all non-digits after +971
         this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
       "
@@ -549,11 +563,11 @@
   </div>
   <div class="form-group">
     <label for="emiratesId2">Emirates ID *</label>
-   <input 
-    type="text" 
-    id="emiratesId2" 
-    name="emiratesId2" 
-    placeholder="15 digits e.g., 784198712345678" 
+   <input
+    type="text"
+    id="emiratesId2"
+    name="emiratesId2"
+    placeholder="15 digits e.g., 784198712345678"
     maxlength="15"
   />
   </div>
@@ -587,11 +601,11 @@
           <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
           <option value="Other">Other (please specify)</option>
         </select>
-        <input 
-          type="text" 
-          id="curriculumOther2" 
-          name="curriculumOther2" 
-          placeholder="Enter curriculum if not listed" 
+        <input
+          type="text"
+          id="curriculumOther2"
+          name="curriculumOther2"
+          placeholder="Enter curriculum if not listed"
           style="display:none; margin-top:5px;"
         />
       </div>
@@ -612,12 +626,12 @@
 <!-- Consent -->
 <div class="form-row" style="width: 100%; display: block;">
   <label for="consent" style="display: flex; align-items: flex-start; gap: 10px; width: 100%;">
-    <input 
-      type="checkbox" 
-      id="consent" 
-      name="consent" 
-      required 
-      style="margin-top: 5px;" 
+    <input
+      type="checkbox"
+      id="consent"
+      name="consent"
+      required
+      style="margin-top: 5px;"
     />
     <span style="display: block; white-space: normal; line-height: 1.6; text-align: left; width: 100%;">
       I confirm that all information provided is correct and consent to participation.
