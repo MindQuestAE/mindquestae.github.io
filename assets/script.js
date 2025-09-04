@@ -20,7 +20,28 @@ document.querySelectorAll(".nav-menu a").forEach((link) => {
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
+    const targetId = this.getAttribute("href");
+    const target = document.querySelector(targetId);
+    if (target) {
+      const navHeight = navbar.offsetHeight;
+      const targetPosition = target.offsetTop - navHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+
+      // Update URL without triggering page reload
+      history.pushState(null, null, targetId);
+    }
+  });
+});
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function(e) {
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
     if (target) {
       const navHeight = navbar.offsetHeight;
       const targetPosition = target.offsetTop - navHeight;
@@ -30,7 +51,13 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         behavior: "smooth",
       });
     }
-  });
+  } else {
+    // If no hash, scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 });
 
 // Enhanced scroll progress and navbar effects

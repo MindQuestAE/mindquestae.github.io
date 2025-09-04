@@ -318,6 +318,25 @@ h3 a {
   box-shadow: 0 20px 50px rgba(249, 216, 75, 0.3);
 }
 
+.hero-visual-subtitle {
+  font-family: var(--font-title);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 600;
+  color: var(--oxford-blue);
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  max-width: 400px;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(10, 33, 85, 0.1);
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
 .hero-tagline {
   font-family: var(--font-title);
   font-size: clamp(18px, 3vw, 24px);
@@ -462,6 +481,7 @@ h3 a {
 /* Enhanced Hero Visual */
 .hero-visual {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -1059,6 +1079,13 @@ h3 a {
   }
   .hero-logo {
     max-width: 280px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 4vw, 20px);
+    margin-top: 1.5rem;
+    max-width: 300px;
+    padding: 0 0.5rem;
   }
 
   .about-grid,
