@@ -52,6 +52,27 @@ body {
   scroll-behavior: smooth;
 }
 
+/* General Link Styling - Brand Guidelines */
+a {
+  color: var(--oxford-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--minion-yellow);
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--minion-yellow);
+  text-decoration-color: var(--oxford-blue);
+  transform: translateY(-1px);
+}
+
+a:focus {
+  outline: 2px solid var(--minion-yellow);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Enhanced Typography */
 h1 {
   font-family: var(--font-title);
@@ -955,9 +976,17 @@ h3 a {
   line-height: 1.6;
 }
 .contact-details a {
-  color: var(--slate-gray);
-  text-decoration: none;
-  transition: color 0.3s ease;
+  color: var(--oxford-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--minion-yellow);
+  text-underline-offset: 2px;
+  transition: all 0.3s ease;
+}
+
+.contact-details a:hover {
+  color: var(--minion-yellow);
+  text-decoration-color: var(--oxford-blue);
+  transform: translateY(-1px);
 }
 .social-links {
   display: flex;
