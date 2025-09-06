@@ -1,4 +1,3 @@
-// Enhanced Mobile Navigation
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("navMenu");
 const navbar = document.getElementById("navbar");
@@ -162,6 +161,65 @@ window.schoolsList = [
   "The Winchester School - DUBAI",
   "Universal American School - DUBAI",
 ];
+
+// Google Analytics and Tracking
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag("js", new Date());
+
+gtag("config", "G-NVLZZP28ME", {
+  page_title: "MindQuest 2025 — UAE Inter-School General Knowledge Quiz",
+  page_location: "https://mindquestquiz.com/",
+});
+
+// Track CTA clicks
+function trackCTAClick(action, section) {
+  gtag("event", "click", {
+    event_category: "CTA",
+    event_label: action,
+    value: section,
+  });
+}
+
+// Make trackCTAClick globally available
+window.trackCTAClick = trackCTAClick;
+
+// Cookie Consent Management
+function showCookieConsent() {
+  if (!localStorage.getItem("cookieConsent")) {
+    document.getElementById("cookieConsent").style.display = "block";
+  }
+}
+
+function acceptCookies() {
+  localStorage.setItem("cookieConsent", "accepted");
+  document.getElementById("cookieConsent").style.display = "none";
+  // Enable analytics
+  gtag("consent", "update", {
+    analytics_storage: "granted",
+  });
+}
+
+function declineCookies() {
+  localStorage.setItem("cookieConsent", "declined");
+  document.getElementById("cookieConsent").style.display = "none";
+  // Disable analytics
+  gtag("consent", "update", {
+    analytics_storage: "denied",
+  });
+}
+
+// Make cookie functions globally available
+window.showCookieConsent = showCookieConsent;
+window.acceptCookies = acceptCookies;
+window.declineCookies = declineCookies;
+
+// Show consent banner on page load
+window.addEventListener("load", showCookieConsent);
+
+// Enhanced Mobile Navigation
 
 // Toggle mobile menu
 hamburger.addEventListener("click", (e) => {
@@ -599,7 +657,7 @@ if (registrationForm) {
       errorContainer.innerHTML = `
         <h4 style="margin: 0 0 10px 0; font-size: 16px;">Please fix the following errors:</h4>
         <ul style="margin: 0; padding-left: 20px;">
-          ${errors.map(error => `<li>${error}</li>`).join('')}
+          ${errors.map((error) => `<li>${error}</li>`).join("")}
         </ul>
       `;
       errorContainer.style.display = "block";
@@ -609,80 +667,85 @@ if (registrationForm) {
     }
   }
 
-  // Real-time validation for better UX
+  // Real-time validation for better UX with debouncing
   function addRealTimeValidation() {
-    // Email validation
-    ["email1", "email2"].forEach(id => {
-      const field = document.getElementById(id);
-      if (field) {
-        field.addEventListener("blur", () => {
-          if (field.value.trim() && !isValidEmail(field.value.trim())) {
-            showFieldError(field, "Please enter a valid email address");
-          } else if (field.value.trim()) {
-            clearFieldError(field);
-          }
-        });
-      }
-    });
+    // Debounce function to limit validation frequency
+    const debounce = (func, wait) => {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    };
 
-    // Phone validation
-    ["phone1", "phone2"].forEach(id => {
-      const field = document.getElementById(id);
-      if (field) {
-        field.addEventListener("blur", () => {
-          if (field.value.trim() && !isValidPhone(field.value.trim())) {
-            showFieldError(field, "Phone must be in format +971XXXXXXXXX");
-          } else if (field.value.trim()) {
-            clearFieldError(field);
-          }
-        });
-      }
-    });
+    // Helper to wire a set of fields to a validator
+    const wire = (ids, validateFn, getErrorMsg) => {
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
 
-    // Emirates ID validation
-    ["emiratesId1", "emiratesId2"].forEach(id => {
-      const field = document.getElementById(id);
-      if (field) {
-        field.addEventListener("blur", () => {
-          if (field.value.trim() && !isValidEmiratesId(field.value.trim())) {
-            showFieldError(field, "Emirates ID must be exactly 15 digits");
-          } else if (field.value.trim()) {
-            clearFieldError(field);
+        const validate = (e) => {
+          const v = (e?.target?.value ?? el.value ?? "").trim(); // prefer event target
+          if (!v) {
+            clearFieldError(el);
+            return;
           }
-        });
-      }
-    });
+          if (!validateFn(v, el)) {
+            const msg =
+              typeof getErrorMsg === "function"
+                ? getErrorMsg(v, el)
+                : getErrorMsg;
+            showFieldError(el, msg || "Invalid value");
+          } else {
+            clearFieldError(el);
+          }
+        };
 
-    // Date of Birth validation
-    ["dob1", "dob2"].forEach(id => {
-      const field = document.getElementById(id);
-      if (field) {
-        field.addEventListener("blur", () => {
-          if (field.value.trim() && !isValidDateOfBirth(field.value.trim())) {
-            showFieldError(field, getDOBErrorMessage(field.value.trim()));
-          } else if (field.value.trim()) {
-            clearFieldError(field);
-          }
-        });
+        // Debounced validation for input events (300ms delay)
+        const debouncedValidate = debounce(validate, 300);
 
-        // Also validate on change event for date inputs for immediate feedback
-        field.addEventListener("change", () => {
-          if (field.value.trim() && !isValidDateOfBirth(field.value.trim())) {
-            showFieldError(field, getDOBErrorMessage(field.value.trim()));
-          } else if (field.value.trim()) {
-            clearFieldError(field);
-          }
-        });
-      }
-    });
+        // Immediate feedback for blur and change events
+        el.addEventListener("input", debouncedValidate);
+        el.addEventListener("change", validate);
+        el.addEventListener("blur", validate);
+      });
+    };
+
+    // Email
+    wire(
+      ["email1", "email2"],
+      isValidEmail,
+      "Please enter a valid email address"
+    );
+
+    // Phone
+    wire(
+      ["phone1", "phone2"],
+      isValidPhone,
+      "Phone must be in format +971XXXXXXXXX"
+    );
+
+    // Emirates ID
+    wire(
+      ["emiratesId1", "emiratesId2"],
+      isValidEmiratesId,
+      "Emirates ID must be exactly 15 digits"
+    );
+
+    // Date of Birth
+    wire(["dob1", "dob2"], isValidDateOfBirth, (v) => getDOBErrorMessage(v));
   }
-
   // Initialize real-time validation
   addRealTimeValidation();
 
   // Enhanced form submission handler
   registrationForm.addEventListener("submit", function (e) {
     e.preventDefault();
+    console.log("Form submission started");
 
     const errors = [];
     let isValid = true;
@@ -703,7 +766,7 @@ if (registrationForm) {
 
         // Add to form-level errors
         const label = field.previousElementSibling?.textContent || field.name;
-        errors.push(`${label.replace('*', '').trim()} is required`);
+        errors.push(`${label.replace("*", "").trim()} is required`);
       } else {
         // Field-specific validation
         if (field.type === "email") {
@@ -729,7 +792,9 @@ if (registrationForm) {
             isValid = false;
             const errorMessage = getDOBErrorMessage(field.value.trim());
             showFieldError(field, errorMessage);
-            errors.push(`Invalid date of birth for ${field.name}: ${errorMessage}`);
+            errors.push(
+              `Invalid date of birth for ${field.name}: ${errorMessage}`
+            );
           }
         }
       }
@@ -743,12 +808,16 @@ if (registrationForm) {
       errors.push("Consent is required to proceed");
     }
 
+    console.log("Form validation result:", isValid, "Errors:", errors);
+
     if (isValid) {
+      console.log("Form is valid, showing success message");
       // Show success message with better UX
       const submitBtn = this.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
 
-      submitBtn.innerHTML = '<i class="fas fa-check"></i> Registration Submitted!';
+      submitBtn.innerHTML =
+        '<i class="fas fa-check"></i> Registration Submitted!';
       submitBtn.style.background = "#4CAF50";
       submitBtn.disabled = true;
 
@@ -782,7 +851,10 @@ if (registrationForm) {
         document.getElementById("phone1").value = "+971";
         document.getElementById("phone2").value = "+971";
       }, 5000);
+
+      submitToGoogleSheet(this);
     } else {
+      console.log("Form is invalid, showing errors");
       // Show form-level errors
       showFormErrors(errors);
 
@@ -793,12 +865,31 @@ if (registrationForm) {
       }, 500);
 
       // Focus on first invalid field
-      const firstInvalidField = this.querySelector(".field-error")?.parentNode?.querySelector("input, select, textarea");
+      const firstInvalidField = this.querySelector(
+        ".field-error"
+      )?.parentNode?.querySelector("input, select, textarea");
       if (firstInvalidField) {
         firstInvalidField.focus();
       }
     }
   });
+}
+
+function submitToGoogleSheet(form) {
+  fetch(
+    "https://script.google.com/macros/s/AKfycbzB_v9lJzKYIGL5oXyaLSaXNkhloGVjv4LwrW1b2l_Yd9h3kU4s7hEW9v3HNypMX7FM/exec",
+    {
+      method: "POST",
+      body: new FormData(form),
+      mode: "no-cors",
+    }
+  )
+    .then(() => {
+      form.reset();
+    })
+    .catch(() => {
+      alert("Something went wrong. Please try again.");
+    });
 }
 
 // Enhanced error handling for images
@@ -893,9 +984,30 @@ function addSchool(inputId, datalistId) {
   });
 }
 
+// Curriculum toggle functionality
+function toggleOther(selectId, inputId) {
+  const select = document.getElementById(selectId);
+  const input = document.getElementById(inputId);
+  if (select && input) {
+    select.addEventListener("change", function () {
+      if (this.value === "Other") {
+        input.style.display = "block";
+        input.required = true;
+      } else {
+        input.style.display = "none";
+        input.required = false;
+      }
+    });
+  }
+}
+
 // Initialize school input functionality for both participants
 document.addEventListener("DOMContentLoaded", () => {
   // Apply enhanced school input handling to both participants
   addSchool("school1", "schools1");
   addSchool("school2", "schools2");
+
+  // Initialize curriculum toggle functionality
+  toggleOther("curriculum1", "curriculumOther1");
+  toggleOther("curriculum2", "curriculumOther2");
 });

@@ -62,27 +62,6 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-NVLZZP28ME"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-NVLZZP28ME", {
-        page_title: "MindQuest 2025 — UAE Inter-School General Knowledge Quiz",
-        page_location: "https://mindquestquiz.com/",
-      });
-
-      // Track CTA clicks
-      function trackCTAClick(action, section) {
-        gtag("event", "click", {
-          event_category: "CTA",
-          event_label: action,
-          value: section,
-        });
-      }
-    </script>
 
     <!-- Additional SEO Meta Tags -->
     <meta name="author" content="MindQuest Team" />
@@ -700,6 +679,9 @@
           <!-- Load jQuery & Select2 for searchable dropdown -->
           <div class="registration-form">
             <form id="registrationForm" method="POST">
+              <!-- Form-level error container -->
+              <div id="form-errors" style="display: none; background: rgba(255, 68, 68, 0.1); color: #ff4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff4444;"></div>
+
               <!-- Participant 1 -->
               <h2 style="color: white; display: inline">
                 Participant 1 Details
@@ -1492,161 +1474,6 @@
 
     <!-- External JavaScript -->
     <script src="./assets/script.js"></script>
-    <script>
-      const form = document.getElementById("registrationForm");
-      const submitButton = form.querySelector('button[type="submit"]');
-      const serialOutput = document.getElementById("serialOutput");
 
-      // Validation functions
-      function validateEmiratesId(input) {
-        const value = input.value.trim();
-        const isValid = /^\d{15}$/.test(value);
-        showValidation(
-          input,
-          isValid,
-          "Emirates ID must be exactly 15 digits (e.g., 784198712345678)"
-        );
-        return isValid;
-      }
-
-      function validateEmail(input) {
-        const value = input.value.trim();
-        const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-          value
-        );
-        showValidation(
-          input,
-          isValid,
-          "Invalid email format (e.g., name@example.com)"
-        );
-        return isValid;
-      }
-
-      function showValidation(input, isValid, message) {
-        // Remove old error
-        if (
-          input.nextElementSibling &&
-          input.nextElementSibling.classList.contains("error-msg")
-        ) {
-          input.nextElementSibling.remove();
-        }
-
-        if (!isValid) {
-          input.style.borderColor = "red";
-          const msg = document.createElement("div");
-          msg.className = "error-msg";
-          msg.style.color = "red";
-          msg.style.fontSize = "0.9rem";
-          msg.innerText = message;
-          input.parentNode.appendChild(msg);
-        } else {
-          input.style.borderColor = "";
-        }
-      }
-
-      // Handle submit
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        // Reset status
-        serialOutput.style.display = "none";
-        serialOutput.innerHTML = "";
-        submitButton.style.backgroundColor = ""; // reset
-
-        // Validate Emirates ID & Email
-        const validEID1 = validateEmiratesId(
-          document.getElementById("emiratesId1")
-        );
-        const validEID2 = validateEmiratesId(
-          document.getElementById("emiratesId2")
-        );
-        const validEmail1 = validateEmail(document.getElementById("email1"));
-        const validEmail2 = validateEmail(document.getElementById("email2"));
-
-        if (!validEID1 || !validEID2 || !validEmail1 || !validEmail2) {
-          return; // ❌ stop here, don’t show success
-        }
-
-        // ✅ All good → submit to Google Sheet
-        fetch(
-          "https://script.google.com/macros/s/AKfycbzB_v9lJzKYIGL5oXyaLSaXNkhloGVjv4LwrW1b2l_Yd9h3kU4s7hEW9v3HNypMX7FM/exec",
-          {
-            method: "POST",
-            body: new FormData(form),
-            mode: "no-cors",
-          }
-        )
-          .then(() => {
-            serialOutput.style.display = "block";
-            serialOutput.style.color = "yellow";
-            serialOutput.innerHTML = "Registration submitted successfully!";
-            submitButton.style.backgroundColor = "green";
-            form.reset();
-          })
-          .catch(() => {
-            alert("Something went wrong. Please try again.");
-          });
-      });
-
-      // Live validation
-      ["emiratesId1", "emiratesId2"].forEach((id) => {
-        document
-          .getElementById(id)
-          .addEventListener("input", (e) => validateEmiratesId(e.target));
-      });
-      ["email1", "email2"].forEach((id) => {
-        document
-          .getElementById(id)
-          .addEventListener("input", (e) => validateEmail(e.target));
-      });
-    </script>
-    <script>
-      function toggleOther(selectId, inputId) {
-        const select = document.getElementById(selectId);
-        const input = document.getElementById(inputId);
-        select.addEventListener("change", function () {
-          if (this.value === "Other") {
-            input.style.display = "block";
-            input.required = true;
-          } else {
-            input.style.display = "none";
-            input.required = false;
-          }
-        });
-      }
-
-      toggleOther("curriculum1", "curriculumOther1");
-      toggleOther("curriculum2", "curriculumOther2");
-    </script>
-
-    <script>
-      // Cookie Consent Management
-      function showCookieConsent() {
-        if (!localStorage.getItem("cookieConsent")) {
-          document.getElementById("cookieConsent").style.display = "block";
-        }
-      }
-
-      function acceptCookies() {
-        localStorage.setItem("cookieConsent", "accepted");
-        document.getElementById("cookieConsent").style.display = "none";
-        // Enable analytics
-        gtag("consent", "update", {
-          analytics_storage: "granted",
-        });
-      }
-
-      function declineCookies() {
-        localStorage.setItem("cookieConsent", "declined");
-        document.getElementById("cookieConsent").style.display = "none";
-        // Disable analytics
-        gtag("consent", "update", {
-          analytics_storage: "denied",
-        });
-      }
-
-      // Show consent banner on page load
-      window.addEventListener("load", showCookieConsent);
-    </script>
   </body>
 </html>
