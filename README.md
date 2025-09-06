@@ -138,6 +138,33 @@ Since this is a static website, you can simply:
 - Direct browser compatibility
 - Pure HTML, CSS, and JavaScript
 
+## 🧪 Testing
+
+### Quick Test Commands
+
+```bash
+# Run all tests with auto-server management
+make test-full
+
+# Run specific test suites
+make test-success      # Success scenarios
+make test-validation   # Validation & edge cases
+make test-performance  # Performance tests
+
+# Development mode
+make test-watch        # Auto-reload on changes
+make test-headless     # Headless browser mode
+```
+
+### Test Coverage
+
+- **72 automated tests** covering form validation, success scenarios, and performance
+- **Selenium WebDriver** with headless Chrome for CI/CD
+- **Real-time validation** testing for all form fields
+- **Edge cases** including invalid inputs and boundary conditions
+
+For detailed testing documentation, see [`tests/README.md`](tests/README.md).
+
 ## 📁 Code Organization
 
 ### HTML Structure
