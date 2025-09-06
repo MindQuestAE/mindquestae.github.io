@@ -1279,6 +1279,7 @@ h3 a {
   color: var(--white);
   position: relative;
   padding: 100px 0;
+  margin-top: 80px; /* Add margin to prevent navbar overlap */
 }
 
 .registration-section::before {
@@ -1318,6 +1319,8 @@ h3 a {
   border-radius: var(--border-radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.6);
   text-align: left;
+  position: relative;
+  z-index: 1001; /* Ensure form is above navbar */
 }
 .registration-form ul {
   list-style: none;
