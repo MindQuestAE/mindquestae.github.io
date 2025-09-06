@@ -15,29 +15,29 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.0
 
     - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5.1.0
       with:
-        python-version: '3.9'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
         npm install
 
     - name: Setup Chrome and ChromeDriver
-      uses: browser-actions/setup-chrome@latest
+      uses: browser-actions/setup-chrome@v1.4.0
       with:
         chrome-version: stable
 
@@ -85,7 +85,7 @@ jobs:
 
     - name: Upload screenshots on failure
       if: failure()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: test-screenshots-${{ matrix.node-version }}
         path: tests/screenshots/
@@ -93,7 +93,7 @@ jobs:
 
     - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: test-results-${{ matrix.node-version }}
         path: |
@@ -119,29 +119,29 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.0
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: '18.x'
         cache: 'npm'
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5.1.0
       with:
-        python-version: '3.9'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: npm install
 
     - name: Setup browsers
       if: matrix.browser == 'firefox'
-      uses: browser-actions/setup-firefox@latest
+      uses: browser-actions/setup-firefox@v1.4.0
 
     - name: Setup Chrome
       if: matrix.browser == 'chrome'
-      uses: browser-actions/setup-chrome@latest
+      uses: browser-actions/setup-chrome@v1.4.0
 
     - name: Start development server
       run: |
@@ -162,18 +162,18 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4.2.0
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4.1.0
       with:
         node-version: '18.x'
         cache: 'npm'
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5.1.0
       with:
-        python-version: '3.9'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: npm install
