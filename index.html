@@ -737,7 +737,6 @@
                     name="email1"
                     required
                     placeholder="e.g., name@example.com"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="Enter a valid email like name@example.com"
                   />
                 </div>
@@ -780,7 +779,10 @@
                     id="emiratesId1"
                     name="emiratesId1"
                     placeholder="15 digits e.g., 784198712345678"
+                    pattern="[0-9]{15}"
+                    title="Emirates ID must be exactly 15 digits"
                     maxlength="15"
+                    required
                   />
                 </div>
               </div>
@@ -793,23 +795,9 @@
                     id="school1"
                     name="school1"
                     required
-                    placeholder="Select or type school"
+                    placeholder="Type your own or select from the list"
                   />
-                  <datalist id="schools1">
-                    <option value="Dubai International Academy"></option>
-                    <option
-                      value="GEMS Wellington International School"
-                    ></option>
-                    <option value="Dubai American Academy"></option>
-                    <option value="Jumeirah College"></option>
-                    <option value="Dubai College"></option>
-                    <option value="Repton School Dubai"></option>
-                    <option value="The Indian High School"></option>
-                    <option
-                      value="Swiss International Scientific School"
-                    ></option>
-                    <option value="Dubai British School"></option>
-                    <option value="JSS Private School"></option>
+                  <datalist id="schools1" class="schools-list">
                   </datalist>
                 </div>
                 <div class="form-group">
@@ -886,12 +874,11 @@
                     name="email2"
                     required
                     placeholder="e.g., name@example.com"
-                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     title="Enter a valid email like name@example.com"
                   />
                 </div>
                 <div class="form-group">
-                  <label for="dob1">Date of Birth *</label>
+                  <label for="dob2">Date of Birth *</label>
                   <input
                     type="date"
                     id="dob2"
@@ -905,7 +892,7 @@
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="phone1">Phone Number (UAE) *</label>
+                  <label for="phone2">Phone Number (UAE) *</label>
                   <input
                     type="tel"
                     id="phone2"
@@ -929,7 +916,10 @@
                     id="emiratesId2"
                     name="emiratesId2"
                     placeholder="15 digits e.g., 784198712345678"
+                    pattern="[0-9]{15}"
+                    title="Emirates ID must be exactly 15 digits"
                     maxlength="15"
+                    required
                   />
                 </div>
               </div>
@@ -942,23 +932,9 @@
                     id="school2"
                     name="school2"
                     required
-                    placeholder="Select or type school"
+                    placeholder="Type your own or select from the list"
                   />
-                  <datalist id="schools2">
-                    <option value="Dubai International Academy"></option>
-                    <option
-                      value="GEMS Wellington International School"
-                    ></option>
-                    <option value="Dubai American Academy"></option>
-                    <option value="Jumeirah College"></option>
-                    <option value="Dubai College"></option>
-                    <option value="Repton School Dubai"></option>
-                    <option value="The Indian High School"></option>
-                    <option
-                      value="Swiss International Scientific School"
-                    ></option>
-                    <option value="Dubai British School"></option>
-                    <option value="JSS Private School"></option>
+                  <datalist id="schools2" class="schools-list">
                   </datalist>
                 </div>
                 <div class="form-group">
@@ -1028,35 +1004,6 @@
                   </span>
                 </label>
               </div>
-
-              <script>
-                function addSchool(inputId, datalistId) {
-                  const input = document.getElementById(inputId);
-                  const datalist = document.getElementById(datalistId);
-
-                  input.addEventListener("change", () => {
-                    const value = input.value.trim();
-                    if (value === "") return;
-
-                    // Check if the school already exists
-                    const exists = Array.from(datalist.options).some(
-                      (option) =>
-                        option.value.toLowerCase() === value.toLowerCase()
-                    );
-
-                    // If not in the list, add it
-                    if (!exists) {
-                      const newOption = document.createElement("option");
-                      newOption.value = value;
-                      datalist.appendChild(newOption);
-                    }
-                  });
-                }
-
-                // Apply to both participants
-                addSchool("school1", "schools1");
-                addSchool("school2", "schools2");
-              </script>
 
               <button
                 type="submit"
