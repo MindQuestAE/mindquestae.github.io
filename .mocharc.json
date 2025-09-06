@@ -1,0 +1,10 @@
+{
+  "reporter": "spec",
+  "timeout": 60000,
+  "recursive": true,
+  "exit": true,
+  "spec": "tests/specs/**/*.test.js",
+  "require": [
+    "tests/setup.js"
+  ]
+}

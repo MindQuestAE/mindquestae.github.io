@@ -1,0 +1,24 @@
+{
+  "name": "mindquest-form-tests",
+  "version": "1.0.0",
+  "description": "Automated tests for MindQuest registration form",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 60000 --require ./tests/setup.js 'tests/specs/**/*.test.js'",
+    "test:headless": "HEADLESS=true npm test",
+    "test:watch": "mocha --watch --timeout 60000 --require ./tests/setup.js 'tests/specs/**/*.test.js'",
+    "install-deps": "npm install",
+    "setup": "npm install && npx selenium-manager --driver chromedriver"
+  },
+  "keywords": ["selenium", "testing", "form-validation", "automated-testing"],
+  "author": "MindQuest Team",
+  "license": "MIT",
+  "devDependencies": {
+    "selenium-webdriver": "^4.15.0",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.10"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
