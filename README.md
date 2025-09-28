@@ -8,8 +8,8 @@ MindQuest is the 1st Annual General Knowledge Quiz Competition organized by GECB
 
 ### Event Details
 
-- **Date**: October 17, 2025
-- **Registration Period**: June 30 - September 30, 2025
+- **Date**: October 19, 2025
+- **Registration Period**: June 30 - October 12, 2025
 - **Target Audience**: Indian high school students (Grades 9-12) in UAE
 - **Venue**: Al Qusais, Dubai
 - **Organizers**: GECBTA & AKCAF

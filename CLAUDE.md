@@ -82,8 +82,8 @@ This is a static HTML website with no build process or dependency management. De
 ## Content Management
 
 **Event Information:**
-- Event date: October 17, 2025
-- Registration: June 30 - September 30, 2025
+- Event date: October 19, 2025
+- Registration: June 30 - October 12, 2025
 - Organizers: GECBTA in association with AKCAF
 - Target audience: Indian high school students (Grades 9-12) in UAE
 - Venue: Al Qusais, Dubai
