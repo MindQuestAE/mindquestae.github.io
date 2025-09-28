@@ -160,6 +160,11 @@ window.schoolsList = [
   "The Westminster School - DUBAI",
   "The Winchester School - DUBAI",
   "Universal American School - DUBAI",
+  "PACE Modern British School - DUBAI",
+  "PACE International School - Sharjah",
+  "International Indian School Al Jurf - Ajman",
+  "Habitat School Al Jurf - Ajman",
+  "Habitat School Al Tallah - Ajman"
 ];
 
 // Google Analytics and Tracking
