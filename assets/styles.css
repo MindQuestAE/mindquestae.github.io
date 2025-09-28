@@ -1389,7 +1389,6 @@ h3 a {
   outline: none;
   border: 2px solid var(--minion-yellow); /* Yellow for focus on invalid */
   box-shadow: 0 0 0 3px rgba(249, 216, 75, 0.4); /* Subtle yellow glow */
-
 }
 .registration-form .form-group input.invalid,
 .registration-form .form-group select.invalid {
@@ -1910,4 +1909,29 @@ h3 a {
     gap: 0.5rem;
     flex-wrap: wrap;
   }
+}
+/* Container keeps a neat square (adjust aspect-ratio if your post is not 1:1) */
+.ig-image-only {
+  width: 100%;
+  max-width: 540px; /* optional */
+  aspect-ratio: 1 / 1; /* change to 4/5 or 16/9 if your post is vertical/horizontal */
+  overflow: hidden;
+  border-radius: 12px; /* optional */
+}
+
+/* The embed script swaps the blockquote for an iframe. We crop the iframe to only show the media. */
+.ig-image-only iframe {
+  width: 100% !important;
+  height: 150% !important; /* make it taller so the media fills the crop */
+  transform: translateY(-15%); /* shift so only the image area is visible */
+  border: 0 !important;
+}
+
+/* Remove any margins Instagram injects around the embed */
+.instagram-media,
+.instagram-media div {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
