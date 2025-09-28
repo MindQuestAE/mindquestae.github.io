@@ -164,7 +164,7 @@ window.schoolsList = [
   "PACE International School - Sharjah",
   "International Indian School Al Jurf - Ajman",
   "Habitat School Al Jurf - Ajman",
-  "Habitat School Al Tallah - Ajman",
+  "Habitat School Al Tallah - Ajman"
 ];
 
 // Google Analytics and Tracking
