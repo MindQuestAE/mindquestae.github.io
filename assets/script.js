@@ -101,7 +101,7 @@ window.schoolsList = [
   "GEMS Founders School (GFS) Dubai - DUBAI",
   "GEMS International School Al Khail - DUBAI",
   "GEMS Jumeirah College (JC) - DUBAI",
-  "GEMS Legacy School - DUBAI",
+  "GEMS Legacy School Dubai - DUBAI",
   "GEMS Metropole School - DUBAI",
   "GEMS Modern Academy - DUBAI",
   "GEMS New Millennium School - DUBAI",
@@ -132,7 +132,7 @@ window.schoolsList = [
   "Newlands School - DUBAI",
   "Next Generation School - DUBAI",
   "North American International School - DUBAI",
-  "GEMS Our Own High School - Al Warqa - DUBAI",
+  "Our Own High School - DUBAI",
   "Oxford School - DUBAI",
   "Philadelphia Private School - DUBAI",
   "Primus Private School - DUBAI",
@@ -171,8 +171,7 @@ window.schoolsList = [
   "Delhi Private School - Sharjah",
   "Delhi Public School - Sharjah",
   "GEMS Millennium School - Sharjah",
-  "GEMS Our Own English High School Boys - Sharjah",
-  "GEMS Our Own English High School Girls - Sharjah",
+  "GEMS Our Own English High School, Sharjah - Boys",
   "Gulf Asian English School - Sharjah",
   "India International School - Sharjah",
   "Indian School - Al Ain - Abu Dhabi",
@@ -1152,41 +1151,3 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleOther("curriculum1", "curriculumOther1");
   toggleOther("curriculum2", "curriculumOther2");
 });
-
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('[App] Service Worker registered successfully:', registration.scope);
-
-        // Check for updates periodically
-        setInterval(() => {
-          registration.update();
-        }, 60000); // Check every minute
-
-        // Handle updates
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // New service worker available, prompt user to reload
-              if (confirm('A new version of the site is available. Reload to update?')) {
-                newWorker.postMessage({ type: 'SKIP_WAITING' });
-                window.location.reload();
-              }
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.log('[App] Service Worker registration failed:', error);
-      });
-
-    // Handle controller change (when new SW takes over)
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      console.log('[App] Service Worker controller changed, reloading...');
-      window.location.reload();
-    });
-  });
-}

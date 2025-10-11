@@ -1,0 +1,80 @@
+name: Deploy to GitHub Pages with Optimization
+
+on:
+  push:
+    branches: [ main, master ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        npm install -g html-minifier-terser
+        npm install -g clean-css-cli
+        npm install -g terser
+
+    - name: Optimize HTML
+      run: |
+        html-minifier-terser --input-dir . --output-dir ./dist --file-ext html \
+          --remove-comments \
+          --remove-redundant-attributes \
+          --remove-script-type-attributes \
+          --remove-style-link-type-attributes \
+          --use-short-doctype \
+          --minify-css true \
+          --minify-js true \
+          --collapse-whitespace
+
+    - name: Optimize CSS
+      run: |
+        mkdir -p ./dist/assets
+        cleancss -o ./dist/assets/styles.css ./assets/styles.css
+
+    - name: Optimize JavaScript
+      run: |
+        terser ./assets/script.js -o ./dist/assets/script.js --compress --mangle
+        terser ./sw.js -o ./dist/sw.js --compress --mangle
+
+    - name: Copy static assets
+      run: |
+        cp -r ./assets/favicon ./dist/assets/ || true
+        cp -r ./assets/*.png ./dist/assets/ || true
+        cp -r ./assets/*.jpg ./dist/assets/ || true
+        cp ./robots.txt ./dist/ || true
+        cp ./sitemap.xml ./dist/ || true
+        cp ./CNAME ./dist/ || true
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: './dist'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
