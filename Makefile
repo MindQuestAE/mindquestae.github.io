@@ -56,6 +56,58 @@ clean-test:
 	rm -rf node_modules
 	rm -f package-lock.json
 
+# Version management
+bump-version:
+	@echo "Current version:"
+	@grep "const CACHE_VERSION" sw.js | sed "s/.*'\(.*\)'.*/\1/"
+	@echo ""
+	@read -p "Enter new version (e.g., v1.0.1): " version; \
+	if [ -z "$$version" ]; then \
+		echo "Error: Version cannot be empty"; \
+		exit 1; \
+	fi; \
+	sed -i.bak "s/const CACHE_VERSION = 'v[0-9]*\.[0-9]*\.[0-9]*'/const CACHE_VERSION = '$$version'/" sw.js && \
+	rm -f sw.js.bak && \
+	echo "✓ Service Worker version updated to $$version" && \
+	echo "✓ Changes made to sw.js - remember to commit!"
+
+bump-version-patch:
+	@current=$$(grep "const CACHE_VERSION" sw.js | sed "s/.*'v\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)'.*/\1.\2.\3/"); \
+	major=$$(echo $$current | cut -d. -f1); \
+	minor=$$(echo $$current | cut -d. -f2); \
+	patch=$$(echo $$current | cut -d. -f3); \
+	new_patch=$$((patch + 1)); \
+	new_version="v$$major.$$minor.$$new_patch"; \
+	echo "Bumping version from v$$current to $$new_version"; \
+	sed -i.bak "s/const CACHE_VERSION = 'v[0-9]*\.[0-9]*\.[0-9]*'/const CACHE_VERSION = '$$new_version'/" sw.js && \
+	rm -f sw.js.bak && \
+	echo "✓ Service Worker version updated to $$new_version"
+
+bump-version-minor:
+	@current=$$(grep "const CACHE_VERSION" sw.js | sed "s/.*'v\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)'.*/\1.\2.\3/"); \
+	major=$$(echo $$current | cut -d. -f1); \
+	minor=$$(echo $$current | cut -d. -f2); \
+	new_minor=$$((minor + 1)); \
+	new_version="v$$major.$$new_minor.0"; \
+	echo "Bumping version from v$$current to $$new_version"; \
+	sed -i.bak "s/const CACHE_VERSION = 'v[0-9]*\.[0-9]*\.[0-9]*'/const CACHE_VERSION = '$$new_version'/" sw.js && \
+	rm -f sw.js.bak && \
+	echo "✓ Service Worker version updated to $$new_version"
+
+bump-version-major:
+	@current=$$(grep "const CACHE_VERSION" sw.js | sed "s/.*'v\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)'.*/\1.\2.\3/"); \
+	major=$$(echo $$current | cut -d. -f1); \
+	new_major=$$((major + 1)); \
+	new_version="v$$new_major.0.0"; \
+	echo "Bumping version from v$$current to $$new_version"; \
+	sed -i.bak "s/const CACHE_VERSION = 'v[0-9]*\.[0-9]*\.[0-9]*'/const CACHE_VERSION = '$$new_version'/" sw.js && \
+	rm -f sw.js.bak && \
+	echo "✓ Service Worker version updated to $$new_version"
+
+show-version:
+	@echo "Current Service Worker version:"
+	@grep "const CACHE_VERSION" sw.js | sed "s/.*'\(.*\)'.*/\1/"
+
 # Help
 help:
 	@echo "MindQuest Site Management Commands:"
@@ -78,7 +130,16 @@ help:
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  clean-test         - Clean test artifacts and dependencies"
+	@echo ""
+	@echo "Version Management:"
+	@echo "  show-version       - Display current service worker version"
+	@echo "  bump-version       - Manually set service worker version"
+	@echo "  bump-version-patch - Auto-increment patch version (1.0.0 -> 1.0.1)"
+	@echo "  bump-version-minor - Auto-increment minor version (1.0.0 -> 1.1.0)"
+	@echo "  bump-version-major - Auto-increment major version (1.0.0 -> 2.0.0)"
+	@echo ""
+	@echo "Help:"
 	@echo "  help               - Show this help message"
 	@echo ""
 
-.PHONY: serve install-test-deps setup-tests test test-headless test-success test-validation test-performance test-watch test-ci test-with-server test-full clean-test help
+.PHONY: serve install-test-deps setup-tests test test-headless test-success test-validation test-performance test-watch test-ci test-with-server test-full clean-test bump-version bump-version-patch bump-version-minor bump-version-major show-version help
