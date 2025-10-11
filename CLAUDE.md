@@ -15,7 +15,7 @@ This is a static website for MindQuest, a 1st Annual General Knowledge Quiz Comp
 - `assets/` - Contains logo images, design assets, and favicon resources
   - `mindquest-logomark.png` - Primary navigation logo
   - `mindquestlogo-01.png`
-  - `mindquestlogomark-01.png` 
+  - `mindquestlogomark-01.png`
   - `mindquestlogowithtag-01.png` - Hero section logo
   - `pattern-01.png` - Background pattern asset
   - `gecbta-loga.png` - GECBTA organizer logo
@@ -83,7 +83,7 @@ This is a static HTML website with no build process or dependency management. De
 
 **Event Information:**
 - Event date: October 19, 2025
-- Registration: June 30 - October 12, 2025
+- Registration: June 30 - October 15, 2025
 - Organizers: GECBTA in association with AKCAF
 - Target audience: Indian high school students (Grades 9-12) in UAE
 - Venue: Al Qusais, Dubai
