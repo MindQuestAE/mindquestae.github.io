@@ -1,7 +1,7 @@
 // Service Worker for GitHub Pages Caching
-// Version 1.0.1
+// Version 1.0.2
 
-const CACHE_NAME = 'mindquest-v1.0.1';
+const CACHE_NAME = 'mindquest-v1.0.2';
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
