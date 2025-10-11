@@ -22,9 +22,9 @@
     var(--minion-yellow-light) 100%
   );
 
-  /* Typography */
-  --font-title: "Montserrat", sans-serif;
-  --font-body: "Lato", sans-serif;
+  /* Typography with font-display optimization */
+  --font-title: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Shadows */
   --shadow-soft: 0 10px 40px rgba(10, 33, 85, 0.1);
@@ -1176,6 +1176,7 @@ h3 a {
   }
   .hero-logo {
     max-width: 280px;
+    max-height: 280px;
   }
 
   .hero-subtitle {
