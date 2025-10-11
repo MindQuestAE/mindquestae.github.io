@@ -1075,6 +1075,39 @@ h3 a {
   resize: vertical;
 }
 
+.form-group.error input,
+.form-group.error textarea {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+.form-group.valid input,
+.form-group.valid textarea {
+  border-color: var(--minion-yellow);
+  box-shadow: 0 0 0 2px rgba(249, 216, 75, 0.2);
+}
+
+.form-error {
+  display: none;
+  margin-top: 0.5rem;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+}
+
+.form-status {
+  min-height: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.form-status.success {
+  color: #2d8a35;
+}
+
+.form-status.error {
+  color: #ff6b6b;
+}
+
 /* Responsive Design Enhancements */
 @media (max-width: 768px) {
   .hamburger {

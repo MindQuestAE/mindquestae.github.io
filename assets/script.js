@@ -411,44 +411,161 @@ if (statsSection) {
 }
 
 // Enhanced form handling
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  const endpoint = "https://script.google.com/macros/s/AKfycbwDldZ2ZJGRvpFkuNC1hUQ22qTc4x8GG8gn9eSjnX29FQYWg_2E_v8xWwoARj8Lxvw0/exec";
+  const statusContainer = document.getElementById("contactStatus");
+  const fieldIds = ["contactName", "contactEmail", "subject", "message"];
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const requiredFields = this.querySelectorAll("[required]");
-  let isValid = true;
-
-  requiredFields.forEach((field) => {
-    if (!field.value.trim()) {
-      isValid = false;
-      field.style.borderColor = "#ff6b6b";
-      field.style.boxShadow = "0 0 0 2px rgba(255, 107, 107, 0.2)";
-    } else {
-      field.style.borderColor = "var(--minion-yellow)";
-      field.style.boxShadow = "0 0 0 2px rgba(249, 216, 75, 0.2)";
+  const setStatus = (type, message) => {
+    if (!statusContainer) return;
+    statusContainer.className = "form-status";
+    if (type) {
+      statusContainer.classList.add(type);
     }
+    statusContainer.textContent = message;
+  };
+
+  const setFieldState = (input, isValid, message = "") => {
+    const formGroup = input.closest(".form-group");
+    const errorEl = document.getElementById(`${input.id}Error`);
+    if (!formGroup || !errorEl) return;
+
+    if (!isValid) {
+      formGroup.classList.add("error");
+      formGroup.classList.remove("valid");
+      errorEl.textContent = message;
+      errorEl.style.display = "block";
+    } else {
+      formGroup.classList.remove("error");
+      if (input.value.trim()) {
+        formGroup.classList.add("valid");
+      } else {
+        formGroup.classList.remove("valid");
+      }
+      errorEl.textContent = "";
+      errorEl.style.display = "none";
+    }
+  };
+
+  const validateField = (input) => {
+    const value = input.value.trim();
+    let errorMessage = "";
+
+    switch (input.id) {
+      case "contactName":
+        if (!value) {
+          errorMessage = "Name is required.";
+        } else if (value.length < 3 || value.length > 50) {
+          errorMessage = "Name must be between 3 and 50 characters.";
+        }
+        break;
+      case "contactEmail":
+        if (!value) {
+          errorMessage = "Email is required.";
+        } else if (!emailPattern.test(value)) {
+          errorMessage = "Please enter a valid email address.";
+        }
+        break;
+      case "subject":
+        if (!value) {
+          errorMessage = "Subject is required.";
+        } else if (value.length < 3 || value.length > 100) {
+          errorMessage = "Subject must be between 3 and 100 characters.";
+        }
+        break;
+      case "message":
+        if (!value) {
+          errorMessage = "Message is required.";
+        } else if (value.length < 10 || value.length > 1000) {
+          errorMessage = "Message must be between 10 and 1000 characters.";
+        }
+        break;
+      default:
+        break;
+    }
+
+    setFieldState(input, !errorMessage, errorMessage);
+    return !errorMessage;
+  };
+
+  const inputs = fieldIds
+    .map((id) => document.getElementById(id))
+    .filter((input) => input);
+
+  inputs.forEach((input) => {
+    input.addEventListener("blur", () => validateField(input));
   });
 
-  if (isValid) {
-    // Show success message with better UX
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setStatus("", "");
 
-    submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-    submitBtn.style.background = "#4CAF50";
+    let formIsValid = true;
+    inputs.forEach((input) => {
+      if (!validateField(input)) {
+        formIsValid = false;
+      }
+    });
 
-    setTimeout(() => {
-      submitBtn.innerHTML = originalText;
-      submitBtn.style.background = "";
-      this.reset();
-    }, 3000);
-  } else {
-    // Shake animation for invalid form
-    this.style.animation = "shake 0.5s ease-in-out";
-    setTimeout(() => {
-      this.style.animation = "";
-    }, 500);
-  }
-});
+    if (!formIsValid) {
+      contactForm.style.animation = "shake 0.5s ease-in-out";
+      setTimeout(() => {
+        contactForm.style.animation = "";
+      }, 500);
+      setStatus("error", "Please fix the highlighted fields and try again.");
+      return;
+    }
+
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalContent = submitBtn ? submitBtn.innerHTML : "";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    }
+
+    try {
+      const payload = {
+        name: contactForm.contactName.value.trim(),
+        email: contactForm.contactEmail.value.trim(),
+        subject: contactForm.subject.value.trim(),
+        message: contactForm.message.value.trim(),
+      };
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: "no-cors",
+      });
+
+      const result = await response.text();
+      if (response.status == 0 || response.ok ) {
+        setStatus("success", result.message || "Message submitted successfully!");
+        contactForm.reset();
+        inputs.forEach((input) => {
+          setFieldState(input, true);
+        });
+      } else {
+        const errorMessage =
+          (result && result.message) ||
+          "We could not send your message. Please try again later.";
+        setStatus("error", errorMessage);
+      }
+    } catch (err) {
+      setStatus(
+        "error",
+        "We could not send your message. Please try again later."
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalContent;
+      }
+    }
+  });
+}
 
 // Add shake animation
 const style = document.createElement("style");
