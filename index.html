@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Performance and Security Meta Tags for GitHub Pages -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; frame-src https://www.instagram.com https://www.google.com;"
+    />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+    <meta name="theme-color" content="#0a2155" />
+
     <title>MindQuest 2025 — UAE Inter-School General Knowledge Quiz</title>
     <meta
       name="description"
@@ -38,24 +50,201 @@
     />
     <link rel="manifest" href="./assets/favicon/site.webmanifest" />
 
+    <!-- HTTP/2 Server Push hints for GitHub Pages -->
+    <link rel="preload" href="./assets/styles.css" as="style" />
+    <link rel="preload" href="./assets/script.js" as="script" />
+    <link rel="preload" href="./assets/mindquest-logomark.png" as="image" />
+    <link
+      rel="preload"
+      href="./assets/mindquestlogowithtag-01.png"
+      as="image"
+    />
+
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="dns-prefetch" href="https://akcafuae.com" />
 
-    <!-- Google Fonts -->
+    <!-- Critical CSS inline for above-the-fold content -->
+    <style>
+      /* Critical CSS - Above the fold styles */
+      :root {
+        --oxford-blue: #0a2155;
+        --oxford-blue-light: #1a3a7a;
+        --minion-yellow: #f9d84b;
+        --minion-yellow-light: #fce570;
+        --slate-gray: #4f4f4f;
+        --white: #ffffff;
+        --sky-blue: #b3d4fc;
+        --sky-blue-light: #d1e7fd;
+        --gradient-primary: linear-gradient(
+          135deg,
+          var(--oxford-blue) 0%,
+          var(--oxford-blue-light) 50%,
+          var(--sky-blue) 100%
+        );
+        --gradient-accent: linear-gradient(
+          45deg,
+          var(--minion-yellow) 0%,
+          var(--minion-yellow-light) 100%
+        );
+        /* Typography with font-display optimization */
+        --font-title: "Montserrat", system-ui, -apple-system, "Segoe UI",
+          sans-serif;
+        --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --shadow-soft: 0 10px 40px rgba(10, 33, 85, 0.1);
+        --border-radius-sm: 8px;
+        --border-radius-md: 15px;
+        --border-radius-lg: 25px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-body);
+        line-height: 1.7;
+        color: var(--oxford-blue);
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+      .loading {
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        padding: 1rem 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .navbar.scrolled {
+        background: rgba(10, 33, 85, 0.98);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: var(--shadow-soft);
+      }
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+      .hero {
+        min-height: 100vh;
+        background: var(--gradient-primary);
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .hero-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-content {
+        color: var(--white);
+        animation: slideInLeft 1s ease-out;
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hero-tagline {
+        font-family: var(--font-title);
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 800;
+        color: var(--minion-yellow);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+      }
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: rgba(249, 216, 75, 0.2);
+        z-index: 9999;
+      }
+      .scroll-progress-bar {
+        height: 100%;
+        background: var(--gradient-accent);
+        width: 0%;
+        transition: width 0.1s ease;
+      }
+    </style>
+
+    <!-- Preload critical fonts with font-display swap -->
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap"
+    /></noscript>
 
-    <!-- Font Awesome -->
+    <!-- Preload Font Awesome -->
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    /></noscript>
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="./assets/styles.css" />
+    <!-- Preload main CSS -->
+    <link
+      rel="preload"
+      href="./assets/styles.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="./assets/styles.css" /></noscript>
 
     <!-- Google Analytics 4 -->
     <script
@@ -348,6 +537,8 @@
             width="120"
             height="40"
             loading="eager"
+            decoding="async"
+            fetchpriority="high"
             onerror="this.style.display='none'"
           />
         </div>
@@ -430,9 +621,13 @@
           <div class="hero-shape">
             <img
               class="hero-logo img-hide-on-error"
-              src="./assets/mindquestlogowithtag-01.png"
+              src="./assets/mindquestlogo-hero-logo.png"
               alt="MindQuest 2025 - Unlock Your Mind, Conquer The Quest - UAE General Knowledge Quiz Competition"
+              width="350"
+              height="350"
               loading="eager"
+              decoding="async"
+              fetchpriority="high"
               onerror="this.style.display='none'"
             />
           </div>
@@ -1135,9 +1330,10 @@
                 ><img
                   src="./assets/gecbta-loga.png"
                   alt="GECBTA Logo - Government Engineering College Barton Hill Alumni Association"
-                  width="200"
-                  height="100"
+                  width="152"
+                  height="190"
                   loading="lazy"
+                  decoding="async"
               /></a>
             </div>
             <div class="organizer-logo">
@@ -1145,9 +1341,10 @@
                 ><img
                   src="./assets/ackaf-logo.png"
                   alt="AKCAF Logo - UAE's largest alumni federation organizing MindQuest Quiz"
-                  width="200"
-                  height="100"
+                  width="152"
+                  height="190"
                   loading="lazy"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -1442,14 +1639,79 @@
         </div>
 
         <div class="contact-grid">
-          <div class="contact-info slide-in-left">
+          <div class="contact-form slide-in-left">
             <h3>Get In Touch</h3>
             <p class="body-text">
               Have questions about MindQuest? Our dedicated team is here to help
               you with registration, competition details, and any other
               inquiries.
+            <br />
+            <br />
             </p>
+            <h3 class="heading-oxford heading-spaced-lg">Send us a Message</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="contactName">Name *</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="contactName"
+                  required
+                  placeholder="Your full name"
+                />
+                <p class="form-error" id="contactNameError"></p>
+              </div>
 
+              <div class="form-group">
+                <label for="contactEmail">Email *</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="contactEmail"
+                  required
+                  placeholder="Your email address"
+                />
+                <p class="form-error" id="contactEmailError"></p>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
+                  placeholder="Message subject"
+                />
+                <p class="form-error" id="subjectError"></p>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  placeholder="Your message"
+                ></textarea>
+                <p class="form-error" id="messageError"></p>
+              </div>
+
+              <div
+                class="form-status"
+                id="contactStatus"
+                role="status"
+                aria-live="polite"
+              ></div>
+
+              <button type="submit" class="btn btn-primary btn-full-width">
+                <i class="fas fa-paper-plane"></i>
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <div class="contact-info slide-in-right">
             <div class="contact-item">
               <div class="contact-icon">
                 <i class="fas fa-envelope"></i>
@@ -1480,8 +1742,20 @@
                   <a
                     href="https://www.themillenniumschool-dubai.com/"
                     target="_blank"
-                    >The Millennium School, Al Qusais<br />Dubai, UAE</a
+                    >The Millennium School, Al Qusais, Dubai, UAE</a
                   >
+                </p>
+                <br />
+                <p>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7215.095002546581!2d55.367813!3d25.285803!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5c6651e59683%3A0xd1590ab4be45acb!2sThe%20Millennium%20School!5e0!3m2!1sen!2sae!4v1760273925121!5m2!1sen!2sae"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </p>
               </div>
             </div>
@@ -1499,64 +1773,13 @@
                 class="social-link"
                 ><i class="fab fa-instagram"></i
               ></a>
-              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-              <a href="#" class="social-link"
+              <!-- <a href="#" class="social-link"><i class="fab fa-twitter"></i></a> -->
+              <a
+                href="https://www.linkedin.com/company/mindquest-quiz"
+                class="social-link"
                 ><i class="fab fa-linkedin-in"></i
               ></a>
             </div>
-          </div>
-
-          <div class="contact-form slide-in-right">
-            <h3 class="heading-oxford heading-spaced-lg">Send us a Message</h3>
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="contactName">Name *</label>
-                <input
-                  type="text"
-                  id="contactName"
-                  name="contactName"
-                  required
-                  placeholder="Your full name"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="contactEmail">Email *</label>
-                <input
-                  type="email"
-                  id="contactEmail"
-                  name="contactEmail"
-                  required
-                  placeholder="Your email address"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="subject">Subject *</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  placeholder="Message subject"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  placeholder="Your message"
-                ></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-full-width">
-                <i class="fas fa-paper-plane"></i>
-                Send Message
-              </button>
-            </form>
           </div>
         </div>
       </div>
@@ -1605,7 +1828,23 @@
               ></blockquote>
             </div>
 
-            <script async src="https://www.instagram.com/embed.js"></script>
+            <script>
+              // Lazy load Instagram embed
+              const igObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    const script = document.createElement("script");
+                    script.async = true;
+                    script.src = "https://www.instagram.com/embed.js";
+                    document.head.appendChild(script);
+                    igObserver.unobserve(entry.target);
+                  }
+                });
+              });
+
+              const igEmbed = document.querySelector(".instagram-media");
+              if (igEmbed) igObserver.observe(igEmbed);
+            </script>
           </div>
 
           <div class="footer-section">
@@ -1629,6 +1868,39 @@
     </footer>
 
     <!-- External JavaScript -->
-    <script src="./assets/script.js"></script>
+    <script src="./assets/script.js" defer></script>
+
+    <!-- Service Worker Registration for GitHub Pages Caching -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+              console.log(
+                "[SW] Service Worker registered successfully:",
+                registration.scope
+              );
+
+              // Check for updates
+              registration.addEventListener("updatefound", () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener("statechange", () => {
+                  if (
+                    newWorker.state === "installed" &&
+                    navigator.serviceWorker.controller
+                  ) {
+                    console.log("[SW] New content available, please refresh");
+                    // Optionally show update notification to user
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.log("[SW] Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
