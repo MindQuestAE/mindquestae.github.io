@@ -18,7 +18,7 @@
     <title>MindQuest 2025 — UAE Inter-School General Knowledge Quiz</title>
     <meta
       name="description"
-      content="Join MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration Sept 5 - Oct 15. AED 10,000 prizes, no fees."
+      content="MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration closed. Contact: register.mindquest@gmail.com"
     />
     <meta
       name="keywords"
@@ -32,7 +32,7 @@
     />
     <meta
       property="og:description"
-      content="Join the most prestigious General Knowledge Quiz Competition for Indian high school students in the UAE"
+      content="MindQuest 2025 - The prestigious General Knowledge Quiz Competition for Indian high school students in the UAE. Registration closed. Contact: register.mindquest@gmail.com"
     />
     <meta property="og:type" content="website" />
     <link
@@ -278,7 +278,7 @@
     />
     <meta
       name="twitter:description"
-      content="Join MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration Sept 5 - Oct 15. AED 10,000 prizes, no fees."
+      content="MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration closed. Contact: register.mindquest@gmail.com"
     />
     <meta
       name="twitter:image"
@@ -595,7 +595,7 @@
             <div class="event-detail">
               <i class="fas fa-calendar-check"></i>
               <span
-                ><strong>Registration: Sept 5 - Oct 15, 2025</strong
+                ><strong>Registration: CLOSED</strong
                 ><br />Event: Oct 19, 2025</span
               >
             </div>
@@ -603,12 +603,12 @@
 
           <div class="cta-group">
             <a
-              href="#registration"
+              href="mailto:register.mindquest@gmail.com"
               class="btn btn-primary"
-              onclick="trackCTAClick('Register Now', 'Hero')"
+              onclick="trackCTAClick('Contact Us', 'Hero')"
             >
-              <i class="fas fa-user-plus"></i>
-              Register Now
+              <i class="fas fa-envelope"></i>
+              Contact Us
             </a>
             <a href="#about" class="btn btn-secondary">
               <i class="fas fa-info-circle"></i>
@@ -852,364 +852,28 @@
     <section id="registration" class="section registration-section">
       <div class="container">
         <div class="registration-content fade-in">
-          <h2 class="section-title section-title-white">Register Now</h2>
+          <h2 class="section-title section-title-white">Registration Closed</h2>
           <p class="section-subtitle section-subtitle-sky">
-            Secure your spot in the competition
+            Thank you for your interest in MindQuest 2025
           </p>
-          <p class="body-text-dark-bg">
-            Join the most exciting intellectual challenge for high school
-            students in the UAE. Registration is simple and quick!
-          </p>
-          <br />
-          <blockquote>
-            <p class="registration-highlight">
-              Registration is open from September 5, 2025, to October 15,
-              2025.<br />
-              Please ensure you meet the eligibility criteria and have the
-              required documents ready before filling out the registration form.
+          <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 40px; margin: 40px 0; text-align: center;">
+            <p class="body-text-dark-bg" style="font-size: 1.2em; margin-bottom: 30px;">
+              Registration for MindQuest 2025 is now closed.
             </p>
-          </blockquote>
-
-          <!-- Load jQuery & Select2 for searchable dropdown -->
-          <div class="registration-form">
-            <form id="registrationForm" method="POST">
-              <!-- Form-level error container -->
-              <div
-                id="form-errors"
-                style="
-                  display: none;
-                  background: rgba(255, 68, 68, 0.1);
-                  color: #ff4444;
-                  padding: 15px;
-                  border-radius: 8px;
-                  margin-bottom: 20px;
-                  border-left: 4px solid #ff4444;
-                "
-              ></div>
-
-              <!-- Participant 1 -->
-              <h2 style="color: white; display: inline">
-                Participant 1 Details
-              </h2>
-              <br />
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstName1">First Name *</label>
-                  <input
-                    type="text"
-                    id="firstName1"
-                    name="firstName1"
-                    required
-                    placeholder="Enter first name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="lastName1">Last Name *</label>
-                  <input
-                    type="text"
-                    id="lastName1"
-                    name="lastName1"
-                    required
-                    placeholder="Enter last name"
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="email1">Email Address *</label>
-                  <input
-                    type="email"
-                    id="email1"
-                    name="email1"
-                    required
-                    placeholder="e.g., name@example.com"
-                    title="Enter a valid email like name@example.com"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="dob1">Date of Birth *</label>
-                  <input
-                    type="date"
-                    id="dob1"
-                    name="dob1"
-                    required
-                    min="2007-01-01"
-                    max="2012-12-31"
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="phone1">Phone Number (UAE) *</label>
-                  <input
-                    type="tel"
-                    id="phone1"
-                    name="phone1"
-                    value="+971"
-                    pattern="^\+971[0-9]{9}$"
-                    maxlength="13"
-                    required
-                    oninput="
-        // force +971 at start
-        if(!this.value.startsWith('+971')) this.value='+971';
-        // strip all non-digits after +971
-        this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
-      "
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="emiratesId1">Emirates ID *</label>
-                  <input
-                    type="text"
-                    id="emiratesId1"
-                    name="emiratesId1"
-                    placeholder="15 digits e.g., 784198712345678"
-                    pattern="[0-9]{15}"
-                    title="Emirates ID must be exactly 15 digits"
-                    maxlength="15"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="school1">School Name *</label>
-                  <input
-                    list="schools1"
-                    id="school1"
-                    name="school1"
-                    required
-                    placeholder="Type your own or select from the list"
-                  />
-                  <datalist id="schools1" class="schools-list"> </datalist>
-                </div>
-                <div class="form-group">
-                  <label for="curriculum1">Curriculum *</label>
-                  <select id="curriculum1" name="curriculum1" required>
-                    <option value="">Select Curriculum</option>
-                    <option value="British">British</option>
-                    <option value="American">American</option>
-                    <option value="International Baccalaureate (IB)">
-                      International Baccalaureate (IB)
-                    </option>
-                    <option value="Indian (CBSE)">Indian (CBSE)</option>
-                    <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
-                    <option value="Other">Other (please specify)</option>
-                  </select>
-                  <input
-                    type="text"
-                    id="curriculumOther1"
-                    name="curriculumOther1"
-                    placeholder="Enter curriculum if not listed"
-                    style="display: none; margin-top: 5px"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="grade1">Grade/Class *</label>
-                  <select id="grade1" name="grade1" required>
-                    <option value="">Select Grade</option>
-                    <option value="8">Grade 8</option>
-                    <option value="9">Grade 9</option>
-                    <option value="10">Grade 10</option>
-                    <option value="11">Grade 11</option>
-                    <option value="12">Grade 12</option>
-                  </select>
-                </div>
-              </div>
-
-              <hr />
-              <br />
-
-              <!-- Participant 2 -->
-              <h2 style="color: white; display: inline">
-                Participant 2 Details
-              </h2>
-              <br />
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstName2">First Name *</label>
-                  <input
-                    type="text"
-                    id="firstName2"
-                    name="firstName2"
-                    required
-                    placeholder="Enter first name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="lastName2">Last Name *</label>
-                  <input
-                    type="text"
-                    id="lastName2"
-                    name="lastName2"
-                    required
-                    placeholder="Enter last name"
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="email2">Email Address *</label>
-                  <input
-                    type="email"
-                    id="email2"
-                    name="email2"
-                    required
-                    placeholder="e.g., name@example.com"
-                    title="Enter a valid email like name@example.com"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="dob2">Date of Birth *</label>
-                  <input
-                    type="date"
-                    id="dob2"
-                    name="dob2"
-                    required
-                    min="2007-01-01"
-                    max="2012-12-31"
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="phone2">Phone Number (UAE) *</label>
-                  <input
-                    type="tel"
-                    id="phone2"
-                    name="phone2"
-                    value="+971"
-                    pattern="^\+971[0-9]{9}$"
-                    maxlength="13"
-                    required
-                    oninput="
-        // force +971 at start
-        if(!this.value.startsWith('+971')) this.value='+971';
-        // strip all non-digits after +971
-        this.value = '+971' + this.value.replace(/\D/g, '').substring(3, 12);
-      "
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="emiratesId2">Emirates ID *</label>
-                  <input
-                    type="text"
-                    id="emiratesId2"
-                    name="emiratesId2"
-                    placeholder="15 digits e.g., 784198712345678"
-                    pattern="[0-9]{15}"
-                    title="Emirates ID must be exactly 15 digits"
-                    maxlength="15"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="school2">School Name *</label>
-                  <input
-                    list="schools2"
-                    id="school2"
-                    name="school2"
-                    required
-                    placeholder="Type your own or select from the list"
-                  />
-                  <datalist id="schools2" class="schools-list"> </datalist>
-                </div>
-                <div class="form-group">
-                  <label for="curriculum2">Curriculum *</label>
-                  <select id="curriculum2" name="curriculum2" required>
-                    <option value="">Select Curriculum</option>
-                    <option value="British">British</option>
-                    <option value="American">American</option>
-                    <option value="International Baccalaureate (IB)">
-                      International Baccalaureate (IB)
-                    </option>
-                    <option value="Indian (CBSE)">Indian (CBSE)</option>
-                    <option value="Indian (ICSE/ISC)">Indian (ICSE/ISC)</option>
-                    <option value="Other">Other (please specify)</option>
-                  </select>
-                  <input
-                    type="text"
-                    id="curriculumOther2"
-                    name="curriculumOther2"
-                    placeholder="Enter curriculum if not listed"
-                    style="display: none; margin-top: 5px"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="grade2">Grade/Class *</label>
-                  <select id="grade2" name="grade2" required>
-                    <option value="">Select Grade</option>
-                    <option value="8">Grade 8</option>
-                    <option value="9">Grade 9</option>
-                    <option value="10">Grade 10</option>
-                    <option value="11">Grade 11</option>
-                    <option value="12">Grade 12</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Consent -->
-              <!-- Consent -->
-              <div class="form-row" style="width: 100%; display: block">
-                <label
-                  for="consent"
-                  style="
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 10px;
-                    width: 100%;
-                  "
-                >
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    name="consent"
-                    required
-                    style="margin-top: 5px"
-                  />
-                  <span
-                    style="
-                      display: block;
-                      white-space: normal;
-                      line-height: 1.6;
-                      text-align: left;
-                      width: 100%;
-                    "
-                  >
-                    I confirm that all information provided is correct and
-                    consent to participation.
-                  </span>
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                class="btn btn-primary btn-full-width btn-large"
-                onclick="trackCTAClick('Submit Registration', 'Registration Form')"
-              >
-                <i class="fas fa-paper-plane"></i>
-                Submit Registration
-              </button>
-            </form>
-            <div id="serialOutput"></div>
-          </div>
-
-          <!-- Confirmation card will appear here -->
-          <div id="confirmationContainer"></div>
-
-          <div class="text-center-spaced text-sky-blue">
-            <p class="caption-text-dark-bg">
-              <strong>Deadline:</strong> October 15, 2025
+            <p class="body-text-dark-bg" style="font-size: 1.1em; margin-bottom: 20px;">
+              For any queries, please contact us at:
+            </p>
+            <p style="margin: 20px 0;">
+              <a href="mailto:register.mindquest@gmail.com"
+                 class="btn btn-primary btn-large"
+                 style="display: inline-block; text-decoration: none;">
+                <i class="fas fa-envelope"></i>
+                register.mindquest@gmail.com
+              </a>
             </p>
           </div>
+
+          <!-- Registration form removed -->
         </div>
       </div>
     </section>
@@ -1458,45 +1122,6 @@
             </h3>
             <p class="body-text">
               Leading healthcare provider in the UAE offering world-class medical services with experienced doctors and advanced medical technology.
-            </p>
-          </div>
-
-          <!-- XandY Learning --\>
-          <div class="sponsor-card fade-in">
-            <a href="https://xandylearning.com/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//xandy.png"
-                  alt="XandY Learning Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://xandylearning.com/" target="_blank" rel="noopener noreferrer">XandY Learning</a>
-            </h3>
-            <p class="body-text">
-              E-learning platform led by IITians and Doctors providing specialized coaching for students in science, mathematics, and competitive exams.
-            </p>
-          </div> -->
-
-          <!-- NTV UAE - Media Partner -->
-          <div class="sponsor-card fade-in">
-            <div class="sponsor-badge">Media Partner</div>
-            <a href="https://www.ntvuae.tv/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//ntv.png"
-                  alt="NTV UAE Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://www.ntvuae.tv/" target="_blank" rel="noopener noreferrer">NTV UAE</a>
-            </h3>
-            <p class="body-text">
-              Leading regional television network delivering news, entertainment, and community programming for the Indian diaspora in the UAE.
             </p>
           </div>
         </div>
