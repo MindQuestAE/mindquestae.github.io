@@ -1,14 +1,14 @@
 // Service Worker for GitHub Pages Caching
-// Version 1.0.5
+// Version 2.0.0
 
-const CACHE_NAME = 'mindquest-v1.0.5';
+const CACHE_NAME = 'mindquest-v2.0.0';
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
   '/assets/styles.css',
   '/assets/script.js',
   '/assets/mindquest-logomark.png',
-  '/assets/mindquestlogowithtag-01.png',
+  '/assets/mindquest-wordmark.png',
   '/assets/gecbta-loga.png',
   '/assets/ackaf-logo.png',
   '/assets/pattern-01.png',
@@ -19,7 +19,7 @@ const STATIC_CACHE_URLS = [
 
 // External resources to cache
 const EXTERNAL_CACHE_URLS = [
-  'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap',
+  'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Lato:wght@400;700;900&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 

@@ -3,38 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Performance and Security Meta Tags for GitHub Pages -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://script.google.com; frame-src https://www.instagram.com https://www.google.com;"
+      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://*.google-analytics.com https://www.googletagmanager.com https://script.google.com https://script.googleusercontent.com; frame-src https://www.google.com;"
     />
-    <meta
-      http-equiv="Referrer-Policy"
-      content="strict-origin-when-cross-origin"
-    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#0a2155" />
 
-    <title>MindQuest 2025 — UAE Inter-School General Knowledge Quiz</title>
+    <title>MindQuest 2026 — UAE Inter-School General Knowledge Quiz</title>
     <meta
       name="description"
-      content="MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration closed. Contact: register.mindquest@gmail.com"
+      content="MindQuest 2026 — Season 2 of the UAE's General Knowledge Quiz for high school students of the Indian diaspora. Free entry, teams of two. Organised by GECBTA in association with AKCAF."
     />
     <meta
       name="keywords"
-      content="quiz competition, knowledge, students, UAE, education, MindQuest"
+      content="quiz competition, general knowledge, students, UAE, Dubai, Indian schools, MindQuest 2026"
     />
+    <meta name="author" content="GECBTA, AKCAF" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="en-AE" />
+    <link rel="canonical" href="https://mindquestquiz.com/" />
+    <link rel="alternate" hreflang="en-ae" href="https://mindquestquiz.com/" />
 
-    <!-- Open Graph tags -->
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mindquestquiz.com/" />
+    <meta property="og:site_name" content="MindQuest Quiz" />
     <meta
       property="og:title"
-      content="MindQuest - Annual General Knowledge Quiz Competition for Indian high school students in UAE"
+      content="MindQuest 2026 — UAE Inter-School General Knowledge Quiz"
     />
     <meta
       property="og:description"
-      content="MindQuest 2025 - The prestigious General Knowledge Quiz Competition for Indian high school students in the UAE. Registration closed. Contact: register.mindquest@gmail.com"
+      content="Season 2 is coming. The UAE's General Knowledge Quiz for high school students of the Indian diaspora — free entry, teams of two."
     />
-    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mindquestquiz" />
+    <meta
+      name="twitter:title"
+      content="MindQuest 2026 — UAE Inter-School General Knowledge Quiz"
+    />
+    <meta
+      name="twitter:description"
+      content="Season 2 is coming. The UAE's General Knowledge Quiz for high school students of the Indian diaspora — free entry, teams of two."
+    />
+    <meta
+      name="twitter:image"
+      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
+    />
+
+    <!-- Icons -->
     <link
       rel="icon"
       type="image/png"
@@ -50,201 +75,22 @@
     />
     <link rel="manifest" href="./assets/favicon/site.webmanifest" />
 
-    <!-- HTTP/2 Server Push hints for GitHub Pages -->
-    <link rel="preload" href="./assets/styles.css" as="style" />
-    <link rel="preload" href="./assets/script.js" as="script" />
-    <link rel="preload" href="./assets/mindquest-logomark.png" as="image" />
-    <link
-      rel="preload"
-      href="./assets/mindquestlogowithtag-01.png"
-      as="image"
-    />
-
-    <!-- Preconnect for performance -->
+    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.instagram.com" />
-    <link rel="dns-prefetch" href="https://www.facebook.com" />
-    <link rel="dns-prefetch" href="https://akcafuae.com" />
+    <link rel="preload" href="./assets/mindquest-logomark.png" as="image" />
 
-    <!-- Critical CSS inline for above-the-fold content -->
-    <style>
-      /* Critical CSS - Above the fold styles */
-      :root {
-        --oxford-blue: #0a2155;
-        --oxford-blue-light: #1a3a7a;
-        --minion-yellow: #f9d84b;
-        --minion-yellow-light: #fce570;
-        --slate-gray: #4f4f4f;
-        --white: #ffffff;
-        --sky-blue: #b3d4fc;
-        --sky-blue-light: #d1e7fd;
-        --gradient-primary: linear-gradient(
-          135deg,
-          var(--oxford-blue) 0%,
-          var(--oxford-blue-light) 50%,
-          var(--sky-blue) 100%
-        );
-        --gradient-accent: linear-gradient(
-          45deg,
-          var(--minion-yellow) 0%,
-          var(--minion-yellow-light) 100%
-        );
-        /* Typography with font-display optimization */
-        --font-title: "Montserrat", system-ui, -apple-system, "Segoe UI",
-          sans-serif;
-        --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
-        --shadow-soft: 0 10px 40px rgba(10, 33, 85, 0.1);
-        --border-radius-sm: 8px;
-        --border-radius-md: 15px;
-        --border-radius-lg: 25px;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: var(--font-body);
-        line-height: 1.7;
-        color: var(--oxford-blue);
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-      }
-      .loading {
-        opacity: 0;
-        animation: fadeInUp 1s ease forwards;
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .navbar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        z-index: 1000;
-        padding: 1rem 0;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .navbar.scrolled {
-        background: rgba(10, 33, 85, 0.98);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        box-shadow: var(--shadow-soft);
-      }
-      .nav-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 2rem;
-      }
-      .hero {
-        min-height: 100vh;
-        background: var(--gradient-primary);
-        position: relative;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-      }
-      .hero-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 2rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-      }
-      .hero-content {
-        color: var(--white);
-        animation: slideInLeft 1s ease-out;
-      }
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-      .hero-tagline {
-        font-family: var(--font-title);
-        font-size: clamp(28px, 5vw, 48px);
-        font-weight: 800;
-        color: var(--minion-yellow);
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
-        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
-      }
-      .scroll-progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: rgba(249, 216, 75, 0.2);
-        z-index: 9999;
-      }
-      .scroll-progress-bar {
-        height: 100%;
-        background: var(--gradient-accent);
-        width: 0%;
-        transition: width 0.1s ease;
-      }
-    </style>
-
-    <!-- Preload critical fonts with font-display swap -->
     <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Lato:wght@400;700;900&display=swap"
     />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap"
-    /></noscript>
-
-    <!-- Preload Font Awesome -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    /></noscript>
-
-    <!-- Preload main CSS -->
-    <link
-      rel="preload"
-      href="./assets/styles.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="./assets/styles.css" /></noscript>
+    <link rel="stylesheet" href="./assets/styles.css" />
 
     <!-- Google Analytics 4 -->
     <script
@@ -252,106 +98,26 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-NVLZZP28ME"
     ></script>
 
-    <!-- Additional SEO Meta Tags -->
-    <meta name="author" content="MindQuest Team" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="GECBTA, AKCAF" />
-    <link rel="canonical" href="https://mindquestquiz.com/" />
-    <meta name="language" content="en-AE" />
-    <link rel="alternate" hreflang="en-ae" href="https://mindquestquiz.com/" />
-
-    <!-- Open Graph Image -->
-    <meta
-      property="og:image"
-      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://mindquestquiz.com/" />
-    <meta property="og:site_name" content="MindQuest Quiz" />
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="MindQuest 2025 — UAE Inter-School General Knowledge Quiz"
-    />
-    <meta
-      name="twitter:description"
-      content="MindQuest 2025, the premier General Knowledge Quiz for Indian diaspora high school students in Dubai. Event: Oct 19, 2025 at The Millennium School, Al Qusais. Registration closed. Contact: register.mindquest@gmail.com"
-    />
-    <meta
-      name="twitter:image"
-      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
-    />
-    <meta name="twitter:site" content="@mindquestquiz" />
-
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD Structured Data.
+         TODO(2026): add an "Event" node with startDate/location once dates and venue are confirmed. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "Event",
-            "@id": "https://mindquestquiz.com/#event",
-            "name": "MindQuest 2025 - UAE Inter-School General Knowledge Quiz",
-            "description": "The premier General Knowledge Quiz Competition for high school students of Indian diaspora in the UAE. Test your knowledge, compete with brilliant minds, and showcase your intellectual prowess.",
-            "startDate": "2025-10-19T14:00:00+04:00",
-            "endDate": "2025-10-19T18:00:00+04:00",
-            "eventStatus": "https://schema.org/EventScheduled",
-            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-            "location": {
-              "@type": "Place",
-              "name": "The Millennium School",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Al Qusais",
-                "addressLocality": "Dubai",
-                "addressRegion": "Dubai",
-                "addressCountry": "AE",
-                "telephone": "+971 52 480 3447"
-              },
-              "url": "https://www.themillenniumschool-dubai.com/"
-            },
-            "organizer": [
-              {
-                "@type": "Organization",
-                "name": "GECBTA",
-                "url": "https://www.facebook.com/gecbta/"
-              },
-              {
-                "@type": "Organization",
-                "name": "AKCAF",
-                "url": "https://akcafuae.com/"
-              }
-            ],
-            "audience": {
-              "@type": "Audience",
-              "audienceType": "High School Students of Indian Diaspora in UAE"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "AED",
-              "availability": "https://schema.org/InStock",
-              "validFrom": "2025-09-05",
-              "validThrough": "2025-09-30",
-              "description": "Free registration for all eligible participants"
-            },
-            "award": [
-              "AED 5,000 First Prize",
-              "AED 3,000 Second Prize",
-              "AED 2,000 Third Prize",
-              "Trophies and Medals",
-              "Certificates of Excellence"
-            ]
+            "@type": "WebSite",
+            "@id": "https://mindquestquiz.com/#website",
+            "url": "https://mindquestquiz.com/",
+            "name": "MindQuest Quiz",
+            "description": "The General Knowledge Quiz Competition for high school students of the Indian diaspora in the UAE.",
+            "publisher": { "@type": "Organization", "name": "GECBTA & AKCAF" }
           },
           {
             "@type": "Organization",
             "@id": "https://mindquestquiz.com/#organization-gecbta",
             "name": "GECBTA",
             "url": "https://www.facebook.com/gecbta/",
-            "description": "Government Engineering College Barton Hill Alumni Association, recognized for academic excellence and educational initiatives in the UAE.",
+            "description": "Government Engineering College Barton Hill Alumni Association, recognised for academic excellence and educational initiatives in the UAE.",
             "areaServed": "United Arab Emirates"
           },
           {
@@ -368,10 +134,10 @@
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "What are the registration requirements?",
+                "name": "Who can take part?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "High School Students of Indian Diaspora (Grade 8-12 of Indian Curriculum/Year 9-13 of British Curriculum or equivalent). Participants must provide valid student identification, School IDs from UAE schools."
+                  "text": "High school students of the Indian diaspora — Grade 8–12 of the Indian curriculum, or Year 9–13 of the British curriculum or equivalent — currently enrolled in a UAE school. Valid school ID is required."
                 }
               },
               {
@@ -379,15 +145,15 @@
                 "name": "Is there a registration fee?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "This event doesn't have any registration fee."
+                  "text": "No. Registration for MindQuest is completely free."
                 }
               },
               {
                 "@type": "Question",
-                "name": "What topics will be covered in the competition?",
+                "name": "What topics are covered?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The competition would have general knowledge topics including, but not limited to world, India, Science & Technology, Current affairs, Sports, Literature, Arts & Entertainment"
+                  "text": "General knowledge including, but not limited to, the World, India, Science & Technology, Current Affairs, Sports, Literature, and Arts & Entertainment."
                 }
               },
               {
@@ -395,1150 +161,689 @@
                 "name": "Are there prizes for winners?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes! Winners receive trophies, certificates, and recognition. All participants receive certificates of participation."
+                  "text": "Yes. Winners receive cash prizes, trophies, medals and certificates. All Grand Finale qualifiers receive certificates of excellence."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Can parents attend the competition?",
+                "name": "Can parents attend?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Parents and family members are welcome to attend the finals and support the participants."
+                  "text": "Yes. Parents and family members are welcome to attend the Grand Finale and cheer on the participants."
                 }
               }
             ]
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": "https://mindquestquiz.com/#breadcrumblist",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://mindquestquiz.com/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "About",
-                "item": "https://mindquestquiz.com/#about"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Details",
-                "item": "https://mindquestquiz.com/#details"
-              },
-              {
-                "@type": "ListItem",
-                "position": 4,
-                "name": "Schedule",
-                "item": "https://mindquestquiz.com/#schedule"
-              },
-              {
-                "@type": "ListItem",
-                "position": 5,
-                "name": "Registration",
-                "item": "https://mindquestquiz.com/#registration"
-              },
-              {
-                "@type": "ListItem",
-                "position": 6,
-                "name": "Contact",
-                "item": "https://mindquestquiz.com/#contact"
-              }
-            ]
-          },
-          {
-            "@type": "WebSite",
-            "@id": "https://mindquestquiz.com/#website",
-            "url": "https://mindquestquiz.com/",
-            "name": "MindQuest Quiz",
-            "description": "The premier General Knowledge Quiz Competition for high school students of Indian diaspora in the UAE.",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://mindquestquiz.com/?s={search_term_string}",
-              "query-input": "required name=search_term_string"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "GECBTA & AKCAF"
-            }
           }
         ]
       }
     </script>
   </head>
-  <body class="loading">
-    <!-- Cookie Consent Banner -->
-    <div
-      id="cookieConsent"
-      style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #333;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        z-index: 10000;
-        display: none;
-      "
-    >
-      <p style="margin: 0 0 10px 0">
-        This website uses cookies to enhance your experience and analyze website
-        traffic. By continuing to use this site, you consent to our use of
-        cookies.
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Cookie Consent -->
+    <div id="cookieConsent" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+      <p>
+        We use cookies to understand how visitors use this site. You can
+        accept or decline analytics cookies.
       </p>
-      <button
-        onclick="acceptCookies()"
-        style="
-          background: #007bff;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 4px;
-          margin-right: 10px;
-          cursor: pointer;
-        "
-      >
-        Accept
-      </button>
-      <button
-        onclick="declineCookies()"
-        style="
-          background: #6c757d;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 4px;
-          cursor: pointer;
-        "
-      >
-        Decline
-      </button>
+      <div class="cookie-actions">
+        <button type="button" class="btn btn-sm btn-ghost-light" onclick="declineCookies()">Decline</button>
+        <button type="button" class="btn btn-sm btn-yellow" onclick="acceptCookies()">Accept</button>
+      </div>
     </div>
 
-    <!-- Scroll Progress -->
-    <div class="scroll-progress">
-      <div class="scroll-progress-bar"></div>
-    </div>
+    <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar"></div></div>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-      <div class="nav-container">
-        <div class="logo-container">
+    <header class="navbar" id="navbar">
+      <nav class="nav-container" aria-label="Primary">
+        <a href="#home" class="brand" aria-label="MindQuest 2026 home">
           <img
             src="./assets/mindquest-logomark.png"
-            alt="MindQuest logo - UAE Inter-School General Knowledge Quiz Competition"
-            class="img-hide-on-error"
-            width="120"
+            alt=""
+            width="32"
             height="40"
-            loading="eager"
-            decoding="async"
             fetchpriority="high"
-            onerror="this.style.display='none'"
           />
-        </div>
+          <span class="brand-text">MindQuest<span class="brand-year">’26</span></span>
+        </a>
 
         <ul class="nav-menu" id="navMenu">
-          <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#details">Details</a></li>
-          <li><a href="#schedule">Schedule</a></li>
-          <li><a href="#sponsors">Sponsors</a></li>
-          <li><a href="#registration">Register</a></li>
+          <li><a href="#format">Format</a></li>
+          <li><a href="#dates">Dates</a></li>
+          <li><a href="#prizes">Prizes</a></li>
+          <li><a href="#partners">Partners</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li class="nav-cta-mobile"><a href="#register" class="btn btn-yellow">Get notified</a></li>
         </ul>
 
-        <div class="hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </nav>
+        <a href="#register" class="btn btn-ink nav-cta">Get notified</a>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="hero-container">
-        <div class="hero-content">
-          <h1 class="hero-tagline">
-            MindQuest 2025 — UAE Inter-School General Knowledge Quiz
-          </h1>
-          <div class="hero-subtitle">
-            Annual General Knowledge Quiz Competition for Indian Diaspora
-            Students
-          </div>
-          <p class="hero-description">
-            Join the biggest & most prestigious quiz competition for high school
-            students of Indian diaspora in the UAE. Test your knowledge, compete
-            with brilliant minds, and showcase your intellectual prowess.
-          </p>
-          <div class="event-info">
-            <div class="event-detail">
-              <i class="fas fa-gift"></i>
-              <span
-                ><strong>FREE Registration</strong><br />No registration
-                fees</span
-              >
-            </div>
-            <div class="event-detail">
-              <i class="fas fa-trophy"></i>
-              <span
-                ><strong>AED 10,000 Total Prizes</strong><br />Cash prizes +
-                Trophies</span
-              >
-            </div>
-            <div class="event-detail">
-              <i class="fas fa-calendar-check"></i>
-              <span
-                ><strong>Registration: CLOSED</strong
-                ><br />Event: Oct 19, 2025</span
-              >
-            </div>
-          </div>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </header>
 
-          <div class="cta-group">
-            <a
-              href="mailto:register.mindquest@gmail.com"
-              class="btn btn-primary"
-              onclick="trackCTAClick('Contact Us', 'Hero')"
-            >
-              <i class="fas fa-envelope"></i>
-              Contact Us
-            </a>
-            <a href="#about" class="btn btn-secondary">
-              <i class="fas fa-info-circle"></i>
-              Learn More
-            </a>
-          </div>
+    <main id="main">
+      <!-- Hero -->
+      <section id="home" class="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <span class="qmark qmark-1">?</span>
+          <span class="qmark qmark-2">?</span>
+          <span class="qmark qmark-3">!</span>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-shape">
-            <img
-              class="hero-logo img-hide-on-error"
-              src="./assets/mindquestlogo-hero-logo.png"
-              alt="MindQuest 2025 - Unlock Your Mind, Conquer The Quest - UAE General Knowledge Quiz Competition"
-              width="350"
-              height="350"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              onerror="this.style.display='none'"
-            />
-          </div>
-          <p class="hero-visual-subtitle">
-            Unlock Your Mind, Conquer The Quest.
-          </p>
-        </div>
-      </div>
-    </section>
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <p class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Season 02 · UAE Inter-School GK Quiz
+            </p>
+            <h1 class="hero-title">
+              Unlock your mind.
+              <span class="hl">Conquer</span> the quest.
+            </h1>
+            <p class="hero-lead">
+              MindQuest is back for 2026. Grab a teammate, sharpen your general
+              knowledge and take on the brightest high-school minds of the
+              Indian diaspora across the UAE.
+            </p>
 
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">About MindQuest</h2>
-          <p class="section-subtitle">
-            A celebration of intellect, curiosity, and the pursuit of knowledge
-          </p>
-        </div>
-
-        <div class="about-grid">
-          <div class="feature-content slide-in-left">
-            <ul class="features-list">
-              <li>
-                <i class="fas fa-user-graduate"></i>Compete with top students
-                across UAE
-              </li>
-              <li>
-                <i class="fas fa-trophy"></i>Win exciting prizes and recognition
-              </li>
-              <li><i class="fas fa-chalkboard-teacher"></i>Build confidence</li>
-              <li>
-                <i class="fas fa-users"></i>Network with like-minded peers
-              </li>
-              <li>
-                <i class="fas fa-book-open"></i>Gain valuable educational
-                experience
-              </li>
+            <ul class="hero-chips">
+              <li><i class="fas fa-ticket-alt" aria-hidden="true"></i> Free entry</li>
+              <li><i class="fas fa-user-friends" aria-hidden="true"></i> Teams of two</li>
+              <li><i class="fas fa-graduation-cap" aria-hidden="true"></i> Grades 8–12</li>
             </ul>
-          </div>
-          <div class="about-content slide-in-right">
-            <h3>The Ultimate Knowledge Challenge</h3>
-            <p class="body-text">
-              MindQuest is more than just a quiz competition – it's a platform
-              where the brightest minds from High schools of Indian diaspora
-              across the UAE come together to showcase their knowledge and
-              intellectual prowess.
-            </p>
-            <br />
 
-            <p class="body-text">
-              Our competition is designed to test comprehensive knowledge across
-              multiple domains while fostering a spirit of healthy competition
-              and learning among participants.
-              <a href="#details">Learn more about the competition format</a> and
-              <a href="#registration">register now</a> to participate.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Event Details Section -->
-    <section id="details" class="section details-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Event Details</h2>
-          <p class="section-subtitle">
-            Everything you need to know about the competition
-          </p>
-        </div>
-
-        <div class="details-grid">
-          <div class="detail-card fade-in">
-            <div class="detail-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <h3>Competition Format</h3>
-            <p class="body-text">
-              The competition consists of preliminary rounds followed by Grand
-              Finale. Check our <a href="#schedule">detailed schedule</a> for
-              exact timings.
-            </p>
-            <ul>
-              <li>Written Prelims</li>
-              <li>Category-based questions</li>
-              <li>Grand Finale with interactive buzzer rounds</li>
-              <li>Live audience participation</li>
-            </ul>
-            <p class="caption-text">
-              <!-- <strong>Question Categories:</strong> Science & Technology,
-              History & Geography, Current Affairs, Literature & Arts, Sports &
-              Entertainment -->
-            </p>
-          </div>
-
-          <div class="detail-card fade-in">
-            <div class="detail-icon">
-              <i class="fas fa-user-graduate"></i>
-            </div>
-            <h3>Eligibility Criteria</h3>
-            <p class="body-text">
-              Open to all High School Students of Indian Diaspora.
-            </p>
-            <ul>
-              <li>Students in Grade 8-12 of Indian Curriculum</li>
-              <li>Students in Year 9-13 of British Curriculum or equivalent</li>
-              <li>Currently enrolled in UAE schools</li>
-              <li>Valid student identification required</li>
-            </ul>
-            <p class="caption-text">
-              <strong>Age Requirement:</strong> Must be a high school student at
-              the time of registration. Ready to compete?
-              <a href="#registration">Register here</a>.
-            </p>
-          </div>
-
-          <div class="detail-card fade-in">
-            <div class="detail-icon">
-              <i class="fas fa-calendar-check"></i>
-            </div>
-            <h3>Important Dates</h3>
-            <p class="body-text">
-              Mark your calendars for these crucial milestones.
-            </p>
-            <ul>
-              <li><strong>Registration Opens:</strong> September 5, 2025</li>
-              <li><strong>Registration Deadline:</strong> October 15, 2025</li>
-              <li><strong>Preliminary Round:</strong> October 19, 2025</li>
-              <li><strong>Grand Finale:</strong> October 19, 2025</li>
-            </ul>
-            <p class="caption-text">
-              Don't miss out! <a href="#registration">Register now</a> before
-              the deadline.
-            </p>
-          </div>
-
-          <div class="detail-card fade-in">
-            <div class="detail-icon">
-              <i class="fas fa-gavel"></i>
-            </div>
-            <h3>Rules & Regulations</h3>
-            <p class="body-text">Competition guidelines and code of conduct.</p>
-            <ul>
-              <li>Participation is limited to teams of two.</li>
-              <li>No external aids or devices allowed</li>
-              <li>Punctuality is mandatory</li>
-              <li>Respectful behavior towards all participants</li>
-              <li>Decisions of Quiz Master will be final</li>
-              <li>Fair play and integrity expected</li>
-            </ul>
-            <p class="caption-text">
-              <strong>Note:</strong> Violation of rules may result in
-              disqualification. For questions about rules,
-              <a href="#contact">contact us</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="prizes" class="section prizes-section">
-      <div class="container">
-        <div class="section-header fade-in text-center">
-          <h2 class="section-title">
-            🎁 Prizes & Recognition – MindQuest 2025
-          </h2>
-          <p class="section-subtitle">
-            At MindQuest 2025, knowledge deserves to be rewarded! Celebrate the
-            brightest minds with prestigious awards and cash prizes totaling AED
-            10,000!
-          </p>
-        </div>
-
-        <div class="prizes-grid">
-          <div class="prize-card fade-in">
-            <div class="prize-icon">🏆</div>
-            <h3>Grand Finale Cash Prizes</h3>
-            <ul>
-              <li>🥇 1st Place Team – AED 5,000 + Trophy + Gold Medals</li>
-              <li>🥈 2nd Place Team – AED 3,000 + Trophy + Silver Medals</li>
-              <li>🥉 3rd Place Team – AED 2,000 + Trophy + Bronze Medals</li>
-            </ul>
-          </div>
-
-          <div class="prize-card fade-in">
-            <div class="prize-icon">🎖</div>
-            <h3>Special Awards</h3>
-            <ul>
-              <li>
-                Best School Delegation – For the school with the highest team
-                participation
-              </li>
-              <li>
-                Young Achievers – Spotlight awards for Grade 8/9 participants
-                with exceptional scores
-              </li>
-            </ul>
-          </div>
-
-          <div class="prize-card fade-in">
-            <div class="prize-icon">📜</div>
-            <h3>Certificates of Excellence</h3>
-            <p>
-              All Grand Finale qualifiers will receive official certificates
-              from GECBTA & AKCAF, honoring their achievement.
-            </p>
-          </div>
-        </div>
-
-        <div class="text-center-spaced text-sky-blue fade-in">
-          <p class="caption-text-dark-bg">
-            Join the journey, showcase your brilliance, and compete for glory —
-            and gold!<br />
-            Registrations open on September 5, 2025.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section id="registration" class="section registration-section">
-      <div class="container">
-        <div class="registration-content fade-in">
-          <h2 class="section-title section-title-white">Registration Closed</h2>
-          <p class="section-subtitle section-subtitle-sky">
-            Thank you for your interest in MindQuest 2025
-          </p>
-          <div style="background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 40px; margin: 40px 0; text-align: center;">
-            <p class="body-text-dark-bg" style="font-size: 1.2em; margin-bottom: 30px;">
-              Registration for MindQuest 2025 is now closed.
-            </p>
-            <p class="body-text-dark-bg" style="font-size: 1.1em; margin-bottom: 20px;">
-              For any queries, please contact us at:
-            </p>
-            <p style="margin: 20px 0;">
-              <a href="mailto:register.mindquest@gmail.com"
-                 class="btn btn-primary btn-large"
-                 style="display: inline-block; text-decoration: none;">
-                <i class="fas fa-envelope"></i>
-                register.mindquest@gmail.com
+            <div class="cta-group">
+              <a href="#register" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Get notified', 'Hero')">
+                <i class="fas fa-bell" aria-hidden="true"></i> Get notified
               </a>
+              <a href="#format" class="btn btn-outline btn-lg">
+                How it works <i class="fas fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Warm-up question card -->
+          <div class="hero-visual">
+            <div class="quiz-card" id="quizCard">
+              <div class="quiz-card-top">
+                <span class="quiz-chip">Warm-up · <span id="qNum">1</span>/<span id="qTotal">5</span></span>
+                <span class="quiz-cat" id="qCat">Space</span>
+              </div>
+              <p class="quiz-q" id="qText">
+                Which Indian mission made the first-ever soft landing near the
+                Moon’s south pole?
+              </p>
+              <div class="quiz-options" id="qOptions" role="group" aria-label="Answer options">
+                <button type="button" class="quiz-opt" data-i="0"><span class="opt-key">A</span>Chandrayaan-2</button>
+                <button type="button" class="quiz-opt" data-i="1"><span class="opt-key">B</span>Chandrayaan-3</button>
+                <button type="button" class="quiz-opt" data-i="2"><span class="opt-key">C</span>Mangalyaan</button>
+                <button type="button" class="quiz-opt" data-i="3"><span class="opt-key">D</span>Aditya-L1</button>
+              </div>
+              <div class="quiz-foot">
+                <p class="quiz-feedback" id="qFeedback" aria-live="polite">Tap an answer to lock it in.</p>
+                <button type="button" class="quiz-next" id="qNext">Next <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="buzzer" aria-hidden="true"><span>Buzz!</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category ticker -->
+      <div class="ticker" aria-label="Quiz categories">
+        <div class="ticker-track">
+          <ul>
+            <li>World</li><li>India</li><li>Science &amp; Tech</li><li>Current Affairs</li><li>Sports</li><li>Literature</li><li>Arts &amp; Entertainment</li><li>UAE</li>
+          </ul>
+          <ul aria-hidden="true">
+            <li>World</li><li>India</li><li>Science &amp; Tech</li><li>Current Affairs</li><li>Sports</li><li>Literature</li><li>Arts &amp; Entertainment</li><li>UAE</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Round 01 — About -->
+      <section id="about" class="section">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag"><span>01</span> Round one</p>
+            <h2 class="section-title">More than a quiz.</h2>
+            <p class="section-lead">
+              A celebration of curiosity — where high schoolers from across the
+              Emirates meet, compete and learn from each other.
             </p>
+          </header>
+
+          <div class="bento">
+            <article class="card card-feature bento-main reveal">
+              <h3>The ultimate knowledge challenge</h3>
+              <p>
+                MindQuest brings together the brightest minds from high schools
+                of the Indian diaspora across the UAE to showcase what they
+                know — and discover what they don’t yet.
+              </p>
+              <p>
+                The competition tests knowledge across many domains while
+                fostering healthy rivalry, teamwork and a genuine love of
+                learning.
+              </p>
+              <a href="#format" class="text-link">See the format <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            </article>
+
+            <article class="card tile tile-yellow reveal">
+              <i class="fas fa-user-graduate" aria-hidden="true"></i>
+              <h3>Compete with the best</h3>
+              <p>Face top students from schools across the UAE.</p>
+            </article>
+            <article class="card tile tile-sky reveal">
+              <i class="fas fa-trophy" aria-hidden="true"></i>
+              <h3>Win recognition</h3>
+              <p>Cash prizes, trophies, medals and certificates.</p>
+            </article>
+            <article class="card tile reveal">
+              <i class="fas fa-bolt" aria-hidden="true"></i>
+              <h3>Build confidence</h3>
+              <p>Think fast on stage in live buzzer rounds.</p>
+            </article>
+            <article class="card tile tile-ink reveal">
+              <i class="fas fa-users" aria-hidden="true"></i>
+              <h3>Meet your people</h3>
+              <p>Connect with curious, like-minded peers.</p>
+            </article>
           </div>
 
-          <!-- Registration form removed -->
+          <aside class="recap reveal" aria-label="Season 1 recap">
+            <div class="recap-label">Season 1 recap</div>
+            <dl class="recap-stats">
+              <div><dt>Held on</dt><dd>19 Oct 2025</dd></div>
+              <div><dt>Hosted at</dt><dd>The Millennium School, Al Qusais</dd></div>
+              <div><dt>Prize pool</dt><dd>AED 10,000</dd></div>
+            </dl>
+          </aside>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Schedule Section -->
-    <section id="schedule" class="section schedule-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Event Schedule</h2>
-          <p class="section-subtitle">
-            Timeline of activities and important milestones
+      <!-- Round 02 — Format -->
+      <section id="format" class="section section-sky">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag"><span>02</span> Round two</p>
+            <h2 class="section-title">How the game is played.</h2>
+            <p class="section-lead">
+              Two stages, one champion team. Here’s what to expect on the day.
+            </p>
+          </header>
+
+          <ol class="steps">
+            <li class="card step reveal">
+              <span class="step-num">1</span>
+              <h3>Written prelims</h3>
+              <p>
+                Every team sits a written round of category-based questions.
+                The top scorers advance.
+              </p>
+            </li>
+            <li class="card step reveal">
+              <span class="step-num">2</span>
+              <h3>Grand Finale</h3>
+              <p>
+                Finalists go head-to-head on stage in interactive buzzer rounds
+                — with a live audience cheering.
+              </p>
+            </li>
+            <li class="card step reveal">
+              <span class="step-num">3</span>
+              <h3>Awards</h3>
+              <p>
+                The MindQuest 2026 champions are crowned, with prizes for the
+                podium and special awards.
+              </p>
+            </li>
+          </ol>
+
+          <div class="split">
+            <article class="card reveal">
+              <div class="card-icon"><i class="fas fa-id-card" aria-hidden="true"></i></div>
+              <h3>Who can enter</h3>
+              <p>Open to all high school students of the Indian diaspora.</p>
+              <ul class="check-list">
+                <li>Grade 8–12 of the Indian curriculum</li>
+                <li>Year 9–13 of the British curriculum or equivalent</li>
+                <li>Currently enrolled in a UAE school</li>
+                <li>Valid student ID required</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <div class="card-icon"><i class="fas fa-gavel" aria-hidden="true"></i></div>
+              <h3>House rules</h3>
+              <p>Keep it fair, keep it fun.</p>
+              <ul class="check-list">
+                <li>Teams of two participants</li>
+                <li>No external aids or devices</li>
+                <li>Punctuality is mandatory</li>
+                <li>Respect all participants</li>
+                <li>The Quiz Master’s decision is final</li>
+              </ul>
+              <p class="note">
+                Breaking the rules may lead to disqualification. Questions?
+                <a href="#contact">Contact us</a>.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Round 03 — Dates -->
+      <section id="dates" class="section">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag"><span>03</span> Round three</p>
+            <h2 class="section-title">Save the dates.</h2>
+            <p class="section-lead">
+              The 2026 calendar is being finalised. Get notified and you’ll
+              hear the moment registration opens.
+            </p>
+          </header>
+
+          <!-- TODO(2026): replace each "To be announced" with the confirmed date. -->
+          <ol class="scoreboard reveal">
+            <li>
+              <span class="sb-icon"><i class="fas fa-door-open" aria-hidden="true"></i></span>
+              <span class="sb-label">Registration opens</span>
+              <span class="sb-value tba">To be announced</span>
+            </li>
+            <li>
+              <span class="sb-icon"><i class="fas fa-hourglass-end" aria-hidden="true"></i></span>
+              <span class="sb-label">Registration closes</span>
+              <span class="sb-value tba">To be announced</span>
+            </li>
+            <li>
+              <span class="sb-icon"><i class="fas fa-pen" aria-hidden="true"></i></span>
+              <span class="sb-label">Preliminary round</span>
+              <span class="sb-value tba">To be announced</span>
+            </li>
+            <li>
+              <span class="sb-icon"><i class="fas fa-microphone-alt" aria-hidden="true"></i></span>
+              <span class="sb-label">Grand Finale &amp; awards</span>
+              <span class="sb-value tba">To be announced</span>
+            </li>
+            <li>
+              <span class="sb-icon"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
+              <span class="sb-label">Venue</span>
+              <span class="sb-value tba">To be announced</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Round 04 — Prizes -->
+      <section id="prizes" class="section section-ink">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag round-tag-light"><span>04</span> Final round</p>
+            <h2 class="section-title">Knowledge, rewarded.</h2>
+            <p class="section-lead">
+              The 2026 prize pool will be announced soon. Here’s how Season 1
+              rewarded its champions.
+            </p>
+          </header>
+
+          <div class="podium reveal" role="list">
+            <div class="podium-col podium-2" role="listitem">
+              <div class="podium-medal"><i class="fas fa-medal" aria-hidden="true"></i></div>
+              <p class="podium-title">2nd place</p>
+              <p class="podium-detail">Trophy + silver medals</p>
+              <div class="podium-block"><span>2</span></div>
+            </div>
+            <div class="podium-col podium-1" role="listitem">
+              <div class="podium-medal"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+              <p class="podium-title">Champions</p>
+              <p class="podium-detail">Trophy + gold medals</p>
+              <div class="podium-block"><span>1</span></div>
+            </div>
+            <div class="podium-col podium-3" role="listitem">
+              <div class="podium-medal"><i class="fas fa-medal" aria-hidden="true"></i></div>
+              <p class="podium-title">3rd place</p>
+              <p class="podium-detail">Trophy + bronze medals</p>
+              <div class="podium-block"><span>3</span></div>
+            </div>
+          </div>
+          <p class="podium-note reveal">
+            Season 1 cash prizes: AED&nbsp;5,000 · AED&nbsp;3,000 · AED&nbsp;2,000
           </p>
-        </div>
 
-        <div class="timeline">
-          <div class="timeline-item fade-in">
-            <div class="timeline-content">
-              <div class="timeline-date">
-                September 5, 2025 - October 15, 2025
-              </div>
-              <div class="timeline-title">Registration Phase</div>
-              <p class="body-text">
-                Online registration opens for all eligible students. Submit your
-                application with required documents and complete the
-                registration process.
-              </p>
-            </div>
-            <div class="timeline-marker"></div>
-          </div>
-
-          <div class="timeline-item fade-in">
-            <div class="timeline-content">
-              <div class="timeline-date">
-                October 19, 2025 | 2:00 PM - 4:00 PM
-              </div>
-              <div class="timeline-title">Preliminary Round</div>
-              <p class="body-text">
-                Written test for which the top performers advance will to the
-                finals. Venue is The Millennium School, Al Qusais, Dubai.
-              </p>
-            </div>
-            <div class="timeline-marker"></div>
-          </div>
-
-          <div class="timeline-item fade-in">
-            <div class="timeline-content">
-              <div class="timeline-date">
-                October 19, 2025 | 4:00 PM - 6:00 PM
-              </div>
-              <div class="timeline-title">Grand Finale</div>
-              <p class="body-text">
-                The ultimate showdown! Live audience, exciting rounds, and the
-                crowning of the MindQuest Champion 2025. Awards ceremony
-                follows.
-              </p>
-            </div>
-            <div class="timeline-marker"></div>
+          <div class="awards">
+            <article class="card card-dark reveal">
+              <i class="fas fa-school" aria-hidden="true"></i>
+              <h3>Best School Delegation</h3>
+              <p>For the school with the highest team participation.</p>
+            </article>
+            <article class="card card-dark reveal">
+              <i class="fas fa-star" aria-hidden="true"></i>
+              <h3>Young Achievers</h3>
+              <p>Spotlight awards for Grade 8/9 participants with exceptional scores.</p>
+            </article>
+            <article class="card card-dark reveal">
+              <i class="fas fa-certificate" aria-hidden="true"></i>
+              <h3>Certificates of Excellence</h3>
+              <p>For every Grand Finale qualifier, from GECBTA &amp; AKCAF.</p>
+            </article>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Organizers Section -->
-    <section class="section organizers-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Our Organizers</h2>
-          <p class="section-subtitle">
-            Brought to you by premier college alumni associations
-          </p>
-        </div>
-
-        <div class="organizers-grid">
-          <div class="slide-in-left">
-            <div class="section-spacing">
-              <h3 class="heading-oxford-spaced">
-                <a href="https://www.facebook.com/gecbta/" target="_blank"
-                  >GECBTA</a
-                >
-              </h3>
-              <p class="body-text">
-                GECBTA, the esteemed alumni association of Government
-                Engineering College Barton Hill, Kerala, is widely recognized
-                for its deep-rooted commitment to academic excellence,
-                particularly its strong tradition in quizzing and educational
-                initiatives. With a legacy of nurturing intellectual curiosity
-                and promoting knowledge-based activities, GECBTA has made
-                significant contributions to the educational landscape. In the
-                UAE, the association has emerged as a dynamic force, actively
-                engaging with the Indian community through cultural programs,
-                educational events, and community service initiatives—fostering
-                a spirit of learning, unity, and cultural pride among
-                expatriates..
-              </p>
-            </div>
-
+      <!-- Register / notify -->
+      <section id="register" class="section section-tight">
+        <div class="container">
+          <div class="register-band reveal">
             <div>
-              <h3 class="heading-oxford-spaced">
-                <a href="https://akcafuae.com/" target="_blank"
-                  >AKCAF Events
-                </a>
-              </h3>
-              <p class="body-text">
-                AKCAF Events is the event arm of one of the UAE’s largest alumni
-                federations, uniting over 180 college chapters from across
-                Kerala. Widely recognized for its vibrant community engagement,
-                AKCAF has successfully organized numerous large-scale events and
-                cultural festivals. It is also acclaimed for achieving Guinness
-                World Records, reflecting its commitment to excellence, unity,
-                and impactful contributions to the Indian diaspora in the UAE.
-              </p>
-            </div>
-          </div>
-
-          <div class="organizer-logos slide-in-right">
-            <div class="organizer-logo">
-              <a href="https://www.facebook.com/gecbta/" target="_blank"
-                ><img
-                  src="./assets/gecbta-loga.png"
-                  alt="GECBTA Logo - Government Engineering College Barton Hill Alumni Association"
-                  width="152"
-                  height="190"
-                  loading="lazy"
-                  decoding="async"
-              /></a>
-            </div>
-            <div class="organizer-logo">
-              <a href="https://akcafuae.com/" target="_blank"
-                ><img
-                  src="./assets/ackaf-logo.png"
-                  alt="AKCAF Logo - UAE's largest alumni federation organizing MindQuest Quiz"
-                  width="152"
-                  height="190"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sponsors Section -->
-    <section id="sponsors" class="section sponsors-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Our Sponsors</h2>
-          <p class="section-subtitle">
-            Proudly supported by our valued partners
-          </p>
-        </div>
-
-        <div class="sponsors-grid">
-          <!-- Carrefour - Title Sponsor -->
-          <div class="sponsor-card fade-in">
-            <div class="sponsor-badge title-sponsor">Title Sponsor</div>
-            <a href="https://www.carrefouruae.com/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//carrefour.png"
-                  alt="Carrefour UAE Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://www.carrefouruae.com/" target="_blank" rel="noopener noreferrer">Carrefour UAE</a>
-            </h3>
-            <p class="body-text">
-              Leading online and retail marketplace offering a wide range of products from fresh food to electronics with convenient delivery across the UAE.
-            </p>
-          </div>
-
-          <!-- Almarai -->
-          <div class="sponsor-card fade-in">
-            <a href="https://www.almarai.com/en" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//almarai.png"
-                  alt="Almarai Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://www.almarai.com/en" target="_blank" rel="noopener noreferrer">Almarai</a>
-            </h3>
-            <p class="body-text">
-              Leading dairy, bakery, and poultry products company offering high-quality, nutritious food solutions for families across the Middle East.
-            </p>
-          </div>
-
-          <!-- Romana Water -->
-          <div class="sponsor-card fade-in">
-            <a href="https://romanawater.com/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//romana-water.png"
-                  alt="Romana Water Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://romanawater.com/" target="_blank" rel="noopener noreferrer">Romana Water</a>
-            </h3>
-            <p class="body-text">
-              UAE-based bottled water company committed to providing safe, pure drinking water with exceptional quality standards and international certifications.
-            </p>
-          </div>
-
-          <!-- KidsVenture -->
-          <div class="sponsor-card fade-in">
-            <a href="https://mykidsventure.com/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//kidsventure.png"
-                  alt="KidsVenture Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://mykidsventure.com/" target="_blank" rel="noopener noreferrer">KidsVenture</a>
-            </h3>
-            <p class="body-text">
-              Educational media company creating engaging magazines, books, and learning materials to foster creativity, curiosity, and critical thinking in children.
-            </p>
-          </div>
-
-          <!-- Aster Clinic -->
-          <div class="sponsor-card fade-in">
-            <div class="sponsor-badge">Medical Partner</div>
-            <a href="https://www.asterclinic.ae/" target="_blank" rel="noopener noreferrer" class="sponsor-logo-link">
-              <div class="sponsor-logo">
-                <img
-                  src="./assets//aster.png"
-                  alt="Aster Clinic Logo"
-                  loading="lazy"
-                />
-              </div>
-            </a>
-            <h3>
-              <a href="https://www.asterclinic.ae/" target="_blank" rel="noopener noreferrer">Aster Clinic</a>
-            </h3>
-            <p class="body-text">
-              Leading healthcare provider in the UAE offering world-class medical services with experienced doctors and advanced medical technology.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Resources Section
-    <section class="section resources-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h1 class="section-title">Resources</h1>
-          <p class="section-subtitle">
-            Preparation materials and study guides to help you excel
-          </p>
-        </div>
-
-        <div class="resources-grid">
-          <div class="resource-card fade-in">
-            <div class="resource-icon">
-              <i class="fas fa-file-pdf"></i>
-            </div>
-            <h3>Sample Questions</h3>
-            <p class="body-text-dark-bg">
-              Download previous years' question papers to understand the format
-              and difficulty level of the competition.
-            </p>
-            <a href="#" class="btn btn-primary resource-btn-spacing">
-              <i class="fas fa-download"></i>
-              Download PDF
-            </a>
-          </div>
-
-          <div class="resource-card fade-in">
-            <div class="resource-icon">
-              <i class="fas fa-book-open"></i>
-            </div>
-            <h3>Study Guide</h3>
-            <p class="body-text-dark-bg">
-              Comprehensive study materials and recommended reading lists
-              covering all topics that may appear in the competition.
-            </p>
-            <a href="#" class="btn btn-primary resource-btn-spacing">
-              <i class="fas fa-external-link-alt"></i>
-              View Guide
-            </a>
-          </div>
-
-          <div class="resource-card fade-in">
-            <div class="resource-icon">
-              <i class="fas fa-lightbulb"></i>
-            </div>
-            <h3>Preparation Tips</h3>
-            <p class="body-text-dark-bg">
-              Expert advice, strategies, and tips from previous winners to help
-              you perform your best in the competition.
-            </p>
-            <a href="#" class="btn btn-primary resource-btn-spacing">
-              <i class="fas fa-tips"></i>
-              Read Tips
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    -->
-    <!-- FAQ Section -->
-    <section class="section faq-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title section-title-white">
-            Frequently Asked Questions
-          </h2>
-          <p class="section-subtitle section-subtitle-sky">
-            Find answers to common questions about the competition
-          </p>
-        </div>
-
-        <div class="faq-container">
-          <div class="faq-item fade-in">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-              <span>What are the registration requirements?</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
+              <p class="round-tag"><span><i class="fas fa-bell" aria-hidden="true"></i></span> Registration</p>
+              <h2 class="section-title">Registration opens soon.</h2>
               <p>
-                High School Students of Indian Diaspora (Grade 8-12 of Indian
-                Curriculum/Year 9-13 of British Curriculum or equivalent).
-                Participants must provide valid student identification, School
-                IDs from UAE schools.
+                Registration for MindQuest 2026 isn’t open yet. Drop us a line
+                or follow us on Instagram and we’ll let you know as soon as it
+                opens — free, as always.
               </p>
             </div>
-          </div>
-
-          <div class="faq-item fade-in">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-              <span>Is there a registration fee?</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>This event doesn't have any registration fee.</p>
-            </div>
-          </div>
-
-          <div class="faq-item fade-in">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-              <span>What topics will be covered in the competition?</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>
-                The competition would have general knowledge topics including,
-                but not limited to world, India, Science & Technology, Current
-                affairs, Sports, Literature, Arts & Entertainment
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item fade-in">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-              <span>Are there prizes for winners?</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>
-                Yes! Winners receive trophies, certificates, and recognition.
-                All participants receive certificates of participation.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item fade-in">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-              <span>Can parents attend the competition?</span>
-              <i class="fas fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>
-                Parents and family members are welcome to attend the finals and
-                support the participants.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Contact & Support</h2>
-          <p class="section-subtitle">
-            Get in touch with us for any queries or support
-          </p>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-form slide-in-left">
-            <h3>Get In Touch</h3>
-            <p class="body-text">
-              Have questions about MindQuest? Our dedicated team is here to help
-              you with registration, competition details, and any other
-              inquiries.
-            <br />
-            <br />
-            </p>
-            <h3 class="heading-oxford heading-spaced-lg">Send us a Message</h3>
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="contactName">Name *</label>
-                <input
-                  type="text"
-                  id="contactName"
-                  name="contactName"
-                  required
-                  placeholder="Your full name"
-                />
-                <p class="form-error" id="contactNameError"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="contactEmail">Email *</label>
-                <input
-                  type="email"
-                  id="contactEmail"
-                  name="contactEmail"
-                  required
-                  placeholder="Your email address"
-                />
-                <p class="form-error" id="contactEmailError"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="subject">Subject *</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  placeholder="Message subject"
-                />
-                <p class="form-error" id="subjectError"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  placeholder="Your message"
-                ></textarea>
-                <p class="form-error" id="messageError"></p>
-              </div>
-
-              <div
-                class="form-status"
-                id="contactStatus"
-                role="status"
-                aria-live="polite"
-              ></div>
-
-              <button type="submit" class="btn btn-primary btn-full-width">
-                <i class="fas fa-paper-plane"></i>
-                Send Message
-              </button>
-            </form>
-          </div>
-
-          <div class="contact-info slide-in-right">
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="contact-details">
-                <h4>Email</h4>
-                <p>info@mindquestquiz.com<br />support@mindquestquiz.com</p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="contact-details">
-                <h4>Phone</h4>
-                <p>+971 52 480 3447<br />+971 50 295 3685</p>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div class="contact-details">
-                <h4>Competition Venue</h4>
-                <p>
-                  <a
-                    href="https://www.themillenniumschool-dubai.com/"
-                    target="_blank"
-                    >The Millennium School, Al Qusais, Dubai, UAE</a
-                  >
-                </p>
-                <br />
-                <p>
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7215.095002546581!2d55.367813!3d25.285803!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5c6651e59683%3A0xd1590ab4be45acb!2sThe%20Millennium%20School!5e0!3m2!1sen!2sae!4v1760273925121!5m2!1sen!2sae"
-                    width="600"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </p>
-              </div>
-            </div>
-
-            <div class="social-links">
+            <div class="register-actions">
               <a
-                href="https://www.facebook.com/mindquestofficial/"
-                target="_blank"
-                class="social-link"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
+                href="mailto:register.mindquest@gmail.com?subject=Notify%20me%20-%20MindQuest%202026%20registration"
+                class="btn btn-ink btn-lg"
+                onclick="trackCTAClick('Notify email', 'Register')"
+              >
+                <i class="fas fa-envelope" aria-hidden="true"></i> Email me when it opens
+              </a>
               <a
                 href="https://www.instagram.com/mindquest_official/"
                 target="_blank"
-                class="social-link"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <!-- <a href="#" class="social-link"><i class="fab fa-twitter"></i></a> -->
-              <a
-                href="https://www.linkedin.com/company/mindquest-quiz"
-                class="social-link"
-                ><i class="fab fa-linkedin-in"></i
-              ></a>
+                rel="noopener noreferrer"
+                class="btn btn-outline btn-lg"
+                onclick="trackCTAClick('Instagram', 'Register')"
+              >
+                <i class="fab fa-instagram" aria-hidden="true"></i> Follow @mindquest_official
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- Organisers & partners -->
+      <section id="partners" class="section">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag"><span><i class="fas fa-handshake" aria-hidden="true"></i></span> The team</p>
+            <h2 class="section-title">Brought to you by.</h2>
+            <p class="section-lead">
+              Two of the UAE’s leading Kerala college alumni associations.
+            </p>
+          </header>
+
+          <div class="organizers">
+            <article class="card organizer reveal">
+              <a href="https://www.facebook.com/gecbta/" target="_blank" rel="noopener noreferrer" class="organizer-logo">
+                <img src="./assets/gecbta-loga.png" alt="GECBTA logo" width="152" height="190" loading="lazy" decoding="async" />
+              </a>
+              <div>
+                <p class="organizer-role">Organiser</p>
+                <h3><a href="https://www.facebook.com/gecbta/" target="_blank" rel="noopener noreferrer">GECBTA</a></h3>
+                <p>
+                  The alumni association of Government Engineering College
+                  Barton Hill, Kerala — known for its strong quizzing tradition
+                  and commitment to academic excellence. In the UAE it engages
+                  the Indian community through cultural programmes, educational
+                  events and community service.
+                </p>
+              </div>
+            </article>
+            <article class="card organizer reveal">
+              <a href="https://akcafuae.com/" target="_blank" rel="noopener noreferrer" class="organizer-logo">
+                <img src="./assets/ackaf-logo.png" alt="AKCAF logo" width="152" height="190" loading="lazy" decoding="async" />
+              </a>
+              <div>
+                <p class="organizer-role">In association with</p>
+                <h3><a href="https://akcafuae.com/" target="_blank" rel="noopener noreferrer">AKCAF Events</a></h3>
+                <p>
+                  The events arm of one of the UAE’s largest alumni federations,
+                  uniting over 180 college chapters from across Kerala —
+                  organisers of large-scale festivals and Guinness World Record
+                  achievements.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="sponsors reveal">
+            <div class="sponsors-head">
+              <h3>Season 1 partners</h3>
+              <p>Thank you to the partners who made MindQuest 2025 possible.</p>
+            </div>
+            <ul class="sponsor-wall">
+              <li>
+                <a href="https://www.carrefouruae.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="./assets/carrefour.png" alt="Carrefour UAE" width="200" height="200" loading="lazy" />
+                </a>
+                <span>Title Sponsor</span>
+              </li>
+              <li>
+                <a href="https://www.almarai.com/en" target="_blank" rel="noopener noreferrer">
+                  <img src="./assets/almarai.png" alt="Almarai" width="200" height="200" loading="lazy" />
+                </a>
+              </li>
+              <li>
+                <a href="https://romanawater.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="./assets/romana-water.png" alt="Romana Water" width="200" height="200" loading="lazy" />
+                </a>
+              </li>
+              <li>
+                <a href="https://mykidsventure.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="./assets/kidsventure.png" alt="KidsVenture" width="200" height="200" loading="lazy" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.asterclinic.ae/" target="_blank" rel="noopener noreferrer">
+                  <img src="./assets/aster.png" alt="Aster Clinic" width="200" height="200" loading="lazy" />
+                </a>
+                <span>Medical Partner</span>
+              </li>
+            </ul>
+            <div class="sponsor-cta">
+              <p><strong>Partner with MindQuest 2026.</strong> Put your brand in front of students, parents and schools across the UAE.</p>
+              <a href="mailto:register.mindquest@gmail.com?subject=Sponsorship%20-%20MindQuest%202026" class="btn btn-yellow">
+                <i class="fas fa-handshake" aria-hidden="true"></i> Become a sponsor
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section section-sky">
+        <div class="container faq-layout">
+          <header class="section-head reveal">
+            <p class="round-tag"><span>?</span> Lifelines</p>
+            <h2 class="section-title">Frequently asked.</h2>
+            <p class="section-lead">
+              Can’t find your answer? <a href="#contact">Ask us directly</a>.
+            </p>
+          </header>
+
+          <div class="faq-list">
+            <details class="faq-item reveal" name="faq">
+              <summary>Who can take part?</summary>
+              <p>
+                High school students of the Indian diaspora — Grade 8–12 of the
+                Indian curriculum, or Year 9–13 of the British curriculum or
+                equivalent — currently enrolled in a UAE school. Valid school
+                ID is required.
+              </p>
+            </details>
+            <details class="faq-item reveal" name="faq">
+              <summary>Is there a registration fee?</summary>
+              <p>No. Registration for MindQuest is completely free.</p>
+            </details>
+            <details class="faq-item reveal" name="faq">
+              <summary>What topics are covered?</summary>
+              <p>
+                General knowledge including, but not limited to, the World,
+                India, Science &amp; Technology, Current Affairs, Sports,
+                Literature, and Arts &amp; Entertainment.
+              </p>
+            </details>
+            <details class="faq-item reveal" name="faq">
+              <summary>Are there prizes for winners?</summary>
+              <p>
+                Yes. Winners receive cash prizes, trophies, medals and
+                certificates. All Grand Finale qualifiers receive certificates
+                of excellence.
+              </p>
+            </details>
+            <details class="faq-item reveal" name="faq">
+              <summary>Can parents attend?</summary>
+              <p>
+                Yes. Parents and family members are welcome to attend the Grand
+                Finale and cheer on the participants.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="round-tag"><span><i class="fas fa-comment" aria-hidden="true"></i></span> Phone a friend</p>
+            <h2 class="section-title">Get in touch.</h2>
+            <p class="section-lead">
+              Questions about registration, the format or sponsorship? Our team
+              is happy to help.
+            </p>
+          </header>
+
+          <div class="contact-grid">
+            <form id="contactForm" class="card contact-form reveal" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactName">Name</label>
+                  <input type="text" id="contactName" name="contactName" required autocomplete="name" placeholder="Your full name" />
+                  <p class="form-error" id="contactNameError"></p>
+                </div>
+                <div class="form-group">
+                  <label for="contactEmail">Email</label>
+                  <input type="email" id="contactEmail" name="contactEmail" required autocomplete="email" placeholder="you@example.com" />
+                  <p class="form-error" id="contactEmailError"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="What’s it about?" />
+                <p class="form-error" id="subjectError"></p>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required rows="5" placeholder="Your message"></textarea>
+                <p class="form-error" id="messageError"></p>
+              </div>
+              <div class="form-status" id="contactStatus" role="status" aria-live="polite"></div>
+              <button type="submit" class="btn btn-ink btn-lg btn-block">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> Send message
+              </button>
+            </form>
+
+            <div class="contact-info reveal">
+              <a class="card contact-item" href="mailto:register.mindquest@gmail.com">
+                <span class="contact-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                <span>
+                  <span class="contact-label">Email</span>
+                  <span class="contact-value">register.mindquest@gmail.com</span>
+                </span>
+              </a>
+              <a class="card contact-item" href="mailto:info@mindquestquiz.com">
+                <span class="contact-icon"><i class="fas fa-at" aria-hidden="true"></i></span>
+                <span>
+                  <span class="contact-label">General enquiries</span>
+                  <span class="contact-value">info@mindquestquiz.com</span>
+                </span>
+              </a>
+              <div class="card contact-item">
+                <span class="contact-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+                <span>
+                  <span class="contact-label">Phone</span>
+                  <span class="contact-value">
+                    <a href="tel:+971524803447">+971 52 480 3447</a><br />
+                    <a href="tel:+971502953685">+971 50 295 3685</a>
+                  </span>
+                </span>
+              </div>
+              <div class="social-links">
+                <a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/mindquestofficial/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/company/mindquest-quiz" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
-          <div class="footer-section">
-            <h4>MindQuest</h4>
-            <p>Unlock Your Mind, Conquer The Quest</p>
-            <p class="caption-text-dark-bg">
-              The premier General Knowledge Quiz Competition for High School
-              Students of Indian Diaspora in the UAE.
+          <div class="footer-brand">
+            <img src="./assets/mindquest-wordmark.png" alt="MindQuest — Unlock Your Mind, Conquer The Quest" width="240" height="154" loading="lazy" />
+            <p>
+              The General Knowledge Quiz Competition for high school students of
+              the Indian diaspora in the UAE.
             </p>
           </div>
-
-          <div class="footer-section">
-            <h4>Quick Links</h4>
+          <div>
+            <h4>Explore</h4>
             <ul class="footer-links">
               <li><a href="#about">About</a></li>
-              <li><a href="#details">Event Details</a></li>
-              <li><a href="#schedule">Schedule</a></li>
-              <li><a href="#sponsors">Sponsors</a></li>
-              <li><a href="#registration">Register</a></li>
+              <li><a href="#format">Format</a></li>
+              <li><a href="#dates">Dates</a></li>
+              <li><a href="#prizes">Prizes</a></li>
             </ul>
           </div>
-
-          <div class="footer-section">
-            <h4>Resources</h4>
-            <!-- <ul class="footer-links">
-              <li><a href="#">Sample Questions</a></li>
-              <li><a href="#">Study Guide</a></li>
-              <li><a href="#">Preparation Tips</a></li>
-              <li><a href="#">Past Winners</a></li>
-            </ul> -->
-            <!-- <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DO-qjo3k_kR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DO-qjo3k_kR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DO-qjo3k_kR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Mindquest Quiz (@mindquest_official)</a></p></div></blockquote>
-<script async src="//www.instagram.com/embed.js"></script> -->
-            <div class="ig-image-only">
-              <blockquote
-                class="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DO-qjo3k_kR/"
-                data-instgrm-version="14"
-                style="margin: 0; padding: 0; background: #000; border: 0"
-              ></blockquote>
-            </div>
-
-            <script>
-              // Lazy load Instagram embed
-              const igObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    const script = document.createElement("script");
-                    script.async = true;
-                    script.src = "https://www.instagram.com/embed.js";
-                    document.head.appendChild(script);
-                    igObserver.unobserve(entry.target);
-                  }
-                });
-              });
-
-              const igEmbed = document.querySelector(".instagram-media");
-              if (igEmbed) igObserver.observe(igEmbed);
-            </script>
-          </div>
-
-          <div class="footer-section">
-            <h4>Support</h4>
+          <div>
+            <h4>Get involved</h4>
             <ul class="footer-links">
-              <li><a href="#contact">Contact Us</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Help Center</a></li>
+              <li><a href="#register">Get notified</a></li>
+              <li><a href="#partners">Sponsor</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Follow</h4>
+            <ul class="footer-links">
+              <li><a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.facebook.com/mindquestofficial/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/company/mindquest-quiz" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             </ul>
           </div>
         </div>
-
         <div class="footer-bottom">
-          <p>
-            &copy; 2025 MindQuest. All rights reserved. Organized by GECBTA in
-            association with AKCAF.
-          </p>
+          <p>&copy; 2026 MindQuest. Organised by GECBTA in association with AKCAF.</p>
+          <a href="#home" class="back-top">Back to top <i class="fas fa-arrow-up" aria-hidden="true"></i></a>
         </div>
       </div>
     </footer>
 
-    <!-- External JavaScript -->
     <script src="./assets/script.js" defer></script>
-
-    <!-- Service Worker Registration for GitHub Pages Caching -->
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/sw.js")
-            .then((registration) => {
-              console.log(
-                "[SW] Service Worker registered successfully:",
-                registration.scope
-              );
-
-              // Check for updates
-              registration.addEventListener("updatefound", () => {
-                const newWorker = registration.installing;
-                newWorker.addEventListener("statechange", () => {
-                  if (
-                    newWorker.state === "installed" &&
-                    navigator.serviceWorker.controller
-                  ) {
-                    console.log("[SW] New content available, please refresh");
-                    // Optionally show update notification to user
-                  }
-                });
-              });
-            })
-            .catch((error) => {
-              console.log("[SW] Service Worker registration failed:", error);
-            });
+          navigator.serviceWorker.register("/sw.js").catch((error) => {
+            console.log("[SW] Service Worker registration failed:", error);
+          });
         });
       }
     </script>

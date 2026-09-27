@@ -14,9 +14,8 @@ This is a static website for MindQuest, a 1st Annual General Knowledge Quiz Comp
 - `assets/script.js` - External JavaScript file with all functionality
 - `assets/` - Contains logo images, design assets, and favicon resources
   - `mindquest-logomark.png` - Primary navigation logo
-  - `mindquestlogo-01.png`
-  - `mindquestlogomark-01.png`
-  - `mindquestlogowithtag-01.png` - Hero section logo
+  - `mindquestlogowithtag-01.png` - Full logo with tagline (large canvas)
+  - `mindquest-wordmark.png` - Cropped wordmark used in the footer
   - `pattern-01.png` - Background pattern asset
   - `gecbta-loga.png` - GECBTA organizer logo
   - `ackaf-logo.png` - AKCAF organizer logo
@@ -81,12 +80,13 @@ This is a static HTML website with no build process or dependency management. De
 
 ## Content Management
 
-**Event Information:**
-- Event date: October 19, 2025
-- Registration: September 5 - October 15, 2025
+**Event Information (2026 / Season 2):**
+- Dates, venue and prize pool: to be announced (marked `TODO(2026)` in `index.html`; add an Event node to the JSON-LD once confirmed)
 - Organizers: GECBTA in association with AKCAF
-- Target audience: Indian high school students (Grades 9-12) in UAE
-- Venue: Al Qusais, Dubai
+- Target audience: Indian diaspora high school students (Grade 8-12 Indian / Year 9-13 British) in UAE
+- Season 1 (2025) was held Oct 19, 2025 at The Millennium School, Al Qusais, Dubai
+
+**2026 Theme ("Quiz Board"):** light paper background, 2px Oxford Blue outlines with hard offset shadows, sections framed as quiz "Rounds", interactive warm-up question card in the hero (questions live in `warmupQuestions` in `assets/script.js`)
 
 **Sections Included:**
 - Hero with event overview and quick actions
