@@ -81,12 +81,15 @@ This is a static HTML website with no build process or dependency management. De
 ## Content Management
 
 **Event Information (2026 / Season 2):**
-- Dates, venue and prize pool: to be announced (marked `TODO(2026)` in `index.html`; add an Event node to the JSON-LD once confirmed)
+- No cash prizes in 2026 (trophies, medals, certificates only); 2025 cash prizes (AED 5,000/3,000/2,000) are shown as history only
+- Dates and venue: to be announced (marked `TODO(2026)` in `index.html`; add an Event node to the JSON-LD once confirmed)
 - Organizers: GECBTA in association with AKCAF
 - Target audience: Indian diaspora high school students (Grade 8-12 Indian / Year 9-13 British) in UAE
 - Season 1 (2025) was held Oct 19, 2025 at The Millennium School, Al Qusais, Dubai
 
 **2026 Theme ("Quiz Board"):** light paper background, 2px Oxford Blue outlines with hard offset shadows, sections framed as quiz "Rounds", interactive warm-up question card in the hero (questions live in `warmupQuestions` in `assets/script.js`)
+
+**Gallery:** `#gallery` uses official Instagram post embeds (`blockquote.instagram-media` with a permalink); `embed.js` is lazy-loaded by `assets/script.js`. To swap photos, change the permalinks — no image files are stored locally. Instagram must stay allowed in the CSP `script-src` and `frame-src`.
 
 **Sections Included:**
 - Hero with event overview and quick actions

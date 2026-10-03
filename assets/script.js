@@ -198,6 +198,23 @@ document.querySelectorAll(".faq-item").forEach((item) => {
   });
 });
 
+// Instagram gallery: load embed.js only when the gallery nears the viewport
+const gallery = document.getElementById("gallery");
+if (gallery) {
+  const igObserver = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      igObserver.disconnect();
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.instagram.com/embed.js";
+      document.head.appendChild(script);
+    },
+    { rootMargin: "600px 0px" }
+  );
+  igObserver.observe(gallery);
+}
+
 // Warm-up quiz card
 const warmupQuestions = [
   {
