@@ -319,24 +319,20 @@ button {
   margin-right: auto;
 }
 .brand img {
-  width: 32px;
-  height: auto;
-}
-.brand-text {
-  font-family: var(--font-title);
-  font-weight: 900;
-  font-size: 1.25rem;
-  color: var(--ink);
-  letter-spacing: -0.02em;
+  width: auto;
+  height: 56px;
 }
 .brand-year {
   display: inline-block;
-  margin-left: 0.2em;
   padding: 0.05em 0.35em;
   background: var(--minion-yellow);
   border: 2px solid var(--ink);
   border-radius: 6px;
-  font-size: 0.8em;
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
   transform: rotate(-4deg);
 }
 .nav-menu {
@@ -575,6 +571,7 @@ button {
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
 }
@@ -587,71 +584,84 @@ button {
   color: var(--ink);
   border: 1.5px solid var(--ink);
 }
-.quiz-q {
-  font-family: var(--font-title);
-  font-weight: 800;
-  font-size: clamp(1.15rem, 2vw, 1.4rem);
-  line-height: 1.3;
-  color: var(--ink);
-  min-height: 3.9em;
-  margin-bottom: 1.2rem;
-}
-.quiz-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.7rem;
-}
-.quiz-opt {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
+/* Flash card: both faces share one grid cell, so the card is always as tall
+   as the taller face and flipping never changes its height. */
+.flashcard {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
   text-align: left;
-  padding: 0.75rem 0.85rem;
+  color: var(--ink);
+  perspective: 1200px;
+}
+.flashcard-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease);
+}
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+.flashcard-face {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  /* Tall enough for the longest prelims question, so Next never resizes the card */
+  min-height: 21rem;
+  padding: 1rem 1.1rem;
   background: var(--paper);
   border: var(--border);
   border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.98rem;
-  color: var(--ink);
-  transition: transform 0.12s, background 0.2s, box-shadow 0.12s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
-.quiz-opt:hover:not(:disabled) {
-  background: var(--sky-blue-soft);
-  transform: translate(-2px, -2px);
+.flashcard-back {
+  background: var(--minion-yellow);
+  transform: rotateY(180deg);
+}
+.flashcard:hover .flashcard-face {
   box-shadow: var(--shadow-hard-sm);
 }
-.quiz-opt:disabled {
-  cursor: default;
-}
-.opt-key {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: var(--ink);
-  color: var(--white);
+.flashcard-label,
+.flashcard-hint {
   font-family: var(--font-title);
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.quiz-opt.correct {
-  background: var(--minion-yellow);
-  box-shadow: var(--shadow-hard-sm);
+.flashcard-hint {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
 }
-.quiz-opt.correct .opt-key {
-  background: var(--ink);
-  color: var(--minion-yellow);
+.flashcard-back .flashcard-hint {
+  color: var(--ink);
 }
-.quiz-opt.wrong {
-  background: var(--white);
-  color: rgba(var(--ink-rgb), 0.65);
-  border-style: dashed;
-  text-decoration: line-through;
+.flashcard-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+  line-height: 1.35;
 }
-.quiz-opt.wrong .opt-key {
-  background: rgba(var(--ink-rgb), 0.55);
+.flashcard-back .flashcard-text {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 900;
+  line-height: 1.15;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .quiz-foot {
   display: flex;
@@ -659,16 +669,16 @@ button {
   align-items: center;
   gap: 1rem;
   margin-top: 1.2rem;
-  padding-top: 1rem;
+}
+.quiz-source {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
   border-top: 2px dashed rgba(var(--ink-rgb), 0.2);
+  font-size: 0.86rem;
 }
-.quiz-feedback {
-  font-size: 0.92rem;
+.quiz-source a {
   font-weight: 700;
-  color: var(--text);
-}
-.quiz-feedback.good {
-  color: var(--ink);
+  white-space: nowrap;
 }
 .quiz-next {
   flex: none;
@@ -683,8 +693,11 @@ button {
   color: var(--ink);
   padding: 0.4rem 0.2rem;
 }
-.quiz-next:hover .icon {
+#qNext:hover .icon {
   transform: translateX(3px);
+}
+#qPrev:hover .icon {
+  transform: translateX(-3px);
 }
 .quiz-next .icon {
   transition: transform 0.2s;
@@ -1106,7 +1119,7 @@ button {
   margin: 0 auto;
   text-align: center;
 }
-.podium-medal {
+.podium-badge {
   display: inline-grid;
   place-items: center;
   width: 64px;
@@ -1116,18 +1129,18 @@ button {
   font-size: 1.6rem;
   margin-bottom: 0.8rem;
 }
-.podium-1 .podium-medal {
+.podium-1 .podium-badge {
   width: 80px;
   height: 80px;
   font-size: 2rem;
   background: var(--minion-yellow);
   color: var(--ink);
 }
-.podium-2 .podium-medal {
+.podium-2 .podium-badge {
   background: var(--sky-blue);
   color: var(--ink);
 }
-.podium-3 .podium-medal {
+.podium-3 .podium-badge {
   background: var(--white);
   color: var(--ink);
 }
@@ -1178,7 +1191,9 @@ button {
 }
 .awards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 820px;
+  margin-inline: auto;
   gap: 1.25rem;
   margin-top: clamp(2.5rem, 6vw, 4rem);
 }
@@ -1214,8 +1229,82 @@ button {
   flex: 1;
   border-top: 2px dashed rgba(var(--ink-rgb), 0.25);
 }
-.gallery-grid + .gallery-label {
+.gallery-grid + .gallery-label,
+.archive-files + .gallery-label,
+.video-grid + .gallery-label {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+.archive-files {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+/* Videos: a thumbnail link that script.js swaps for the player on click */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.video-facade,
+.video-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  background: var(--ink);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hard);
+  overflow: hidden;
+}
+/* A single video gets a wider, centred player instead of one of three columns */
+.video-grid > :only-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 760px;
+}
+.video-facade:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hard-lg);
+}
+.video-facade {
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.video-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--minion-yellow);
+  border: var(--border);
+  color: var(--ink);
+  font-size: 1.6rem;
+}
+.video-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.5rem 0.9rem;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .gallery-grid {
   display: grid;
@@ -1296,19 +1385,41 @@ button {
   );
   background-size: 18px 18px;
 }
-.register-band p {
+.register-band > div > p {
   color: var(--ink);
   margin-top: 0.9rem;
   max-width: 36rem;
 }
+.register-band .section-title:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+/* Sign-up form */
+.optional {
+  font-weight: 600;
+  color: var(--text);
+}
+.notify-note {
+  margin-top: 0.8rem;
+  font-size: 0.86rem;
+}
+.notify-note a,
+.form-status a {
+  font-weight: 700;
+  color: inherit;
+}
+/* Honeypot: off-screen for people, still present for bots */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .register-band .round-tag span {
   background: var(--white);
 }
-.register-actions {
-  display: grid;
-  gap: 0.9rem;
-}
-
 /* Organizers */
 .organizers {
   display: grid;
@@ -1860,6 +1971,10 @@ a.contact-item:hover {
     grid-template-columns: minmax(0, 480px);
     justify-content: center;
   }
+  .video-grid {
+    grid-template-columns: minmax(0, 480px);
+    justify-content: center;
+  }
   .sponsor-wall {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1869,8 +1984,8 @@ a.contact-item:hover {
   body {
     font-size: 1rem;
   }
-  .brand-text {
-    font-size: 1.1rem;
+  .brand img {
+    height: 50px;
   }
   .cta-group .btn {
     flex: 1 1 100%;
@@ -1879,8 +1994,14 @@ a.contact-item:hover {
     transform: none;
     box-shadow: var(--shadow-hard);
   }
-  .quiz-options {
+  .archive-files {
     grid-template-columns: 1fr;
+  }
+  .flashcard-text {
+    font-size: 1rem;
+  }
+  .flashcard-face {
+    min-height: 19.75rem;
   }
   .buzzer {
     display: none;
@@ -1926,12 +2047,12 @@ a.contact-item:hover {
   .podium-3 .podium-block {
     height: 76px;
   }
-  .podium-medal {
+  .podium-badge {
     width: 48px;
     height: 48px;
     font-size: 1.2rem;
   }
-  .podium-1 .podium-medal {
+  .podium-1 .podium-badge {
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
@@ -1947,10 +2068,6 @@ a.contact-item:hover {
   }
   .sponsor-wall {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .register-actions .btn {
-    white-space: normal;
-    text-align: center;
   }
   .form-row {
     grid-template-columns: 1fr;
@@ -1968,6 +2085,12 @@ a.contact-item:hover {
   }
 }
 
+@media (max-width: 360px) {
+  .flashcard-face {
+    min-height: 23.75rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1982,5 +2105,15 @@ a.contact-item:hover {
   }
   .ticker-track {
     animation: none;
+  }
+  /* Flash card: swap faces instead of rotating */
+  .flashcard-inner,
+  .flashcard.flipped .flashcard-inner,
+  .flashcard-back {
+    transform: none;
+  }
+  .flashcard.flipped .flashcard-front,
+  .flashcard:not(.flipped) .flashcard-back {
+    visibility: hidden;
   }
 }

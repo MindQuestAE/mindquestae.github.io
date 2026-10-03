@@ -14,7 +14,7 @@
     />
     <!-- Components below are rendered with the live site stylesheet, so this
          page always reflects the real implementation. -->
-    <link rel="stylesheet" href="../assets/styles.css" />
+    <link rel="stylesheet" href="../assets/styles.css?v=2026.10.9" />
     <style>
       /* Documentation-only chrome (prefixed ds-). Not part of the design system. */
       .ds-header {
@@ -113,6 +113,7 @@
       <symbol id="icon-cap" viewBox="0 0 24 24"><path d="m2 10 10-6 10 6-10 6-10-6Zm4 2.4V17c3.5 2.7 8.5 2.7 12 0v-4.6M22 10v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-trophy" viewBox="0 0 24 24"><path d="M8 21h8m-4-4v4m-6-18h12v5a6 6 0 0 1-12 0V3Zm0 2H3v2a5 5 0 0 0 5 5m8-7h5v2a5 5 0 0 1-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -123,7 +124,6 @@
       <symbol id="icon-pen" viewBox="0 0 24 24"><path d="m4 20 4-.8L20 7a2.8 2.8 0 0 0-4-4L4 15l-.8 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 10v2a7 7 0 0 0 14 0v-2m-7 9v3m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
       <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-      <symbol id="icon-medal" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 3 4 5 4-5m-8 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-school" viewBox="0 0 24 24"><path d="m3 9 9-6 9 6v12H3V9Zm5 12v-7h8v7M7 10h.01M12 10h.01M17 10h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
       <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
       <symbol id="icon-certificate" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 14-1 8 5-3 5 3-1-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
@@ -137,13 +137,16 @@
       <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 3 5c0-1 1-2 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
       <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.5C17.3 1.3 16.2 1 15 1c-3.3 0-5 2-5 5.5V9H7v4h3v8h4Z" fill="currentColor"/></symbol>
       <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM2 9h4v13H2V9Zm7 0h4v2c1-2 6-3 8 1 1 1 1 2 1 4v6h-4v-6c0-2-1-3-2-3-2 0-3 1-3 3v6H9V9Z" fill="currentColor"/></symbol>
+      <symbol id="icon-file" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Zm0 0v4h4M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"/></symbol>
+      <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.5 12c0 1.3.2 2.6.5 3.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.5-2.5.5-3.8s-.2-2.6-.5-3.8ZM10 15V9l5.2 3L10 15Z" fill="currentColor"/></symbol>
       <symbol id="icon-loader" viewBox="0 0 24 24"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M7.76 16.24l-2.12 2.12m12.72 0-2.12-2.12M7.76 7.76 5.64 5.64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     </svg>
     <header class="ds-header">
       <div class="container">
-        <a href="../index.html" class="brand" aria-label="Back to the MindQuest site">
-          <img src="../assets/mindquest-logomark.png" alt="" width="32" height="40" />
-          <span class="brand-text">MindQuest<span class="brand-year">2.0</span></span>
+        <a href="../index.html" class="brand" title="Back to the MindQuest site">
+          <img src="../assets/mindquest-logo-nav.png" alt="MindQuest" width="89" height="56" />
+          <span class="brand-year">2.0</span>
         </a>
         <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-card"></use></svg></span> Design system · 2026</p>
         <h1>The <span class="hl">Quiz Board</span> theme.</h1>
@@ -438,24 +441,24 @@
 
           <h3 class="ds-sub">Eyebrow, chips &amp; pills</h3>
           <div class="ds-demo ds-demo-row">
-            <p class="eyebrow"><span class="eyebrow-dot"></span> Season 02 · UAE Inter-School GK Quiz</p>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> MindQuest 2.0 · UAE Inter-School GK Quiz</p>
             <ul class="hero-chips" style="margin: 0">
               <li><svg class="icon" aria-hidden="true"><use href="#icon-ticket"></use></svg> Free entry</li>
               <li><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg> Teams of two</li>
             </ul>
-            <span class="quiz-chip">Warm-up · 1/5</span>
-            <span class="quiz-cat">Space</span>
+            <span class="quiz-chip">2025 prelims</span>
+            <span class="quiz-cat">Q7 of 30</span>
             <span class="sb-value tba">To be announced</span>
           </div>
 
           <h3 class="ds-sub">Brand lockup</h3>
           <div class="ds-demo ds-demo-row">
             <span class="brand">
-              <img src="../assets/mindquest-logomark.png" alt="" width="32" height="40" />
-              <span class="brand-text">MindQuest<span class="brand-year">2.0</span></span>
+              <img src="../assets/mindquest-logo-nav.png" alt="MindQuest" width="89" height="56" />
+          <span class="brand-year">2.0</span>
             </span>
           </div>
-          <p class="ds-caption">Logomark + Montserrat 900 wordmark + tilted yellow edition badge (<code>.brand-year</code>).</p>
+          <p class="ds-caption">The full MindQuest logo (<code>assets/mindquest-logo-nav.png</code>, 56px tall) + tilted yellow edition badge (<code>.brand-year</code>). The edition is “2.0”, never “’26” or “Season 2”.</p>
         </div>
       </section>
 
@@ -506,9 +509,8 @@
           <h3 class="ds-sub">Cards on ink</h3>
           <div class="ds-demo ds-demo-ink">
             <div class="awards" style="margin: 0">
-              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg><h3>.card-dark</h3><p>Sky outline, yellow hard shadow.</p></article>
-              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-school"></use></svg><h3>Yellow icons</h3><p>White headings, soft white text.</p></article>
-              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg><h3>Same radius</h3><p>Same padding as light cards.</p></article>
+              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-school"></use></svg><h3>.card-dark</h3><p>Sky outline, yellow hard shadow, yellow icons.</p></article>
+              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg><h3>Same radius</h3><p>White headings, soft white text, same padding as light cards.</p></article>
             </div>
           </div>
         </div>
@@ -523,23 +525,26 @@
           <div class="ds-demo">
             <div class="quiz-card">
               <div class="quiz-card-top">
-                <span class="quiz-chip">Warm-up · 3/5</span>
-                <span class="quiz-cat">Science</span>
+                <span class="quiz-chip">2025 prelims</span>
+                <span class="quiz-cat">Q7 of 30</span>
               </div>
-              <p class="quiz-q" style="min-height: 0">Which element has the chemical symbol ‘K’?</p>
-              <div class="quiz-options">
-                <button type="button" class="quiz-opt wrong" disabled><span class="opt-key">A</span>Krypton</button>
-                <button type="button" class="quiz-opt"><span class="opt-key">B</span>Calcium</button>
-                <button type="button" class="quiz-opt correct" disabled><span class="opt-key">C</span>Potassium</button>
-                <button type="button" class="quiz-opt"><span class="opt-key">D</span>Phosphorus</button>
-              </div>
+              <span class="flashcard flipped" style="display: block">
+                <span class="flashcard-inner" style="transform: none">
+                  <span class="flashcard-face flashcard-back" style="transform: none; min-height: 11rem">
+                    <span class="flashcard-label">Answer</span>
+                    <span class="flashcard-text">Brainrot</span>
+                    <span class="flashcard-hint">Tap to flip back</span>
+                  </span>
+                </span>
+              </span>
               <div class="quiz-foot">
-                <p class="quiz-feedback">Not quite. ‘K’ comes from its Latin name, kalium.</p>
+                <button type="button" class="quiz-next"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg> Previous</button>
                 <button type="button" class="quiz-next">Next <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></button>
               </div>
+              <p class="quiz-source">Real questions from the MindQuest 2025 written prelims. <a href="../assets/2025/mindquest-2025-prelims-question-paper.pdf">Question paper (PDF)</a> · <a href="../assets/2025/mindquest-2025-prelims-answer-key.pdf">Answer key (PDF)</a></p>
             </div>
           </div>
-          <p class="ds-caption">States: default, hover (sky fill + lift), <code>.correct</code> (yellow fill) and <code>.wrong</code> (dashed, struck through). The correct answer is always revealed. Questions live in <code>warmupQuestions</code> in <code>assets/script.js</code>. In the hero the card is tilted 1.5° with the 10px shadow.</p>
+          <p class="ds-caption">A flash card, because the real prelims are written-answer, not multiple choice. The question is on the paper-coloured front; tapping, clicking or pressing Enter/Space flips the card (<code>.flashcard.flipped</code>) to the yellow answer side shown here. Both faces share one grid cell with a min-height, so the card never changes size. With <code>prefers-reduced-motion</code> the faces swap without rotating. Questions and answers are copied from the 2025 paper and live in <code>warmupQuestions</code> in <code>assets/script.js</code>. In the hero the card is tilted 1.5° with the 10px shadow.</p>
 
           <h3 class="ds-sub">Category ticker — <code>.ticker</code></h3>
           <div class="ds-demo">
@@ -564,9 +569,9 @@
           <h3 class="ds-sub">Podium — <code>.podium</code> (on ink)</h3>
           <div class="ds-demo ds-demo-ink">
             <div class="podium">
-              <div class="podium-col podium-2"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div><p class="podium-title">2nd place</p><div class="podium-block"><span>2</span></div></div>
-              <div class="podium-col podium-1"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div><p class="podium-title">Champions</p><div class="podium-block"><span>1</span></div></div>
-              <div class="podium-col podium-3"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div><p class="podium-title">3rd place</p><div class="podium-block"><span>3</span></div></div>
+              <div class="podium-col podium-2"><div class="podium-badge"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div><p class="podium-title">2nd place</p><div class="podium-block"><span>2</span></div></div>
+              <div class="podium-col podium-1"><div class="podium-badge"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div><p class="podium-title">Champions</p><div class="podium-block"><span>1</span></div></div>
+              <div class="podium-col podium-3"><div class="podium-badge"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div><p class="podium-title">3rd place</p><div class="podium-block"><span>3</span></div></div>
             </div>
           </div>
           <p class="ds-caption">First place is yellow, second sky blue, third white.</p>
@@ -574,11 +579,11 @@
           <h3 class="ds-sub">Recap strip — <code>.recap</code></h3>
           <div class="ds-demo">
             <aside class="recap" style="margin: 0">
-              <div class="recap-label">Season 1 recap</div>
+              <div class="recap-label">2025 recap</div>
               <dl class="recap-stats">
                 <div><dt>Held on</dt><dd>19 Oct 2025</dd></div>
                 <div><dt>Hosted at</dt><dd>The Millennium School</dd></div>
-                <div><dt>Cash prizes awarded</dt><dd>AED 10,000</dd></div>
+                <div><dt>Prizes</dt><dd>Cash prize + trophies</dd></div>
               </dl>
             </aside>
           </div>
@@ -604,11 +609,19 @@
               <div>
                 <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
                 <h2 class="section-title">Registration opens soon.</h2>
-                <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page.</p>
+                <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page. Forms inside it sit on a white <code>.card</code> so inputs and focus shadows keep their contrast; optional fields are marked with <code>.optional</code>.</p>
               </div>
-              <div class="register-actions">
-                <a href="#components" class="btn btn-ink btn-lg">Primary action</a>
-                <a href="#components" class="btn btn-outline btn-lg">Secondary action</a>
+              <div class="card notify-form">
+                <div class="form-group">
+                  <label for="dsNotifyEmail">Email</label>
+                  <input type="email" id="dsNotifyEmail" placeholder="you@example.com" />
+                </div>
+                <div class="form-group">
+                  <label for="dsNotifyName">Name <span class="optional">(optional)</span></label>
+                  <input type="text" id="dsNotifyName" />
+                </div>
+                <button type="button" class="btn btn-ink btn-lg btn-block"><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Notify me</button>
+                <p class="notify-note"><code>.notify-note</code> — one plain line on how the details are used, then the secondary links.</p>
               </div>
             </div>
           </div>
@@ -676,8 +689,8 @@
               <tr><td>Format</td><td>02 Round two</td><td>How the game is played.</td></tr>
               <tr><td>Dates</td><td>03 Round three</td><td>Save the dates.</td></tr>
               <tr><td>Prizes</td><td>04 Final round</td><td>Knowledge, rewarded.</td></tr>
-              <tr><td>Gallery</td><td>Replay</td><td>Season 1 in pictures.</td></tr>
-              <tr><td>FAQ</td><td>Lifelines</td><td>Frequently asked.</td></tr>
+              <tr><td>Archives</td><td>Replay</td><td>The archives.</td></tr>
+              <tr><td>FAQ</td><td>Lifelines</td><td>Frequently asked questions.</td></tr>
               <tr><td>Contact</td><td>Phone a friend</td><td>Get in touch.</td></tr>
             </tbody>
           </table>
@@ -688,7 +701,7 @@
                 <li>End headlines with a full stop.</li>
                 <li>Write sentence case everywhere except uppercase labels.</li>
                 <li>Mark unknown facts “To be announced” rather than guessing.</li>
-                <li>Label anything from last year as Season 1 or 2025.</li>
+                <li>Call this edition “MindQuest 2.0” (2026 is the year, not the name); call last year’s “MindQuest 2025”. Do not use “Season 1 / Season 2”.</li>
               </ul>
             </article>
             <article class="card">

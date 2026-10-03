@@ -215,7 +215,7 @@ For detailed testing documentation, see [`tests/README.md`](tests/README.md).
 ## 📞 Contact & Support
 
 - **Email**: <info@mindquestquiz.com>
-- **Phone**: +971 52 480 3447 / +971 50 295 3685
+- **Phone**: +971 52 480 3447 / +971 50 538 5322
 - **Facebook**: [GECBTA](https://www.facebook.com/gecbta/)
 - **Website**: [AKCAF](https://akcafuae.com/)
 

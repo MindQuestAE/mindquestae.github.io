@@ -29,7 +29,8 @@ test-ci:
 # Version management
 # sw.js is the single source of the release version (the "// Version" comment
 # and CACHE_NAME; its precache URLs derive from CACHE_NAME). The same value is
-# written to the ?v= query on styles.css and script.js in index.html so
+# written to the ?v= query on styles.css and script.js in index.html, and on
+# styles.css in docs/2026-design.html, so
 # returning visitors never get new HTML with stale cached CSS/JS.
 VERSION_RE = [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*
 CURRENT_VERSION = $(shell sed -n "s/^const CACHE_NAME = 'mindquest-v\(.*\)';/\1/p" sw.js)
@@ -57,10 +58,12 @@ bump-version-to:
 	fi
 	@sed -i.bak "s/Version $(VERSION_RE)/Version $(VERSION)/; s/mindquest-v$(VERSION_RE)/mindquest-v$(VERSION)/" sw.js
 	@sed -i.bak "s/\(assets\/styles\.css?v=\)$(VERSION_RE)/\1$(VERSION)/; s/\(assets\/script\.js?v=\)$(VERSION_RE)/\1$(VERSION)/" index.html
-	@rm -f sw.js.bak index.html.bak
+	@sed -i.bak "s/\(assets\/styles\.css?v=\)$(VERSION_RE)/\1$(VERSION)/" docs/2026-design.html
+	@rm -f sw.js.bak index.html.bak docs/2026-design.html.bak
 	@test "$$(grep -c "mindquest-v$(VERSION)'" sw.js)" = 1 || { echo "sw.js CACHE_NAME was not updated"; exit 1; }
 	@test "$$(grep -c "?v=$(VERSION)\"" index.html)" = 2 || { echo "index.html ?v= values were not updated"; exit 1; }
-	@echo "✓ sw.js and index.html asset URLs set to version $(VERSION)"
+	@test "$$(grep -c "styles.css?v=$(VERSION)\"" docs/2026-design.html)" = 1 || { echo "docs/2026-design.html ?v= value was not updated"; exit 1; }
+	@echo "✓ sw.js, index.html and docs/2026-design.html asset URLs set to version $(VERSION)"
 
 # Cleanup
 clean-test:

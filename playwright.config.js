@@ -58,7 +58,8 @@ module.exports = defineConfig({
   webServer: {
     command: 'python3 -m http.server 8001 --bind 127.0.0.1',
     url: 'http://127.0.0.1:8001',
-    reuseExistingServer: !process.env.CI,
+    // Never reuse a server already on this port: it may be serving another directory.
+    reuseExistingServer: false,
     timeout: 15_000,
     stdout: 'ignore',
     stderr: 'ignore',
