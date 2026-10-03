@@ -6,6 +6,10 @@ yarn-error.log*
 
 # Test artifacts
 tests/screenshots/
+tests/artifacts/
+playwright-report/
+test-results/
+blob-report/
 test-results.xml
 coverage/
 .nyc_output/
@@ -52,3 +56,4 @@ pids
 # Temporary files
 tmp/
 temp/
+.omo/

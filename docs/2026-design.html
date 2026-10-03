@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>MindQuest 2026 — Design System</title>
+    <link rel="icon" type="image/png" href="../assets/favicon/favicon-96x96.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap"
+    />
+    <!-- Components below are rendered with the live site stylesheet, so this
+         page always reflects the real implementation. -->
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <style>
+      /* Documentation-only chrome (prefixed ds-). Not part of the design system. */
+      .ds-header {
+        padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
+        border-bottom: var(--border);
+        background-image: radial-gradient(rgba(10, 33, 85, 0.13) 1.2px, transparent 1.2px);
+        background-size: 22px 22px;
+      }
+      .ds-header .brand { display: flex; width: fit-content; margin: 0 0 1.5rem; }
+      .ds-header h1 {
+        font-size: clamp(2.4rem, 6vw, 4.2rem);
+        font-weight: 900;
+        letter-spacing: -0.035em;
+        line-height: 1.02;
+      }
+      .ds-header p { max-width: 42rem; margin-top: 1rem; font-size: 1.15rem; }
+      .ds-toc {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(251, 249, 244, 0.94);
+        border-bottom: var(--border);
+        overflow-x: auto;
+      }
+      .ds-toc ul { display: flex; gap: 0.25rem; padding: 0.6rem 0; white-space: nowrap; }
+      .ds-toc a {
+        display: block;
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        font-family: var(--font-title);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+      .ds-toc a:hover { background: var(--sky-blue-soft); }
+      .ds-section { padding: clamp(2.5rem, 6vw, 4rem) 0; border-bottom: 2px dashed rgba(10, 33, 85, 0.2); scroll-margin-top: 60px; }
+      .ds-section > .container > h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900; letter-spacing: -0.03em; }
+      .ds-section > .container > p { max-width: 46rem; margin-top: 0.6rem; }
+      .ds-sub {
+        margin: 2.25rem 0 1rem;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .ds-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+      .ds-grid-wide { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
+      .ds-swatch { border: var(--border); border-radius: var(--radius-md); overflow: hidden; background: var(--white); }
+      .ds-swatch-chip { height: 96px; border-bottom: var(--border); }
+      .ds-swatch-body { padding: 0.8rem 1rem; }
+      .ds-swatch-body strong { display: block; font-family: var(--font-title); font-weight: 800; color: var(--ink); }
+      .ds-swatch-body small { display: block; color: var(--text); }
+      code, .ds-code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.82em;
+        background: var(--sky-blue-soft);
+        color: var(--ink);
+        padding: 0.1em 0.4em;
+        border-radius: 5px;
+      }
+      .ds-demo {
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border: 2px dashed rgba(10, 33, 85, 0.3);
+        border-radius: var(--radius-md);
+        background: var(--paper);
+      }
+      .ds-demo-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+      .ds-demo-ink { background: var(--ink); border-color: var(--sky-blue); }
+      .ds-caption { margin-top: 0.6rem; font-size: 0.88rem; }
+      .ds-type-row { display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.1rem 0; border-top: 2px dashed rgba(10, 33, 85, 0.2); }
+      .ds-type-row:first-of-type { border-top: 0; }
+      .ds-type-meta { font-size: 0.85rem; }
+      .ds-type-meta strong { display: block; font-family: var(--font-title); color: var(--ink); }
+      .ds-shape { display: grid; place-items: center; height: 110px; background: var(--white); border: var(--border); font-family: var(--font-title); font-weight: 800; color: var(--ink); font-size: 0.85rem; text-align: center; }
+      .ds-table { width: 100%; border-collapse: collapse; background: var(--white); border: var(--border); border-radius: var(--radius-md); overflow: hidden; display: block; overflow-x: auto; }
+      .ds-table th, .ds-table td { text-align: left; padding: 0.7rem 1rem; border-bottom: 1.5px solid rgba(10, 33, 85, 0.15); vertical-align: top; }
+      .ds-table th { font-family: var(--font-title); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); background: var(--sky-blue-soft); }
+      .ds-table tr:last-child td { border-bottom: 0; }
+      .ds-dodont { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .ds-dodont .card h3 span { margin-right: 0.4rem; }
+      .ds-dodont ul { display: grid; gap: 0.5rem; margin-top: 0.75rem; list-style: disc; padding-left: 1.2rem; }
+      .ds-footer { padding: 2rem 0 3rem; font-size: 0.9rem; }
+      /* Keep page-level components static inside demos */
+      .ds-demo .ticker { border-radius: var(--radius-sm); border: var(--border); }
+      .ds-demo .quiz-card { transform: none; max-width: 460px; }
+      @media (max-width: 600px) {
+        .ds-type-row { grid-template-columns: 1fr; gap: 0.3rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Icon sprite: keep in sync with the copy at the top of <body> in index.html. -->
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <symbol id="icon-ticket" viewBox="0 0 24 24"><path d="M4 5h16v4a3 3 0 0 0 0 6v4H4v-4a3 3 0 0 0 0-6V5Zm8 2v2m0 2v2m0 2v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm9-1a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-cap" viewBox="0 0 24 24"><path d="m2 10 10-6 10 6-10 6-10-6Zm4 2.4V17c3.5 2.7 8.5 2.7 12 0v-4.6M22 10v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-trophy" viewBox="0 0 24 24"><path d="M8 21h8m-4-4v4m-6-18h12v5a6 6 0 0 1-12 0V3Zm0 2H3v2a5 5 0 0 0 5 5m8-7h5v2a5 5 0 0 1-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-card" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 16c0-2 6-2 6 0m3-6h3m-3 4h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-gavel" viewBox="0 0 24 24"><path d="m14 6 4 4M4 20l9-9m-8-3 4-4 8 8-4 4-8-8Zm9 12h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v4M8 3v4M3 10h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12M7 2v5l5 5-5 5v5m10-20v5l-5 5 5 5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-pen" viewBox="0 0 24 24"><path d="m4 20 4-.8L20 7a2.8 2.8 0 0 0-4-4L4 15l-.8 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 10v2a7 7 0 0 0 14 0v-2m-7 9v3m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="icon-medal" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 3 4 5 4-5m-8 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-school" viewBox="0 0 24 24"><path d="m3 9 9-6 9 6v12H3V9Zm5 12v-7h8v7M7 10h.01M12 10h.01M17 10h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-certificate" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 14-1 8 5-3 5 3-1-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3V7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></symbol>
+      <symbol id="icon-envelope" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-handshake" viewBox="0 0 24 24"><path d="m3 12 4-4 4 1 2-1 5 1 3 3-7 7-4-3-2 1-5-5Zm4-4 3-3 4 2m-3 2 4 4m-7 2 3 3m0-5 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-comment" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.9-4A8 8 0 1 1 21 11.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12a4 4 0 1 1-1-2.7V14a2 2 0 0 0 4 0v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 3 5c0-1 1-2 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.5C17.3 1.3 16.2 1 15 1c-3.3 0-5 2-5 5.5V9H7v4h3v8h4Z" fill="currentColor"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM2 9h4v13H2V9Zm7 0h4v2c1-2 6-3 8 1 1 1 1 2 1 4v6h-4v-6c0-2-1-3-2-3-2 0-3 1-3 3v6H9V9Z" fill="currentColor"/></symbol>
+      <symbol id="icon-loader" viewBox="0 0 24 24"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M7.76 16.24l-2.12 2.12m12.72 0-2.12-2.12M7.76 7.76 5.64 5.64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    </svg>
+    <header class="ds-header">
+      <div class="container">
+        <a href="../index.html" class="brand" aria-label="Back to the MindQuest site">
+          <img src="../assets/mindquest-logomark.png" alt="" width="32" height="40" />
+          <span class="brand-text">MindQuest<span class="brand-year">2.0</span></span>
+        </a>
+        <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-card"></use></svg></span> Design system · 2026</p>
+        <h1>The <span class="hl">Quiz Board</span> theme.</h1>
+        <p>
+          The visual language of the MindQuest 2026 site: a light, playful
+          quiz-show set built from the MindQuest brand colours and typefaces.
+          Every example on this page is rendered with the live
+          <code>assets/styles.css</code>.
+        </p>
+      </div>
+    </header>
+
+    <nav class="ds-toc" aria-label="Sections">
+      <div class="container">
+        <ul>
+          <li><a href="#principles">Principles</a></li>
+          <li><a href="#colour">Colour</a></li>
+          <li><a href="#type">Typography</a></li>
+          <li><a href="#shape">Shape &amp; depth</a></li>
+          <li><a href="#layout">Layout</a></li>
+          <li><a href="#buttons">Buttons</a></li>
+          <li><a href="#labels">Labels</a></li>
+          <li><a href="#cards">Cards</a></li>
+          <li><a href="#components">Components</a></li>
+          <li><a href="#forms">Forms</a></li>
+          <li><a href="#motion">Motion</a></li>
+          <li><a href="#voice">Voice</a></li>
+          <li><a href="#a11y">Accessibility</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Principles -->
+      <section class="ds-section" id="principles">
+        <div class="container">
+          <h2>Principles</h2>
+          <p>Four ideas that every screen should follow.</p>
+          <div class="ds-grid-wide" style="margin-top: 1.75rem">
+            <article class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg></div>
+              <h3>It’s a game board</h3>
+              <p>Sections are “Rounds”, cards look like question cards, and the hero lets visitors actually play.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pen"></use></svg></div>
+              <h3>Ink on paper</h3>
+              <p>Warm paper background, 2px Oxford Blue outlines and solid offset shadows. No gradients, no blur, no soft shadows.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg></div>
+              <h3>Yellow is the highlighter</h3>
+              <p>Minion Yellow marks the one thing that matters most in a view: the main action, the answer, the winner.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></div>
+              <h3>Loud headings, calm copy</h3>
+              <p>Heavy Montserrat headlines ending in a full stop; short, friendly Lato sentences underneath.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Colour -->
+      <section class="ds-section" id="colour">
+        <div class="container">
+          <h2>Colour</h2>
+          <p>
+            The four brand colours are unchanged from the MindQuest brand
+            guidelines. Tints and the paper surface are derived from them. Use
+            the CSS custom properties, never raw hex values.
+          </p>
+
+          <h3 class="ds-sub">Brand</h3>
+          <div class="ds-grid">
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--oxford-blue)"></div>
+              <div class="ds-swatch-body"><strong>Oxford Blue</strong><small>#0A2155</small><code>--oxford-blue</code> / <code>--ink</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--minion-yellow)"></div>
+              <div class="ds-swatch-body"><strong>Minion Yellow</strong><small>#F9D84B</small><code>--minion-yellow</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--sky-blue)"></div>
+              <div class="ds-swatch-body"><strong>Sky Blue</strong><small>#B3D4FC</small><code>--sky-blue</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--slate-gray)"></div>
+              <div class="ds-swatch-body"><strong>Slate Gray</strong><small>#4F4F4F</small><code>--slate-gray</code> / <code>--text</code></div>
+            </div>
+          </div>
+
+          <h3 class="ds-sub">Surfaces &amp; tints</h3>
+          <div class="ds-grid">
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--paper)"></div>
+              <div class="ds-swatch-body"><strong>Paper</strong><small>#FBF9F4 · page background</small><code>--paper</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--white)"></div>
+              <div class="ds-swatch-body"><strong>White</strong><small>#FFFFFF · cards</small><code>--white</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--sky-blue-soft)"></div>
+              <div class="ds-swatch-body"><strong>Sky Blue Soft</strong><small>#E5F0FE · alt sections, chips</small><code>--sky-blue-soft</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--minion-yellow-soft)"></div>
+              <div class="ds-swatch-body"><strong>Yellow Soft</strong><small>#FDF0B3 · notes, “TBA” pills</small><code>--minion-yellow-soft</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--oxford-blue-light)"></div>
+              <div class="ds-swatch-body"><strong>Oxford Blue Light</strong><small>#1A3A7A · ink button hover</small><code>--oxford-blue-light</code></div>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--error)"></div>
+              <div class="ds-swatch-body"><strong>Error</strong><small>#B3261E · form errors only (fill: #FFF5F4)</small><code>--error</code> / <code>--error-soft</code></div>
+            </div>
+          </div>
+
+          <h3 class="ds-sub">Usage</h3>
+          <table class="ds-table">
+            <thead><tr><th>Role</th><th>Colour</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Headings, outlines, shadows, icons</td><td>Oxford Blue (<code>--ink</code>)</td><td>The only outline and shadow colour on light surfaces.</td></tr>
+              <tr><td>Body text</td><td>Slate Gray (<code>--text</code>)</td><td>On paper, white and soft tints. On yellow or sky fills, switch body text to ink.</td></tr>
+              <tr><td>Primary action, highlight, correct answer</td><td>Minion Yellow</td><td>One yellow focal point per view. Text on yellow is always ink.</td></tr>
+              <tr><td>Secondary fills, alternating sections</td><td>Sky Blue / Sky Blue Soft</td><td>Sections alternate paper → sky soft → paper → ink.</td></tr>
+              <tr><td>Dark sections (prizes, footer, ticker)</td><td>Oxford Blue background</td><td>White headings, Sky Blue lead text, yellow accents and shadows.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Typography -->
+      <section class="ds-section" id="type">
+        <div class="container">
+          <h2>Typography</h2>
+          <p>
+            <strong>Montserrat</strong> (<code>--font-title</code>) for headings,
+            labels and buttons; <strong>Lato</strong> (<code>--font-body</code>)
+            for body text. Headings use tight negative letter-spacing; labels
+            are uppercase with wide tracking. Both load with
+            <code>font-display: swap</code> behind metric-matched Arial
+            fallbacks (“Montserrat Fallback”, “Lato Fallback”), so text never
+            shifts when the web fonts arrive.
+          </p>
+          <div style="margin-top: 1.75rem">
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Hero title</strong>Montserrat 900 · clamp(2.6rem, 6.4vw, 5rem) · −0.035em · <code>.hero-title</code></div>
+              <div class="hero-title" style="margin: 0">Unlock your mind.</div>
+            </div>
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Section title</strong>Montserrat 900 · clamp(2.1rem, 4.6vw, 3.4rem) · −0.03em · <code>.section-title</code></div>
+              <div class="section-title">More than a quiz.</div>
+            </div>
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Card title</strong>Montserrat 800 · 1.2rem · <code>.card h3</code></div>
+              <h3 style="font-size: 1.2rem; font-weight: 800">Written prelims</h3>
+            </div>
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Lead</strong>Lato 400 · clamp(1.05rem, 1.5vw, 1.18rem) · <code>.section-lead</code></div>
+              <p class="section-lead" style="margin: 0">A celebration of curiosity — where high schoolers from across the Emirates meet, compete and learn.</p>
+            </div>
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Body</strong>Lato 400 · 1.0625rem / 1.65 · Slate Gray</div>
+              <p>Every team sits a written round of category-based questions. The top scorers advance.</p>
+            </div>
+            <div class="ds-type-row">
+              <div class="ds-type-meta"><strong>Label</strong>Montserrat 800 · 0.8rem · uppercase · 0.12em · <code>.round-tag</code></div>
+              <p class="round-tag" style="margin: 0"><span>01</span> Round one</p>
+            </div>
+          </div>
+          <h3 class="ds-sub">Highlighter</h3>
+          <div class="ds-demo">
+            <div class="section-title">Wrap one word in <span class="hl">.hl</span> per headline.</div>
+          </div>
+          <p class="ds-caption">The yellow marker stroke (<code>.hl</code>) animates in once. Use it on a single word in the hero-level heading only.</p>
+        </div>
+      </section>
+
+      <!-- Shape -->
+      <section class="ds-section" id="shape">
+        <div class="container">
+          <h2>Shape &amp; depth</h2>
+          <p>
+            Everything is outlined with <code>--border</code> (2px solid ink).
+            Depth comes from solid offset shadows, never blur. Hover lifts an
+            element up-left by 2px; pressing pushes it into its shadow.
+          </p>
+          <h3 class="ds-sub">Radius</h3>
+          <div class="ds-grid">
+            <div class="ds-shape" style="border-radius: var(--radius-sm)">10px<br /><code>--radius-sm</code></div>
+            <div class="ds-shape" style="border-radius: var(--radius-md)">18px · cards<br /><code>--radius-md</code></div>
+            <div class="ds-shape" style="border-radius: var(--radius-lg)">28px · feature<br /><code>--radius-lg</code></div>
+            <div class="ds-shape" style="border-radius: 999px">999px · pills</div>
+          </div>
+          <h3 class="ds-sub">Hard shadows</h3>
+          <div class="ds-grid" style="gap: 2rem">
+            <div class="ds-shape" style="border-radius: var(--radius-md); box-shadow: var(--shadow-hard-sm)">4px<br /><code>--shadow-hard-sm</code></div>
+            <div class="ds-shape" style="border-radius: var(--radius-md); box-shadow: var(--shadow-hard)">6px · cards<br /><code>--shadow-hard</code></div>
+            <div class="ds-shape" style="border-radius: var(--radius-md); box-shadow: var(--shadow-hard-lg)">10px · hero<br /><code>--shadow-hard-lg</code></div>
+            <div class="ds-shape" style="border-radius: var(--radius-md); background: var(--ink); color: var(--white); border-color: var(--sky-blue); box-shadow: 6px 6px 0 var(--minion-yellow)">On ink:<br />yellow shadow</div>
+          </div>
+          <h3 class="ds-sub">Texture</h3>
+          <div class="ds-grid">
+            <div class="ds-shape" style="border-radius: var(--radius-md); background-color: var(--paper); background-image: radial-gradient(rgba(10,33,85,.13) 1.2px, transparent 1.2px); background-size: 22px 22px">Dot grid · 22px</div>
+            <div class="ds-shape" style="border-radius: var(--radius-md); border-style: dashed">Dashed dividers</div>
+          </div>
+          <p class="ds-caption">The dot grid is used on the hero, dark sections and the registration banner. Dashed 2px lines separate rows inside a card.</p>
+        </div>
+      </section>
+
+      <!-- Layout -->
+      <section class="ds-section" id="layout">
+        <div class="container">
+          <h2>Layout</h2>
+          <table class="ds-table" style="margin-top: 1.5rem">
+            <thead><tr><th>Token / rule</th><th>Value</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>--container</code></td><td>1200px</td><td>Max content width (<code>.container</code>).</td></tr>
+              <tr><td><code>--gutter</code></td><td>clamp(16px, 4vw, 32px)</td><td>Side padding at every width.</td></tr>
+              <tr><td><code>.section</code></td><td>clamp(4rem, 9vw, 7rem) vertical</td><td>Standard section rhythm; <code>.section-tight</code> for banners.</td></tr>
+              <tr><td>Grid gap</td><td>1.25rem</td><td>Between cards in every grid.</td></tr>
+              <tr><td><code>--nav-h</code></td><td>76px</td><td>Fixed navbar height and scroll offset.</td></tr>
+              <tr><td>Breakpoints</td><td>1080 · 900 · 600px</td><td>1080: bento to 2 columns. 900: hamburger menu, single-column layouts. 600: phone adjustments.</td></tr>
+            </tbody>
+          </table>
+          <h3 class="ds-sub">Section backgrounds</h3>
+          <div class="ds-grid">
+            <div class="ds-shape" style="background: var(--paper)">Default<br /><code>.section</code></div>
+            <div class="ds-shape" style="background: var(--sky-blue-soft)">Alternate<br /><code>.section-sky</code></div>
+            <div class="ds-shape" style="background: var(--ink); color: var(--white)">Feature<br /><code style="background: rgba(255,255,255,.15); color: #fff">.section-ink</code></div>
+            <div class="ds-shape" style="background: var(--minion-yellow)">Call to action<br /><code>.register-band</code></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section class="ds-section" id="buttons">
+        <div class="container">
+          <h2>Buttons</h2>
+          <p>Pill-shaped, Montserrat 700, outlined, with a hard shadow. Icons sit before the label; a trailing arrow means “go somewhere”.</p>
+          <h3 class="ds-sub">Variants</h3>
+          <div class="ds-demo ds-demo-row">
+            <a href="#buttons" class="btn btn-yellow"><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Primary</a>
+            <a href="#buttons" class="btn btn-ink">Ink</a>
+            <a href="#buttons" class="btn btn-outline">Outline <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+          </div>
+          <table class="ds-table" style="margin-top: 1rem">
+            <thead><tr><th>Class</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>.btn .btn-yellow</code></td><td>The main action of a view (one per view).</td></tr>
+              <tr><td><code>.btn .btn-ink</code></td><td>Strong action on light or yellow surfaces: nav CTA, form submit.</td></tr>
+              <tr><td><code>.btn .btn-outline</code></td><td>Secondary action next to a primary.</td></tr>
+              <tr><td><code>.btn-ghost-light</code></td><td>Quiet action on ink surfaces (cookie banner “Decline”).</td></tr>
+            </tbody>
+          </table>
+          <h3 class="ds-sub">Sizes</h3>
+          <div class="ds-demo ds-demo-row">
+            <a href="#buttons" class="btn btn-yellow btn-sm">Small · .btn-sm</a>
+            <a href="#buttons" class="btn btn-yellow">Default</a>
+            <a href="#buttons" class="btn btn-yellow btn-lg">Large · .btn-lg</a>
+          </div>
+          <h3 class="ds-sub">On ink</h3>
+          <div class="ds-demo ds-demo-ink ds-demo-row">
+            <a href="#buttons" class="btn btn-yellow">Become a sponsor</a>
+            <a href="#buttons" class="btn btn-sm btn-ghost-light">Decline</a>
+          </div>
+          <h3 class="ds-sub">Text link</h3>
+          <div class="ds-demo ds-demo-row">
+            <a href="#buttons" class="text-link" style="margin-top: 0">See the format <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Labels -->
+      <section class="ds-section" id="labels">
+        <div class="container">
+          <h2>Labels, tags &amp; chips</h2>
+          <h3 class="ds-sub">Round tag — opens every section</h3>
+          <div class="ds-demo ds-demo-row">
+            <p class="round-tag" style="margin: 0"><span>01</span> Round one</p>
+            <p class="round-tag" style="margin: 0"><span>?</span> Lifelines</p>
+            <p class="round-tag" style="margin: 0"><span><svg class="icon" aria-hidden="true"><use href="#icon-camera"></use></svg></span> Replay</p>
+          </div>
+          <div class="ds-demo ds-demo-ink ds-demo-row" style="margin-top: 1rem">
+            <p class="round-tag round-tag-light" style="margin: 0"><span>04</span> Final round</p>
+          </div>
+          <p class="ds-caption">Numbered for the main content rounds; an icon or “?” for supporting sections. Use <code>.round-tag-light</code> on ink.</p>
+
+          <h3 class="ds-sub">Eyebrow, chips &amp; pills</h3>
+          <div class="ds-demo ds-demo-row">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Season 02 · UAE Inter-School GK Quiz</p>
+            <ul class="hero-chips" style="margin: 0">
+              <li><svg class="icon" aria-hidden="true"><use href="#icon-ticket"></use></svg> Free entry</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg> Teams of two</li>
+            </ul>
+            <span class="quiz-chip">Warm-up · 1/5</span>
+            <span class="quiz-cat">Space</span>
+            <span class="sb-value tba">To be announced</span>
+          </div>
+
+          <h3 class="ds-sub">Brand lockup</h3>
+          <div class="ds-demo ds-demo-row">
+            <span class="brand">
+              <img src="../assets/mindquest-logomark.png" alt="" width="32" height="40" />
+              <span class="brand-text">MindQuest<span class="brand-year">2.0</span></span>
+            </span>
+          </div>
+          <p class="ds-caption">Logomark + Montserrat 900 wordmark + tilted yellow edition badge (<code>.brand-year</code>).</p>
+        </div>
+      </section>
+
+      <!-- Cards -->
+      <section class="ds-section" id="cards">
+        <div class="container">
+          <h2>Cards</h2>
+          <p>The base <code>.card</code> is white, outlined, 18px radius, with a 6px hard shadow. Modifiers change the fill.</p>
+          <h3 class="ds-sub">Base &amp; tiles</h3>
+          <div class="ds-grid-wide">
+            <article class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-card"></use></svg></div>
+              <h3>Base card</h3>
+              <p><code>.card</code> with a <code>.card-icon</code>.</p>
+              <ul class="check-list">
+                <li><code>.check-list</code> item</li>
+                <li>Another item</li>
+              </ul>
+              <p class="note"><code>.note</code> — a soft yellow callout.</p>
+            </article>
+            <article class="card tile tile-yellow">
+              <svg class="icon" aria-hidden="true"><use href="#icon-cap"></use></svg>
+              <h3>.tile-yellow</h3>
+              <p>Lead benefit.</p>
+            </article>
+            <article class="card tile tile-sky">
+              <svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg>
+              <h3>.tile-sky</h3>
+              <p>Supporting benefit.</p>
+            </article>
+            <article class="card tile tile-ink">
+              <svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg>
+              <h3>.tile-ink</h3>
+              <p>Contrast tile.</p>
+            </article>
+          </div>
+          <p class="ds-caption">In a tile group, use each fill once so the set reads as a varied board.</p>
+
+          <h3 class="ds-sub">Step cards</h3>
+          <div class="ds-demo" style="background: var(--sky-blue-soft); padding-top: 2.5rem">
+            <ol class="steps" style="margin: 0">
+              <li class="card step"><span class="step-num">1</span><h3>Written prelims</h3><p>Numbered badge overlaps the top edge.</p></li>
+              <li class="card step"><span class="step-num">2</span><h3>Grand Finale</h3><p>Dashed connectors join the steps.</p></li>
+              <li class="card step"><span class="step-num">3</span><h3>Awards</h3><p>Stacks vertically below 900px.</p></li>
+            </ol>
+          </div>
+
+          <h3 class="ds-sub">Cards on ink</h3>
+          <div class="ds-demo ds-demo-ink">
+            <div class="awards" style="margin: 0">
+              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg><h3>.card-dark</h3><p>Sky outline, yellow hard shadow.</p></article>
+              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-school"></use></svg><h3>Yellow icons</h3><p>White headings, soft white text.</p></article>
+              <article class="card card-dark"><svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg><h3>Same radius</h3><p>Same padding as light cards.</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Components -->
+      <section class="ds-section" id="components">
+        <div class="container">
+          <h2>Signature components</h2>
+
+          <h3 class="ds-sub">Quiz card — <code>.quiz-card</code></h3>
+          <div class="ds-demo">
+            <div class="quiz-card">
+              <div class="quiz-card-top">
+                <span class="quiz-chip">Warm-up · 3/5</span>
+                <span class="quiz-cat">Science</span>
+              </div>
+              <p class="quiz-q" style="min-height: 0">Which element has the chemical symbol ‘K’?</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-opt wrong" disabled><span class="opt-key">A</span>Krypton</button>
+                <button type="button" class="quiz-opt"><span class="opt-key">B</span>Calcium</button>
+                <button type="button" class="quiz-opt correct" disabled><span class="opt-key">C</span>Potassium</button>
+                <button type="button" class="quiz-opt"><span class="opt-key">D</span>Phosphorus</button>
+              </div>
+              <div class="quiz-foot">
+                <p class="quiz-feedback">Not quite. ‘K’ comes from its Latin name, kalium.</p>
+                <button type="button" class="quiz-next">Next <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></button>
+              </div>
+            </div>
+          </div>
+          <p class="ds-caption">States: default, hover (sky fill + lift), <code>.correct</code> (yellow fill) and <code>.wrong</code> (dashed, struck through). The correct answer is always revealed. Questions live in <code>warmupQuestions</code> in <code>assets/script.js</code>. In the hero the card is tilted 1.5° with the 10px shadow.</p>
+
+          <h3 class="ds-sub">Category ticker — <code>.ticker</code></h3>
+          <div class="ds-demo">
+            <div class="ticker">
+              <div class="ticker-track">
+                <ul><li>World</li><li>India</li><li>Science &amp; Tech</li><li>Current Affairs</li><li>Sports</li><li>Literature</li><li>Arts &amp; Entertainment</li><li>UAE</li></ul>
+                <ul aria-hidden="true"><li>World</li><li>India</li><li>Science &amp; Tech</li><li>Current Affairs</li><li>Sports</li><li>Literature</li><li>Arts &amp; Entertainment</li><li>UAE</li></ul>
+              </div>
+            </div>
+          </div>
+          <p class="ds-caption">The list is duplicated (second copy <code>aria-hidden</code>) so the loop is seamless. Items alternate white and yellow.</p>
+
+          <h3 class="ds-sub">Scoreboard — <code>.scoreboard</code></h3>
+          <div class="ds-demo">
+            <ol class="scoreboard">
+              <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span><span class="sb-label">Registration opens</span><span class="sb-value tba">To be announced</span></li>
+              <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></span><span class="sb-label">Grand Finale &amp; awards</span><span class="sb-value">Confirmed date goes here</span></li>
+            </ol>
+          </div>
+          <p class="ds-caption">Unknown values use the dashed <code>.tba</code> pill; confirmed values drop the class and show as plain bold text.</p>
+
+          <h3 class="ds-sub">Podium — <code>.podium</code> (on ink)</h3>
+          <div class="ds-demo ds-demo-ink">
+            <div class="podium">
+              <div class="podium-col podium-2"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div><p class="podium-title">2nd place</p><div class="podium-block"><span>2</span></div></div>
+              <div class="podium-col podium-1"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div><p class="podium-title">Champions</p><div class="podium-block"><span>1</span></div></div>
+              <div class="podium-col podium-3"><div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div><p class="podium-title">3rd place</p><div class="podium-block"><span>3</span></div></div>
+            </div>
+          </div>
+          <p class="ds-caption">First place is yellow, second sky blue, third white.</p>
+
+          <h3 class="ds-sub">Recap strip — <code>.recap</code></h3>
+          <div class="ds-demo">
+            <aside class="recap" style="margin: 0">
+              <div class="recap-label">Season 1 recap</div>
+              <dl class="recap-stats">
+                <div><dt>Held on</dt><dd>19 Oct 2025</dd></div>
+                <div><dt>Hosted at</dt><dd>The Millennium School</dd></div>
+                <div><dt>Cash prizes awarded</dt><dd>AED 10,000</dd></div>
+              </dl>
+            </aside>
+          </div>
+
+          <h3 class="ds-sub">FAQ accordion — <code>details.faq-item</code></h3>
+          <div class="ds-demo" style="background: var(--sky-blue-soft)">
+            <div class="faq-list" style="max-width: 640px">
+              <details class="faq-item" name="ds-faq" open>
+                <summary>Is there a registration fee?</summary>
+                <p>No. Registration for MindQuest is completely free.</p>
+              </details>
+              <details class="faq-item" name="ds-faq">
+                <summary>Can parents attend?</summary>
+                <p>Yes. Parents and family members are welcome at the Grand Finale.</p>
+              </details>
+            </div>
+          </div>
+          <p class="ds-caption">Native <code>&lt;details&gt;</code> sharing a <code>name</code>, so only one is open at a time. The “+” rotates to “×” and turns yellow when open.</p>
+
+          <h3 class="ds-sub">Call-to-action band — <code>.register-band</code></h3>
+          <div class="ds-demo">
+            <div class="register-band">
+              <div>
+                <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
+                <h2 class="section-title">Registration opens soon.</h2>
+                <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page.</p>
+              </div>
+              <div class="register-actions">
+                <a href="#components" class="btn btn-ink btn-lg">Primary action</a>
+                <a href="#components" class="btn btn-outline btn-lg">Secondary action</a>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="ds-sub">Logo tiles</h3>
+          <div class="ds-demo ds-demo-row">
+            <span class="organizer-logo" style="width: 110px"><img src="../assets/gecbta-loga.png" alt="GECBTA logo" /></span>
+            <span class="organizer-logo" style="width: 110px"><img src="../assets/ackaf-logo.png" alt="AKCAF logo" /></span>
+          </div>
+          <p class="ds-caption">Per the brand guidelines, organiser logos sit on a Minion Yellow rounded square (<code>.organizer-logo</code>). Sponsor logos sit on plain white tiles in <code>.sponsor-wall</code>.</p>
+        </div>
+      </section>
+
+      <!-- Forms -->
+      <section class="ds-section" id="forms">
+        <div class="container">
+          <h2>Forms</h2>
+          <p>Inputs are paper-filled with the ink outline. Focus adds a yellow offset shadow; errors turn the outline red with a message below.</p>
+          <div class="ds-demo" style="margin-top: 1.5rem">
+            <div class="card" style="max-width: 560px">
+              <div class="form-group">
+                <label for="dsName">Default</label>
+                <input type="text" id="dsName" placeholder="Your full name" />
+              </div>
+              <div class="form-group error">
+                <label for="dsEmail">Error</label>
+                <input type="email" id="dsEmail" value="not-an-email" aria-invalid="true" />
+                <p class="form-error" style="display: block">Please enter a valid email address.</p>
+              </div>
+              <div class="form-status success">Success status — <code>.form-status.success</code></div>
+              <div class="form-status error">Error status — <code>.form-status.error</code></div>
+              <button type="button" class="btn btn-ink btn-lg btn-block"><svg class="icon" aria-hidden="true"><use href="#icon-send"></use></svg> Send message</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Motion -->
+      <section class="ds-section" id="motion">
+        <div class="container">
+          <h2>Motion</h2>
+          <table class="ds-table" style="margin-top: 1.5rem">
+            <thead><tr><th>Pattern</th><th>Behaviour</th></tr></thead>
+            <tbody>
+              <tr><td>Hover lift</td><td>Translate −2px, −2px and grow the hard shadow. 150ms, <code>--ease</code>.</td></tr>
+              <tr><td>Press</td><td>Translate +3px, +3px into the shadow, like pushing a buzzer.</td></tr>
+              <tr><td>Reveal on scroll</td><td><code>.reveal</code> fades up 24px over 600ms, once; siblings stagger by 80ms like cards being dealt.</td></tr>
+              <tr><td>Marker stroke</td><td><code>.hl</code> draws left-to-right once on load.</td></tr>
+              <tr><td>Ambient</td><td>Ticker scroll (36s loop), eyebrow dot pulse, buzzer bob. Decorative only.</td></tr>
+              <tr><td>Reduced motion</td><td><code>prefers-reduced-motion</code> disables all animation and shows revealed content immediately.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Voice -->
+      <section class="ds-section" id="voice">
+        <div class="container">
+          <h2>Voice &amp; naming</h2>
+          <p>Friendly, confident and brief. Quiz-show vocabulary names the sections.</p>
+          <table class="ds-table" style="margin-top: 1.5rem">
+            <thead><tr><th>Section</th><th>Tag</th><th>Headline</th></tr></thead>
+            <tbody>
+              <tr><td>About</td><td>01 Round one</td><td>More than a quiz.</td></tr>
+              <tr><td>Format</td><td>02 Round two</td><td>How the game is played.</td></tr>
+              <tr><td>Dates</td><td>03 Round three</td><td>Save the dates.</td></tr>
+              <tr><td>Prizes</td><td>04 Final round</td><td>Knowledge, rewarded.</td></tr>
+              <tr><td>Gallery</td><td>Replay</td><td>Season 1 in pictures.</td></tr>
+              <tr><td>FAQ</td><td>Lifelines</td><td>Frequently asked.</td></tr>
+              <tr><td>Contact</td><td>Phone a friend</td><td>Get in touch.</td></tr>
+            </tbody>
+          </table>
+          <div class="ds-dodont" style="margin-top: 1.5rem">
+            <article class="card">
+              <h3><span aria-hidden="true">✓</span>Do</h3>
+              <ul>
+                <li>End headlines with a full stop.</li>
+                <li>Write sentence case everywhere except uppercase labels.</li>
+                <li>Mark unknown facts “To be announced” rather than guessing.</li>
+                <li>Label anything from last year as Season 1 or 2025.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3><span aria-hidden="true">×</span>Don’t</h3>
+              <ul>
+                <li>Use gradients, glass blur or soft drop shadows.</li>
+                <li>Put more than one yellow primary button in a view.</li>
+                <li>Set body text in yellow or sky blue on light surfaces.</li>
+                <li>Introduce colours outside the brand palette (error red excepted).</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accessibility -->
+      <section class="ds-section" id="a11y" style="border-bottom: 0">
+        <div class="container">
+          <h2>Accessibility</h2>
+          <table class="ds-table" style="margin-top: 1.5rem">
+            <thead><tr><th>Area</th><th>Rule</th></tr></thead>
+            <tbody>
+              <tr><td>Text contrast</td><td>Ink on paper, white, yellow and sky; white or sky on ink. Never yellow or sky text on a light surface.</td></tr>
+              <tr><td>Focus</td><td>All interactive elements show a 3px yellow outline with an ink ring (<code>:focus-visible</code>). Try tabbing through this page.</td></tr>
+              <tr><td>Icons</td><td>Icons are inline SVGs from the sprite at the top of <code>&lt;body&gt;</code>: <code>&lt;svg class="icon" aria-hidden="true"&gt;&lt;use href="#icon-name"&gt;</code>. They inherit <code>currentColor</code> and size with <code>font-size</code>. Decorative icons carry <code>aria-hidden="true"</code>; icon-only links need an <code>aria-label</code>.</td></tr>
+              <tr><td>Touch targets</td><td>Buttons and menu items are at least 44px tall on mobile.</td></tr>
+              <tr><td>Semantics</td><td>One <code>h1</code>; each section has an <code>h2</code>; accordions use <code>details/summary</code>; a skip link precedes the navbar.</td></tr>
+              <tr><td>Motion</td><td>Respect <code>prefers-reduced-motion</code> (see Motion).</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ds-footer">
+      <div class="container">
+        <p>
+          MindQuest 2026 design system · Source of truth:
+          <code>assets/styles.css</code> · <a href="../index.html">Back to the site</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

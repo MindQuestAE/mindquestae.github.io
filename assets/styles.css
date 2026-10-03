@@ -14,6 +14,11 @@
   --sky-blue-soft: #e5f0fe;
   --slate-gray: #4f4f4f;
   --white: #ffffff;
+  --ink-rgb: 10, 33, 85;
+  --sky-rgb: 179, 212, 252;
+  --white-rgb: 255, 255, 255;
+  --error: #b3261e;
+  --error-soft: #fff5f4;
 
   /* Surfaces */
   --paper: #fbf9f4;
@@ -21,8 +26,10 @@
   --text: var(--slate-gray);
 
   /* Type */
-  --font-title: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-title: "Montserrat", "Montserrat Fallback", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-body: "Lato", "Lato Fallback", system-ui, -apple-system, "Segoe UI",
+    sans-serif;
 
   /* Shape */
   --radius-sm: 10px;
@@ -36,7 +43,48 @@
   --container: 1200px;
   --gutter: clamp(16px, 4vw, 32px);
   --nav-h: 76px;
+  --hero-min-height: 44rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Fallback fonts ----------
+   Arial resized to the proportions of Lato / Montserrat, so text keeps its
+   line breaks and height when the web fonts swap in (no layout shift). */
+@font-face {
+  font-family: "Lato Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 97.46%;
+  ascent-override: 101.27%;
+  descent-override: 21.86%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Lato Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 700 900;
+  size-adjust: 92.27%;
+  ascent-override: 106.97%;
+  descent-override: 23.08%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 600 700;
+  size-adjust: 110.94%;
+  ascent-override: 87.26%;
+  descent-override: 22.63%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 800 900;
+  size-adjust: 115.35%;
+  ascent-override: 83.92%;
+  descent-override: 21.76%;
+  line-gap-override: 0%;
 }
 
 /* ---------- Base ---------- */
@@ -117,6 +165,29 @@ button {
   top: 16px;
 }
 
+/* Icons: inline SVG sprite at the top of <body>, used via <use href="#icon-…"> */
+.icon-library {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  vertical-align: -0.12em;
+}
+.icon-spin {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .container {
   max-width: var(--container);
   margin: 0 auto;
@@ -134,6 +205,7 @@ button {
   font-size: 0.95rem;
   line-height: 1;
   padding: 0.9em 1.4em;
+  min-height: 44px;
   border: var(--border);
   border-radius: 999px;
   text-decoration: none;
@@ -180,7 +252,7 @@ button {
 .btn-ghost-light {
   background: transparent;
   color: var(--white);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(var(--white-rgb), 0.5);
 }
 .btn[disabled] {
   opacity: 0.7;
@@ -215,17 +287,13 @@ button {
   transition: background 0.25s, box-shadow 0.25s, border-color 0.25s;
   border-bottom: 2px solid transparent;
 }
-/* Blur lives on a pseudo-element: backdrop-filter on .navbar itself would
-   become the containing block for the fixed mobile menu and clip it. */
 .navbar::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   opacity: 0;
-  background: rgba(251, 249, 244, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--paper);
   transition: opacity 0.25s;
 }
 .navbar.scrolled::before {
@@ -276,7 +344,9 @@ button {
   gap: 0.25rem;
 }
 .nav-menu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.5rem 0.8rem;
   border-radius: 999px;
   font-family: var(--font-title);
@@ -332,7 +402,7 @@ button {
   overflow: hidden;
   background-color: var(--paper);
   background-image: radial-gradient(
-    rgba(10, 33, 85, 0.13) 1.2px,
+    rgba(var(--ink-rgb), 0.13) 1.2px,
     transparent 1.2px
   );
   background-size: 22px 22px;
@@ -344,6 +414,10 @@ button {
 }
 .qmark {
   position: absolute;
+  display: grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1em;
   font-family: var(--font-title);
   font-weight: 900;
   line-height: 1;
@@ -377,7 +451,12 @@ button {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
+  align-items: start;
+}
+@media (min-width: 901px) {
+  .hero-grid {
+    min-height: var(--hero-min-height);
+  }
 }
 .eyebrow {
   display: inline-flex;
@@ -470,6 +549,7 @@ button {
 /* Warm-up quiz card */
 .hero-visual {
   position: relative;
+  margin-top: clamp(5rem, 7vw, 7rem);
 }
 .quiz-card {
   position: relative;
@@ -566,12 +646,12 @@ button {
 }
 .quiz-opt.wrong {
   background: var(--white);
-  color: rgba(10, 33, 85, 0.45);
+  color: rgba(var(--ink-rgb), 0.65);
   border-style: dashed;
   text-decoration: line-through;
 }
 .quiz-opt.wrong .opt-key {
-  background: rgba(10, 33, 85, 0.35);
+  background: rgba(var(--ink-rgb), 0.55);
 }
 .quiz-foot {
   display: flex;
@@ -580,7 +660,7 @@ button {
   gap: 1rem;
   margin-top: 1.2rem;
   padding-top: 1rem;
-  border-top: 2px dashed rgba(10, 33, 85, 0.2);
+  border-top: 2px dashed rgba(var(--ink-rgb), 0.2);
 }
 .quiz-feedback {
   font-size: 0.92rem;
@@ -592,6 +672,7 @@ button {
 }
 .quiz-next {
   flex: none;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -602,10 +683,10 @@ button {
   color: var(--ink);
   padding: 0.4rem 0.2rem;
 }
-.quiz-next:hover i {
+.quiz-next:hover .icon {
   transform: translateX(3px);
 }
-.quiz-next i {
+.quiz-next .icon {
   transition: transform 0.2s;
 }
 .buzzer {
@@ -693,9 +774,9 @@ button {
 }
 .section-ink {
   background: var(--ink);
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(var(--white-rgb), 0.82);
   background-image: radial-gradient(
-    rgba(179, 212, 252, 0.14) 1.2px,
+    rgba(var(--sky-rgb), 0.14) 1.2px,
     transparent 1.2px
   );
   background-size: 22px 22px;
@@ -811,7 +892,7 @@ button {
   font-weight: 900;
   margin-bottom: 1rem;
 }
-.tile i {
+.tile .icon {
   font-size: 1.6rem;
   color: var(--ink);
   margin-bottom: 0.9rem;
@@ -836,7 +917,7 @@ button {
   background: var(--ink);
 }
 .tile-ink h3,
-.tile-ink i {
+.tile-ink .icon {
   color: var(--minion-yellow);
 }
 .tile-ink p {
@@ -876,7 +957,7 @@ button {
   padding: 1rem 1.4rem;
 }
 .recap-stats > div + div {
-  border-left: 2px dashed rgba(10, 33, 85, 0.25);
+  border-left: 2px dashed rgba(var(--ink-rgb), 0.25);
 }
 .recap-stats dt {
   font-size: 0.8rem;
@@ -943,9 +1024,7 @@ button {
   padding-left: 2rem;
 }
 .check-list li::before {
-  content: "\f00c";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  content: "✓";
   position: absolute;
   left: 0;
   top: 0.15em;
@@ -983,7 +1062,7 @@ button {
   padding: 1.15rem clamp(1rem, 3vw, 2rem);
 }
 .scoreboard li + li {
-  border-top: 2px dashed rgba(10, 33, 85, 0.2);
+  border-top: 2px dashed rgba(var(--ink-rgb), 0.2);
 }
 .sb-icon {
   display: grid;
@@ -1104,15 +1183,15 @@ button {
   margin-top: clamp(2.5rem, 6vw, 4rem);
 }
 .card-dark {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(var(--white-rgb), 0.04);
   border-color: var(--sky-blue);
   box-shadow: 6px 6px 0 var(--minion-yellow);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(var(--white-rgb), 0.8);
 }
 .card-dark h3 {
   color: var(--white);
 }
-.card-dark i {
+.card-dark .icon {
   font-size: 1.5rem;
   color: var(--minion-yellow);
   margin-bottom: 0.9rem;
@@ -1133,7 +1212,7 @@ button {
 .gallery-label::after {
   content: "";
   flex: 1;
-  border-top: 2px dashed rgba(10, 33, 85, 0.25);
+  border-top: 2px dashed rgba(var(--ink-rgb), 0.25);
 }
 .gallery-grid + .gallery-label {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
@@ -1175,12 +1254,12 @@ button {
   text-decoration: none;
   background: var(--sky-blue-soft);
   background-image: radial-gradient(
-    rgba(10, 33, 85, 0.12) 1.2px,
+    rgba(var(--ink-rgb), 0.12) 1.2px,
     transparent 1.2px
   );
   background-size: 18px 18px;
 }
-.gallery-fallback i {
+.gallery-fallback .icon {
   font-size: 2.4rem;
   color: var(--ink);
 }
@@ -1212,7 +1291,7 @@ button {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-hard-lg);
   background-image: radial-gradient(
-    rgba(10, 33, 85, 0.12) 1.2px,
+    rgba(var(--ink-rgb), 0.12) 1.2px,
     transparent 1.2px
   );
   background-size: 18px 18px;
@@ -1312,7 +1391,7 @@ button {
   width: 100%;
   aspect-ratio: 1;
   padding: 1rem;
-  border: 1.5px solid rgba(10, 33, 85, 0.2);
+  border: 1.5px solid rgba(var(--ink-rgb), 0.2);
   border-radius: var(--radius-md);
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
@@ -1454,6 +1533,8 @@ button {
   resize: vertical;
   min-height: 130px;
 }
+/* Text fields always match :focus-visible, so the global ring would replace
+   the yellow offset shadow the design system specifies for inputs. */
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
@@ -1462,8 +1543,8 @@ button {
 }
 .form-group.error input,
 .form-group.error textarea {
-  border-color: #b3261e;
-  background: #fff5f4;
+  border-color: var(--error);
+  background: var(--error-soft);
 }
 .form-group.valid input,
 .form-group.valid textarea {
@@ -1474,7 +1555,7 @@ button {
   margin-top: 0.35rem;
   font-size: 0.86rem;
   font-weight: 700;
-  color: #b3261e;
+  color: var(--error);
 }
 .form-status {
   font-weight: 700;
@@ -1494,9 +1575,9 @@ button {
   color: var(--ink);
 }
 .form-status.error {
-  background: #fff5f4;
-  color: #b3261e;
-  border-color: #b3261e;
+  background: var(--error-soft);
+  color: var(--error);
+  border-color: var(--error);
 }
 .contact-info {
   display: grid;
@@ -1572,7 +1653,7 @@ a.contact-item:hover {
 /* ---------- Footer ---------- */
 .footer {
   background: var(--ink);
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(var(--white-rgb), 0.72);
   padding: clamp(3rem, 7vw, 5rem) 0 1.5rem;
   border-top: 6px solid var(--minion-yellow);
 }
@@ -1593,7 +1674,7 @@ a.contact-item:hover {
   max-width: 22rem;
   font-size: 0.95rem;
 }
-.footer h4 {
+.footer h3 {
   color: var(--minion-yellow);
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -1618,7 +1699,7 @@ a.contact-item:hover {
   gap: 1rem;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(179, 212, 252, 0.2);
+  border-top: 1px solid rgba(var(--sky-rgb), 0.2);
   font-size: 0.88rem;
 }
 .back-top {
@@ -1825,7 +1906,7 @@ a.contact-item:hover {
   }
   .recap-stats > div + div {
     border-left: none;
-    border-top: 2px dashed rgba(10, 33, 85, 0.25);
+    border-top: 2px dashed rgba(var(--ink-rgb), 0.25);
   }
   .scoreboard li {
     grid-template-columns: auto 1fr;

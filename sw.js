@@ -1,26 +1,25 @@
 // Service Worker for GitHub Pages Caching
-// Version 2.0.0
-
-const CACHE_NAME = 'mindquest-v2.0.0';
+// Version 2026.10.03
+//
+// Bump the version on every release with `make bump-version` or
+// `make bump-version-to VERSION=x.y.z`. That rewrites the two occurrences in
+// this file and the ?v= query on styles.css and script.js in index.html. The
+// query makes returning visitors miss the previous worker's cache, so new HTML
+// is never paired with stale CSS/JS.
+const CACHE_NAME = 'mindquest-v2026.10.03';
+const VERSION = CACHE_NAME.replace('mindquest-v', '');
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
-  '/assets/styles.css',
-  '/assets/script.js',
+  `/assets/styles.css?v=${VERSION}`,
+  `/assets/script.js?v=${VERSION}`,
   '/assets/mindquest-logomark.png',
   '/assets/mindquest-wordmark.png',
   '/assets/gecbta-loga.png',
   '/assets/ackaf-logo.png',
-  '/assets/pattern-01.png',
   '/assets/favicon/favicon-96x96.png',
   '/assets/favicon/favicon.svg',
   '/assets/favicon/apple-touch-icon.png'
-];
-
-// External resources to cache
-const EXTERNAL_CACHE_URLS = [
-  'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Lato:wght@400;700;900&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 
 // Install event - cache static resources
@@ -31,7 +30,7 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('[SW] Caching static resources');
-        return cache.addAll([...STATIC_CACHE_URLS, ...EXTERNAL_CACHE_URLS]);
+        return cache.addAll(STATIC_CACHE_URLS);
       })
       .then(() => {
         console.log('[SW] Static resources cached successfully');
@@ -151,7 +150,7 @@ async function staleWhileRevalidateStrategy(request) {
 // Helper function to determine if URL should be cached
 function shouldCache(url) {
   const cacheableExtensions = ['.css', '.js', '.png', '.jpg', '.jpeg', '.svg', '.gif', '.webp', '.woff', '.woff2'];
-  const cacheableDomains = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com'];
+  const cacheableDomains = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
   return cacheableExtensions.some(ext => url.includes(ext)) ||
          cacheableDomains.some(domain => url.includes(domain));

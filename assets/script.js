@@ -9,12 +9,23 @@ window.dataLayer = window.dataLayer || [];
 function gtag() {
   dataLayer.push(arguments);
 }
-gtag("js", new Date());
+window.gtag = gtag;
+let analyticsLoaded = false;
 
-gtag("config", "G-NVLZZP28ME", {
-  page_title: "MindQuest 2026 — UAE Inter-School General Knowledge Quiz",
-  page_location: "https://mindquestquiz.com/",
-});
+function loadAnalytics() {
+  if (analyticsLoaded) return;
+  analyticsLoaded = true;
+  gtag("js", new Date());
+  gtag("config", "G-NVLZZP28ME", {
+    page_title: "MindQuest 2026 — UAE Inter-School General Knowledge Quiz",
+    page_location: "https://mindquestquiz.com/",
+  });
+  const analyticsScript = document.createElement("script");
+  analyticsScript.async = true;
+  analyticsScript.src =
+    "https://www.googletagmanager.com/gtag/js?id=G-NVLZZP28ME";
+  document.head.append(analyticsScript);
+}
 
 // Track CTA clicks
 function trackCTAClick(action, section) {
@@ -47,12 +58,17 @@ function saveConsent(value) {
 }
 
 function showCookieConsent() {
-  if (cookieBanner && !readConsent()) cookieBanner.hidden = false;
+  if (readConsent() === "accepted") {
+    loadAnalytics();
+  } else if (cookieBanner && !readConsent()) {
+    cookieBanner.hidden = false;
+  }
 }
 
 function acceptCookies() {
   saveConsent("accepted");
   gtag("consent", "update", { analytics_storage: "granted" });
+  loadAnalytics();
 }
 
 function declineCookies() {
@@ -118,7 +134,12 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         : target.getBoundingClientRect().top +
           window.scrollY -
           navbar.offsetHeight;
-    window.scrollTo({ top, behavior: "smooth" });
+    window.scrollTo({
+      top,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
     history.pushState(null, "", targetId);
   });
 });
@@ -299,7 +320,12 @@ if (quizCard) {
     const right = picked === item.answer;
     qFeedback.textContent = (right ? "Correct! " : "Not quite. ") + item.fact;
     qFeedback.classList.toggle("good", right);
-    gtag("event", "warmup_answer", { question: current + 1, correct: right });
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "warmup_answer", {
+        question: current + 1,
+        correct: right,
+      });
+    }
   });
 
   qNext.addEventListener("click", () => {
@@ -378,15 +404,17 @@ if (contactForm) {
 
     const formIsValid = inputs.map(validateField).every(Boolean);
     if (!formIsValid) {
-      contactForm.animate(
-        [
-          { transform: "translateX(0)" },
-          { transform: "translateX(-8px)" },
-          { transform: "translateX(8px)" },
-          { transform: "translateX(0)" },
-        ],
-        { duration: 350 }
-      );
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        contactForm.animate(
+          [
+            { transform: "translateX(0)" },
+            { transform: "translateX(-8px)" },
+            { transform: "translateX(8px)" },
+            { transform: "translateX(0)" },
+          ],
+          { duration: 350 }
+        );
+      }
       setStatus("error", "Please fix the highlighted fields and try again.");
       inputs.find((i) => i.getAttribute("aria-invalid") === "true")?.focus();
       return;
@@ -396,7 +424,7 @@ if (contactForm) {
     const originalContent = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML =
-      '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Sending…';
+      '<svg class="icon icon-spin" aria-hidden="true"><use href="#icon-loader"></use></svg> Sending…';
 
     try {
       const payload = {

@@ -1,7 +1,7 @@
 {
-  "name": "MindQuest 2025 - UAE Inter-School General Knowledge Quiz",
-  "short_name": "MindQuest 2025",
-  "description": "The premier General Knowledge Quiz Competition for high school students of Indian diaspora in the UAE",
+  "name": "MindQuest 2026 — UAE Inter-School General Knowledge Quiz",
+  "short_name": "MindQuest",
+  "description": "The General Knowledge Quiz Competition for high school students of the Indian diaspora in the UAE",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a2155",
@@ -26,8 +26,12 @@
       "type": "image/png"
     }
   ],
-  "categories": ["education", "quiz", "competition"],
-  "lang": "en",
+  "categories": [
+    "education",
+    "quiz",
+    "competition"
+  ],
+  "lang": "en-AE",
   "scope": "/",
   "prefer_related_applications": false
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AE">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://*.google-analytics.com https://www.googletagmanager.com https://script.google.com https://script.googleusercontent.com; frame-src https://www.instagram.com https://www.google.com;"
+      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://*.google-analytics.com https://www.googletagmanager.com https://script.google.com https://script.googleusercontent.com; frame-src https://www.instagram.com https://www.google.com;"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#0a2155" />
@@ -14,7 +14,7 @@
     <title>MindQuest 2026 — UAE Inter-School General Knowledge Quiz</title>
     <meta
       name="description"
-      content="MindQuest 2026 — Season 2 of the UAE's General Knowledge Quiz for high school students of the Indian diaspora. Free entry, teams of two. Organised by GECBTA in association with AKCAF."
+      content="MindQuest 2026 — Season 2 of the UAE's General Knowledge Quiz for Indian-diaspora high school students. Free entry, teams of two. Organised by GECBTA and AKCAF."
     />
     <meta
       name="keywords"
@@ -22,9 +22,8 @@
     />
     <meta name="author" content="GECBTA, AKCAF" />
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="en-AE" />
     <link rel="canonical" href="https://mindquestquiz.com/" />
-    <link rel="alternate" hreflang="en-ae" href="https://mindquestquiz.com/" />
+    <link rel="alternate" hreflang="en-AE" href="https://mindquestquiz.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -40,8 +39,12 @@
     />
     <meta
       property="og:image"
-      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
+      content="https://mindquestquiz.com/assets/og-image.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MindQuest 2.0 — Unlock your mind. Conquer the quest." />
+    <meta property="og:locale" content="en_AE" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -56,8 +59,9 @@
     />
     <meta
       name="twitter:image"
-      content="https://mindquestquiz.com/assets/mindquest-logomark.png"
+      content="https://mindquestquiz.com/assets/og-image.png"
     />
+    <meta name="twitter:image:alt" content="MindQuest 2.0 — Unlock your mind. Conquer the quest." />
 
     <!-- Icons -->
     <link
@@ -78,26 +82,21 @@
     <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preload" href="https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHjx4wXiWtFCc.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.instagram.com" />
     <link rel="preload" href="./assets/mindquest-logomark.png" as="image" />
 
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Lato:wght@400;700;900&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./assets/styles.css" />
-
-    <!-- Google Analytics 4 -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-NVLZZP28ME"
-    ></script>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap" /></noscript>
+    <link rel="stylesheet" href="./assets/styles.css?v=2026.10.03" />
 
     <!-- JSON-LD Structured Data.
          TODO(2026): add an "Event" node with startDate/location once dates and venue are confirmed. -->
@@ -180,6 +179,38 @@
     </script>
   </head>
   <body>
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <symbol id="icon-ticket" viewBox="0 0 24 24"><path d="M4 5h16v4a3 3 0 0 0 0 6v4H4v-4a3 3 0 0 0 0-6V5Zm8 2v2m0 2v2m0 2v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2m16 0v-2a4 4 0 0 0-3-3.87M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm9-1a4 4 0 0 0-3-3.87" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-cap" viewBox="0 0 24 24"><path d="m2 10 10-6 10 6-10 6-10-6Zm4 2.4V17c3.5 2.7 8.5 2.7 12 0v-4.6M22 10v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-trophy" viewBox="0 0 24 24"><path d="M8 21h8m-4-4v4m-6-18h12v5a6 6 0 0 1-12 0V3Zm0 2H3v2a5 5 0 0 0 5 5m8-7h5v2a5 5 0 0 1-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-card" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 16c0-2 6-2 6 0m3-6h3m-3 4h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-gavel" viewBox="0 0 24 24"><path d="m14 6 4 4M4 20l9-9m-8-3 4-4 8 8-4 4-8-8Zm9 12h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 3v4M8 3v4M3 10h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12M7 2v5l5 5-5 5v5m10-20v5l-5 5 5 5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-pen" viewBox="0 0 24 24"><path d="m4 20 4-.8L20 7a2.8 2.8 0 0 0-4-4L4 15l-.8 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 10v2a7 7 0 0 0 14 0v-2m-7 9v3m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="icon-medal" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 3 4 5 4-5m-8 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-school" viewBox="0 0 24 24"><path d="m3 9 9-6 9 6v12H3V9Zm5 12v-7h8v7M7 10h.01M12 10h.01M17 10h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-certificate" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 14-1 8 5-3 5 3-1-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-camera" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3V7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></symbol>
+      <symbol id="icon-envelope" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-handshake" viewBox="0 0 24 24"><path d="m3 12 4-4 4 1 2-1 5 1 3 3-7 7-4-3-2 1-5-5Zm4-4 3-3 4 2m-3 2 4 4m-7 2 3 3m0-5 3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-comment" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.9-4A8 8 0 1 1 21 11.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12a4 4 0 1 1-1-2.7V14a2 2 0 0 0 4 0v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 3 5c0-1 1-2 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M14 21v-8h3l.5-4H14V7c0-1.2.4-2 2-2h2V1.5C17.3 1.3 16.2 1 15 1c-3.3 0-5 2-5 5.5V9H7v4h3v8h4Z" fill="currentColor"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM2 9h4v13H2V9Zm7 0h4v2c1-2 6-3 8 1 1 1 1 2 1 4v6h-4v-6c0-2-1-3-2-3-2 0-3 1-3 3v6H9V9Z" fill="currentColor"/></symbol>
+      <symbol id="icon-loader" viewBox="0 0 24 24"><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.36-6.36-2.12 2.12M7.76 16.24l-2.12 2.12m12.72 0-2.12-2.12M7.76 7.76 5.64 5.64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    </svg>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Cookie Consent -->
@@ -199,7 +230,7 @@
     <!-- Navigation -->
     <header class="navbar" id="navbar">
       <nav class="nav-container" aria-label="Primary">
-        <a href="#home" class="brand" aria-label="MindQuest 2.0 home">
+        <a href="#home" class="brand" aria-label="MindQuest2.0 home">
           <img
             src="./assets/mindquest-logomark.png"
             alt=""
@@ -246,27 +277,27 @@
               Season 02 · UAE Inter-School GK Quiz
             </p>
             <h1 class="hero-title">
-              Unlock your mind.
-              <span class="hl">Conquer</span> the quest.
+              Unlock your<br /> mind.
+              <span class="hl">Conquer</span><br /> the quest.
             </h1>
             <p class="hero-lead">
-              MindQuest is back for 2026. Grab a teammate, sharpen your general
+              MindQuest is back for Season 2. Grab a teammate, sharpen your general
               knowledge and take on the brightest high-school minds of the
               Indian diaspora across the UAE.
             </p>
 
             <ul class="hero-chips">
-              <li><i class="fas fa-ticket-alt" aria-hidden="true"></i> Free entry</li>
-              <li><i class="fas fa-user-friends" aria-hidden="true"></i> Teams of two</li>
-              <li><i class="fas fa-graduation-cap" aria-hidden="true"></i> Grades 8–12</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#icon-ticket"></use></svg> Free entry</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg> Teams of two</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#icon-cap"></use></svg> Grades 8–12</li>
             </ul>
 
             <div class="cta-group">
               <a href="#register" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Get notified', 'Hero')">
-                <i class="fas fa-bell" aria-hidden="true"></i> Get notified
+                <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Get notified
               </a>
               <a href="#format" class="btn btn-outline btn-lg">
-                How it works <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                How it works <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
               </a>
             </div>
           </div>
@@ -290,7 +321,7 @@
               </div>
               <div class="quiz-foot">
                 <p class="quiz-feedback" id="qFeedback" aria-live="polite">Tap an answer to lock it in.</p>
-                <button type="button" class="quiz-next" id="qNext">Next <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                <button type="button" class="quiz-next" id="qNext">Next <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></button>
               </div>
             </div>
             <div class="buzzer" aria-hidden="true"><span>Buzz!</span></div>
@@ -335,26 +366,26 @@
                 fostering healthy rivalry, teamwork and a genuine love of
                 learning.
               </p>
-              <a href="#format" class="text-link">See the format <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+              <a href="#format" class="text-link">See the format <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
             </article>
 
             <article class="card tile tile-yellow reveal">
-              <i class="fas fa-user-graduate" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-cap"></use></svg>
               <h3>Compete with the best</h3>
               <p>Face top students from schools across the UAE.</p>
             </article>
             <article class="card tile tile-sky reveal">
-              <i class="fas fa-trophy" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg>
               <h3>Win recognition</h3>
               <p>Trophies, medals and certificates.</p>
             </article>
             <article class="card tile reveal">
-              <i class="fas fa-bolt" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg>
               <h3>Build confidence</h3>
               <p>Think fast on stage in live buzzer rounds.</p>
             </article>
             <article class="card tile tile-ink reveal">
-              <i class="fas fa-users" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg>
               <h3>Meet your people</h3>
               <p>Connect with curious, like-minded peers.</p>
             </article>
@@ -411,7 +442,7 @@
 
           <div class="split">
             <article class="card reveal">
-              <div class="card-icon"><i class="fas fa-id-card" aria-hidden="true"></i></div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-card"></use></svg></div>
               <h3>Who can enter</h3>
               <p>Open to all high school students of the Indian diaspora.</p>
               <ul class="check-list">
@@ -422,7 +453,7 @@
               </ul>
             </article>
             <article class="card reveal">
-              <div class="card-icon"><i class="fas fa-gavel" aria-hidden="true"></i></div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-gavel"></use></svg></div>
               <h3>House rules</h3>
               <p>Keep it fair, keep it fun.</p>
               <ul class="check-list">
@@ -456,27 +487,27 @@
           <!-- TODO(2026): replace each "To be announced" with the confirmed date. -->
           <ol class="scoreboard reveal">
             <li>
-              <span class="sb-icon"><i class="fas fa-door-open" aria-hidden="true"></i></span>
+              <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span>
               <span class="sb-label">Registration opens</span>
               <span class="sb-value tba">To be announced</span>
             </li>
             <li>
-              <span class="sb-icon"><i class="fas fa-hourglass-end" aria-hidden="true"></i></span>
+              <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-hourglass"></use></svg></span>
               <span class="sb-label">Registration closes</span>
               <span class="sb-value tba">To be announced</span>
             </li>
             <li>
-              <span class="sb-icon"><i class="fas fa-pen" aria-hidden="true"></i></span>
+              <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pen"></use></svg></span>
               <span class="sb-label">Preliminary round</span>
               <span class="sb-value tba">To be announced</span>
             </li>
             <li>
-              <span class="sb-icon"><i class="fas fa-microphone-alt" aria-hidden="true"></i></span>
+              <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></span>
               <span class="sb-label">Grand Finale &amp; awards</span>
               <span class="sb-value tba">To be announced</span>
             </li>
             <li>
-              <span class="sb-icon"><i class="fas fa-map-marker-alt" aria-hidden="true"></i></span>
+              <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg></span>
               <span class="sb-label">Venue</span>
               <span class="sb-value tba">To be announced</span>
             </li>
@@ -498,19 +529,19 @@
 
           <div class="podium reveal" role="list">
             <div class="podium-col podium-2" role="listitem">
-              <div class="podium-medal"><i class="fas fa-medal" aria-hidden="true"></i></div>
+              <div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div>
               <p class="podium-title">2nd place</p>
               <p class="podium-detail">Trophy + silver medals</p>
               <div class="podium-block"><span>2</span></div>
             </div>
             <div class="podium-col podium-1" role="listitem">
-              <div class="podium-medal"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+              <div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-trophy"></use></svg></div>
               <p class="podium-title">Champions</p>
               <p class="podium-detail">Trophy + gold medals</p>
               <div class="podium-block"><span>1</span></div>
             </div>
             <div class="podium-col podium-3" role="listitem">
-              <div class="podium-medal"><i class="fas fa-medal" aria-hidden="true"></i></div>
+              <div class="podium-medal"><svg class="icon" aria-hidden="true"><use href="#icon-medal"></use></svg></div>
               <p class="podium-title">3rd place</p>
               <p class="podium-detail">Trophy + bronze medals</p>
               <div class="podium-block"><span>3</span></div>
@@ -522,17 +553,17 @@
 
           <div class="awards">
             <article class="card card-dark reveal">
-              <i class="fas fa-school" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-school"></use></svg>
               <h3>Best School Delegation</h3>
               <p>For the school with the highest team participation.</p>
             </article>
             <article class="card card-dark reveal">
-              <i class="fas fa-star" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg>
               <h3>Young Achievers</h3>
               <p>Spotlight awards for Grade 8/9 participants with exceptional scores.</p>
             </article>
             <article class="card card-dark reveal">
-              <i class="fas fa-certificate" aria-hidden="true"></i>
+              <svg class="icon" aria-hidden="true"><use href="#icon-certificate"></use></svg>
               <h3>Certificates of Excellence</h3>
               <p>For every Grand Finale qualifier, from GECBTA &amp; AKCAF.</p>
             </article>
@@ -544,7 +575,7 @@
       <section id="gallery" class="section">
         <div class="container">
           <header class="section-head reveal">
-            <p class="round-tag"><span><i class="fas fa-camera" aria-hidden="true"></i></span> Replay</p>
+            <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-camera"></use></svg></span> Replay</p>
             <h2 class="section-title">Season 1 in pictures.</h2>
             <p class="section-lead">
               Brains, buzzers and brilliant moments from MindQuest 2025 — and
@@ -558,7 +589,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DQBtufqk4ul/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/p/DQBtufqk4ul/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>Champions of Curiosity</span>
                   <small>View on Instagram</small>
                 </a>
@@ -567,7 +598,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQOv4t6k1cX/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/reel/DQOv4t6k1cX/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>Brains, Buzzers &amp; Brilliant Moments</span>
                   <small>Watch on Instagram</small>
                 </a>
@@ -576,7 +607,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQWgl37k4yc/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/reel/DQWgl37k4yc/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>MindQuest 2025 recap</span>
                   <small>Watch on Instagram</small>
                 </a>
@@ -589,7 +620,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DaK7sPfomu5/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/p/DaK7sPfomu5/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>MindQuest 2.0 is on its way</span>
                   <small>View on Instagram</small>
                 </a>
@@ -598,7 +629,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DaLBc95oOcg/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/p/DaLBc95oOcg/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>Challenge #4 — Sports</span>
                   <small>View on Instagram</small>
                 </a>
@@ -607,7 +638,7 @@
             <div class="gallery-item reveal">
               <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DWjDBZ1iGbX/" data-instgrm-version="14">
                 <a href="https://www.instagram.com/p/DWjDBZ1iGbX/" target="_blank" rel="noopener noreferrer" class="gallery-fallback">
-                  <i class="fab fa-instagram" aria-hidden="true"></i>
+                  <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
                   <span>Challenge #3 — History &amp; wildlife</span>
                   <small>View on Instagram</small>
                 </a>
@@ -617,7 +648,7 @@
 
           <div class="gallery-cta reveal">
             <a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-lg" onclick="trackCTAClick('Instagram', 'Gallery')">
-              <i class="fab fa-instagram" aria-hidden="true"></i> See more on Instagram
+              <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg> See more on Instagram
             </a>
           </div>
         </div>
@@ -628,7 +659,7 @@
         <div class="container">
           <div class="register-band reveal">
             <div>
-              <p class="round-tag"><span><i class="fas fa-bell" aria-hidden="true"></i></span> Registration</p>
+              <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
               <h2 class="section-title">Registration opens soon.</h2>
               <p>
                 Registration for MindQuest 2026 isn’t open yet. Drop us a line
@@ -642,7 +673,7 @@
                 class="btn btn-ink btn-lg"
                 onclick="trackCTAClick('Notify email', 'Register')"
               >
-                <i class="fas fa-envelope" aria-hidden="true"></i> Email me when it opens
+                <svg class="icon" aria-hidden="true"><use href="#icon-envelope"></use></svg> Email me when it opens
               </a>
               <a
                 href="https://www.instagram.com/mindquest_official/"
@@ -651,7 +682,7 @@
                 class="btn btn-outline btn-lg"
                 onclick="trackCTAClick('Instagram', 'Register')"
               >
-                <i class="fab fa-instagram" aria-hidden="true"></i> Follow @mindquest_official
+                <svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg> Follow @mindquest_official
               </a>
             </div>
           </div>
@@ -662,7 +693,7 @@
       <section id="partners" class="section">
         <div class="container">
           <header class="section-head reveal">
-            <p class="round-tag"><span><i class="fas fa-handshake" aria-hidden="true"></i></span> The team</p>
+            <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg></span> The team</p>
             <h2 class="section-title">Brought to you by.</h2>
             <p class="section-lead">
               Two of the UAE’s leading Kerala college alumni associations.
@@ -740,7 +771,7 @@
             <div class="sponsor-cta">
               <p><strong>Partner with MindQuest 2026.</strong> Put your brand in front of students, parents and schools across the UAE.</p>
               <a href="mailto:register.mindquest@gmail.com?subject=Sponsorship%20-%20MindQuest%202026" class="btn btn-yellow">
-                <i class="fas fa-handshake" aria-hidden="true"></i> Become a sponsor
+                <svg class="icon" aria-hidden="true"><use href="#icon-handshake"></use></svg> Become a sponsor
               </a>
             </div>
           </div>
@@ -802,7 +833,7 @@
       <section id="contact" class="section">
         <div class="container">
           <header class="section-head reveal">
-            <p class="round-tag"><span><i class="fas fa-comment" aria-hidden="true"></i></span> Phone a friend</p>
+            <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-comment"></use></svg></span> Phone a friend</p>
             <h2 class="section-title">Get in touch.</h2>
             <p class="section-lead">
               Questions about registration, the format or sponsorship? Our team
@@ -836,27 +867,27 @@
               </div>
               <div class="form-status" id="contactStatus" role="status" aria-live="polite"></div>
               <button type="submit" class="btn btn-ink btn-lg btn-block">
-                <i class="fas fa-paper-plane" aria-hidden="true"></i> Send message
+                <svg class="icon" aria-hidden="true"><use href="#icon-send"></use></svg> Send message
               </button>
             </form>
 
             <div class="contact-info reveal">
               <a class="card contact-item" href="mailto:register.mindquest@gmail.com">
-                <span class="contact-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                <span class="contact-icon"><svg class="icon" aria-hidden="true"><use href="#icon-envelope"></use></svg></span>
                 <span>
                   <span class="contact-label">Email</span>
                   <span class="contact-value">register.mindquest@gmail.com</span>
                 </span>
               </a>
               <a class="card contact-item" href="mailto:info@mindquestquiz.com">
-                <span class="contact-icon"><i class="fas fa-at" aria-hidden="true"></i></span>
+                <span class="contact-icon"><svg class="icon" aria-hidden="true"><use href="#icon-at"></use></svg></span>
                 <span>
                   <span class="contact-label">General enquiries</span>
                   <span class="contact-value">info@mindquestquiz.com</span>
                 </span>
               </a>
               <div class="card contact-item">
-                <span class="contact-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+                <span class="contact-icon"><svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg></span>
                 <span>
                   <span class="contact-label">Phone</span>
                   <span class="contact-value">
@@ -866,9 +897,9 @@
                 </span>
               </div>
               <div class="social-links">
-                <a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/mindquestofficial/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.linkedin.com/company/mindquest-quiz" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Instagram"><svg class="icon" aria-hidden="true"><use href="#icon-instagram"></use></svg></a>
+                <a href="https://www.facebook.com/mindquestofficial/" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on Facebook"><svg class="icon" aria-hidden="true"><use href="#icon-facebook"></use></svg></a>
+                <a href="https://www.linkedin.com/company/mindquest-quiz" target="_blank" rel="noopener noreferrer" aria-label="MindQuest on LinkedIn"><svg class="icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg></a>
               </div>
             </div>
           </div>
@@ -888,7 +919,7 @@
             </p>
           </div>
           <div>
-            <h4>Explore</h4>
+            <h3>Explore</h3>
             <ul class="footer-links">
               <li><a href="#about">About</a></li>
               <li><a href="#format">Format</a></li>
@@ -898,7 +929,7 @@
             </ul>
           </div>
           <div>
-            <h4>Get involved</h4>
+            <h3>Get involved</h3>
             <ul class="footer-links">
               <li><a href="#register">Get notified</a></li>
               <li><a href="#partners">Sponsor</a></li>
@@ -907,7 +938,7 @@
             </ul>
           </div>
           <div>
-            <h4>Follow</h4>
+            <h3>Follow</h3>
             <ul class="footer-links">
               <li><a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
               <li><a href="https://www.facebook.com/mindquestofficial/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
@@ -917,12 +948,12 @@
         </div>
         <div class="footer-bottom">
           <p>&copy; 2026 MindQuest. Organised by GECBTA in association with AKCAF.</p>
-          <a href="#home" class="back-top">Back to top <i class="fas fa-arrow-up" aria-hidden="true"></i></a>
+          <a href="#home" class="back-top">Back to top <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg></a>
         </div>
       </div>
     </footer>
 
-    <script src="./assets/script.js" defer></script>
+    <script src="./assets/script.js?v=2026.10.03" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

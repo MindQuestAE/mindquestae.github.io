@@ -4,90 +4,68 @@
 serve:
 	python3 -m http.server 8000
 
-# Test setup and execution
+# Playwright starts its own static server on port 8001.
 install-test-deps:
 	npm install
 
-setup-tests: install-test-deps
-	npx selenium-manager --driver chromedriver || echo "ChromeDriver setup attempted"
-
-# Test execution commands
-test: setup-tests
+test:
 	npm test
 
-test-headless: setup-tests
-	HEADLESS=true npm test
+test-mobile:
+	npm run test:mobile
 
-test-success: setup-tests
-	npx mocha tests/specs/formSuccess.test.js --timeout 60000
+test-desktop:
+	npm run test:desktop
 
-test-validation: setup-tests
-	npx mocha tests/specs/formValidation.test.js --timeout 60000
+test-headed:
+	npm run test:headed
 
-test-performance: setup-tests
-	npx mocha tests/specs/formPerformance.test.js --timeout 120000
+test-legacy:
+	npm run test:legacy
 
-test-watch: setup-tests
-	npm run test:watch
-
-# CI/CD integration
-test-ci: install-test-deps
-	HEADLESS=true CI=true npm test
-
-# Test with server
-test-with-server:
-	@echo "Starting server and running tests..."
-	python3 -m http.server 8000 & \
-	SERVER_PID=$$!; \
-	sleep 3; \
-	echo "Server started with PID $$SERVER_PID"; \
-	HEADLESS=true npm test; \
-	TEST_RESULT=$$?; \
-	echo "Stopping server with PID $$SERVER_PID"; \
-	kill $$SERVER_PID 2>/dev/null || true; \
-	exit $$TEST_RESULT
-
-# Full test suite with server
-test-full: test-with-server
+test-ci:
+	CI=true npm test
 
 # Version management
+# sw.js is the single source of the release version (the "// Version" comment
+# and CACHE_NAME; its precache URLs derive from CACHE_NAME). The same value is
+# written to the ?v= query on styles.css and script.js in index.html so
+# returning visitors never get new HTML with stale cached CSS/JS.
+VERSION_RE = [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*
+CURRENT_VERSION = $(shell sed -n "s/^const CACHE_NAME = 'mindquest-v\(.*\)';/\1/p" sw.js)
+
 bump-version:
-	@echo "Current version in sw.js:"
-	@grep "Version" sw.js | head -1
-	@echo ""
+	@echo "Current version: $(CURRENT_VERSION)"
 	@echo "Bump type: [patch/minor/major] (default: patch)"
 	@read BUMP_TYPE; \
 	BUMP_TYPE=$${BUMP_TYPE:-patch}; \
-	CURRENT_VERSION=$$(grep -o "Version [0-9]*\.[0-9]*\.[0-9]*" sw.js | head -1 | awk '{print $$2}'); \
-	IFS='.' read -r MAJOR MINOR PATCH <<< "$$CURRENT_VERSION"; \
+	MAJOR=$$(echo "$(CURRENT_VERSION)" | cut -d. -f1); \
+	MINOR=$$(echo "$(CURRENT_VERSION)" | cut -d. -f2); \
+	PATCH=$$(echo "$(CURRENT_VERSION)" | cut -d. -f3); \
 	case $$BUMP_TYPE in \
-		major) NEW_VERSION="$$((MAJOR + 1)).0.0" ;; \
-		minor) NEW_VERSION="$$MAJOR.$$((MINOR + 1)).0" ;; \
-		patch) NEW_VERSION="$$MAJOR.$$MINOR.$$((PATCH + 1))" ;; \
+		major) NEW_VERSION="$$(expr $$MAJOR + 1).0.0" ;; \
+		minor) NEW_VERSION="$$MAJOR.$$(expr $$MINOR + 1).0" ;; \
+		patch) NEW_VERSION="$$MAJOR.$$MINOR.$$(expr $$PATCH + 1)" ;; \
 		*) echo "Invalid bump type. Use patch, minor, or major."; exit 1 ;; \
 	esac; \
-	echo "Updating version from $$CURRENT_VERSION to $$NEW_VERSION..."; \
-	sed -i.bak "s/Version [0-9]*\.[0-9]*\.[0-9]*/Version $$NEW_VERSION/g" sw.js; \
-	sed -i.bak "s/mindquest-v[0-9]*\.[0-9]*\.[0-9]*/mindquest-v$$NEW_VERSION/g" sw.js; \
-	rm -f sw.js.bak; \
-	echo "✓ Service worker updated to version $$NEW_VERSION"
+	$(MAKE) --no-print-directory bump-version-to VERSION=$$NEW_VERSION
 
 bump-version-to:
-	@if [ -z "$(VERSION)" ]; then \
+	@if ! echo "$(VERSION)" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$$'; then \
 		echo "Usage: make bump-version-to VERSION=1.2.3"; \
 		exit 1; \
-	fi; \
-	echo "Updating service worker to version $(VERSION)..."; \
-	sed -i.bak "s/Version [0-9]*\.[0-9]*\.[0-9]*/Version $(VERSION)/g" sw.js; \
-	sed -i.bak "s/mindquest-v[0-9]*\.[0-9]*\.[0-9]*/mindquest-v$(VERSION)/g" sw.js; \
-	rm -f sw.js.bak; \
-	echo "✓ Service worker updated to version $(VERSION)"
+	fi
+	@sed -i.bak "s/Version $(VERSION_RE)/Version $(VERSION)/; s/mindquest-v$(VERSION_RE)/mindquest-v$(VERSION)/" sw.js
+	@sed -i.bak "s/\(assets\/styles\.css?v=\)$(VERSION_RE)/\1$(VERSION)/; s/\(assets\/script\.js?v=\)$(VERSION_RE)/\1$(VERSION)/" index.html
+	@rm -f sw.js.bak index.html.bak
+	@test "$$(grep -c "mindquest-v$(VERSION)'" sw.js)" = 1 || { echo "sw.js CACHE_NAME was not updated"; exit 1; }
+	@test "$$(grep -c "?v=$(VERSION)\"" index.html)" = 2 || { echo "index.html ?v= values were not updated"; exit 1; }
+	@echo "✓ sw.js and index.html asset URLs set to version $(VERSION)"
 
 # Cleanup
 clean-test:
+	rm -rf tests/artifacts
 	rm -rf tests/screenshots
-	rm -rf node_modules
-	rm -f package-lock.json
 
 # Help
 help:
@@ -98,19 +76,15 @@ help:
 	@echo ""
 	@echo "Testing:"
 	@echo "  install-test-deps  - Install test dependencies"
-	@echo "  setup-tests        - Setup test environment"
 	@echo "  test               - Run all tests"
-	@echo "  test-headless      - Run tests in headless mode"
-	@echo "  test-success       - Run success scenario tests only"
-	@echo "  test-validation    - Run validation tests only"
-	@echo "  test-performance   - Run performance tests only"
-	@echo "  test-watch         - Run tests in watch mode"
-	@echo "  test-ci            - Run tests in CI mode"
-	@echo "  test-with-server   - Start server and run tests"
-	@echo "  test-full          - Run complete test suite with server"
+	@echo "  test-mobile        - Run mobile Playwright projects"
+	@echo "  test-desktop       - Run desktop Playwright projects"
+	@echo "  test-headed        - Run with visible browsers"
+	@echo "  test-legacy        - Run retained Mocha/Selenium tests"
+	@echo "  test-ci            - Run Playwright in CI mode"
 	@echo ""
 	@echo "Version Management:"
-	@echo "  bump-version       - Interactively bump service worker version (patch/minor/major)"
+	@echo "  bump-version       - Interactively bump the release version in sw.js and index.html (patch/minor/major)"
 	@echo "  bump-version-to    - Set specific version: make bump-version-to VERSION=1.2.3"
 	@echo ""
 	@echo "Maintenance:"
@@ -118,4 +92,4 @@ help:
 	@echo "  help               - Show this help message"
 	@echo ""
 
-.PHONY: serve install-test-deps setup-tests test test-headless test-success test-validation test-performance test-watch test-ci test-with-server test-full bump-version bump-version-to clean-test help
+.PHONY: serve install-test-deps test test-mobile test-desktop test-headed test-legacy test-ci bump-version bump-version-to clean-test help
