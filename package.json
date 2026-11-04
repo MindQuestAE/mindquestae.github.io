@@ -4,19 +4,29 @@
   "description": "Automated tests for MindQuest registration form",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 60000 --require ./tests/setup.js 'tests/specs/**/*.test.js'",
+    "test": "playwright test",
+    "test:mobile": "playwright test --project='iPad Portrait' --project='iPhone SE' --project='Recent iPhone' --project='Pixel 7' --project='Galaxy S-class Android'",
+    "test:desktop": "playwright test --project='Desktop Chrome' --project='Desktop Firefox' --project='Desktop Safari' --project='Small Laptop'",
+    "test:headed": "playwright test --headed",
+    "test:legacy": "mocha --timeout 60000 --require ./tests/setup.js 'tests/specs/**/*.test.js'",
     "test:headless": "HEADLESS=true npm test",
     "test:watch": "mocha --watch --timeout 60000 --require ./tests/setup.js 'tests/specs/**/*.test.js'",
     "install-deps": "npm install",
     "setup": "npm install && npx selenium-manager --driver chromedriver"
   },
-  "keywords": ["selenium", "testing", "form-validation", "automated-testing"],
+  "keywords": [
+    "selenium",
+    "testing",
+    "form-validation",
+    "automated-testing"
+  ],
   "author": "MindQuest Team",
   "license": "MIT",
   "devDependencies": {
-    "selenium-webdriver": "^4.15.0",
+    "@playwright/test": "^1.63.0",
+    "chai": "^4.3.10",
     "mocha": "^10.2.0",
-    "chai": "^4.3.10"
+    "selenium-webdriver": "^4.15.0"
   },
   "engines": {
     "node": ">=16.0.0"

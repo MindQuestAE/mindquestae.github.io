@@ -7,7 +7,7 @@ awesome—here’s a clean, copy-pasteable **embeddable widget** that shows a sm
 ```html
 <!-- MindQuest banner widget -->
 <script async src="https://mindquestquiz.com/widget/mq-widget.v1.js"
-        data-text="MindQuest Quiz — Register now"
+        data-text="MindQuest 2.0 — Learn more"
         data-url="https://mindquestquiz.com/?utm_source=widget&utm_medium=referral&utm_campaign=partner_banner"
         data-theme="light"         <!-- light | dark -->
         data-position="br"         <!-- br | bl | tr | tl -->
@@ -34,7 +34,7 @@ awesome—here’s a clean, copy-pasteable **embeddable widget** that shows a sm
 
     // --- Options with sensible defaults ---
     var opts = {
-      text: s.dataset.text || "MindQuest Quiz — Register now",
+      text: s.dataset.text || "MindQuest 2.0 — Learn more",
       url: s.dataset.url || "https://mindquestquiz.com/?utm_source=widget&utm_medium=referral&utm_campaign=partner_banner",
       theme: (s.dataset.theme || "light").toLowerCase(),              // light | dark
       position: (s.dataset.position || "br").toLowerCase(),           // br|bl|tr|tl
@@ -227,7 +227,7 @@ If a partner prefers **no JavaScript**, share this:
     <circle cx="12" cy="12" r="10" fill="url(#g)"></circle>
     <path d="M7.5 14.5l3-5 2.5 4 2-3 1.5 2.5" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  MindQuest Quiz — Register now
+  MindQuest 2.0 — Learn more
 </a>
 ```
 

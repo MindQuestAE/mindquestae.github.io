@@ -38,7 +38,8 @@ jobs:
 
     - name: Optimize HTML
       run: |
-        html-minifier-terser --input-dir . --output-dir ./dist --file-ext html \
+        mkdir -p ./dist/docs
+        html-minifier-terser ./index.html --output ./dist/index.html \
           --remove-comments \
           --remove-redundant-attributes \
           --remove-script-type-attributes \
@@ -47,6 +48,32 @@ jobs:
           --minify-css true \
           --minify-js true \
           --collapse-whitespace
+        html-minifier-terser ./ad.html --output ./dist/ad.html \
+          --remove-comments \
+          --remove-redundant-attributes \
+          --remove-script-type-attributes \
+          --remove-style-link-type-attributes \
+          --use-short-doctype \
+          --minify-css true \
+          --minify-js true \
+          --collapse-whitespace
+        html-minifier-terser ./docs/2026-design.html --output ./dist/docs/2026-design.html \
+          --remove-comments \
+          --remove-redundant-attributes \
+          --remove-script-type-attributes \
+          --remove-style-link-type-attributes \
+          --use-short-doctype \
+          --minify-css true \
+          --minify-js true \
+          --collapse-whitespace
+
+    - name: Copy static assets
+      run: |
+        mkdir -p ./dist/assets ./dist/widget
+        cp -R ./assets/. ./dist/assets/
+        cp ./widget/mq-widget.v1.js ./dist/widget/
+        cp ./robots.txt ./sitemap.xml ./CNAME ./dist/
+        find ./dist -name '.DS_Store' -delete
 
     - name: Optimize CSS
       run: |
@@ -58,14 +85,14 @@ jobs:
         terser ./assets/script.js -o ./dist/assets/script.js --compress --mangle
         terser ./sw.js -o ./dist/sw.js --compress --mangle
 
-    - name: Copy static assets
+    - name: Verify all local references are deployed
       run: |
-        cp -r ./assets/favicon ./dist/assets/ || true
-        cp -r ./assets/*.png ./dist/assets/ || true
-        cp -r ./assets/*.jpg ./dist/assets/ || true
-        cp ./robots.txt ./dist/ || true
-        cp ./sitemap.xml ./dist/ || true
-        cp ./CNAME ./dist/ || true
+        python3 scripts/verify_dist.py \
+          --root ./dist \
+          --html index.html ad.html docs/2026-design.html \
+          --service-worker-source ./sw.js \
+          --script-source ./assets/script.js \
+          --site-domain mindquestquiz.com
 
     - name: Setup Pages
       uses: actions/configure-pages@v5

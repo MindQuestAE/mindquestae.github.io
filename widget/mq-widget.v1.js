@@ -6,7 +6,7 @@
 
     // --- Options with sensible defaults ---
     var opts = {
-      text: s.dataset.text || "MindQuest Quiz — Register now",
+      text: s.dataset.text || "MindQuest 2.0 — Learn more",
       url: s.dataset.url || "https://mindquestquiz.com/?utm_source=widget&utm_medium=referral&utm_campaign=partner_banner",
       theme: (s.dataset.theme || "light").toLowerCase(),              // light | dark
       position: (s.dataset.position || "br").toLowerCase(),           // br|bl|tr|tl
