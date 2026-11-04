@@ -141,7 +141,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         : "smooth",
     });
     history.pushState(null, "", targetId);
-    // "Get notified" buttons: move focus to the sign-up heading
     if (targetId === "#register") {
       document.getElementById("registerTitle")?.focus({ preventScroll: true });
     }
@@ -432,107 +431,299 @@ if (quizCard) {
   show(0);
 }
 
-// Google Apps Script endpoint shared by the contact and "Get notified" forms.
 // It is called with mode "no-cors", so the response is opaque: only a network
 // failure can be detected, not a rejection by the script.
 const formEndpoint =
-  "https://script.google.com/macros/s/AKfycbwDldZ2ZJGRvpFkuNC1hUQ22qTc4x8GG8gn9eSjnX29FQYWg_2E_v8xWwoARj8Lxvw0/exec";
+  "https://script.google.com/macros/s/AKfycbwg-LGn1et_VcZDOcvVT4jBDeH97XeVluAsaxawfNChfvcBI7cuuoeVdxsUOImv_j8j/exec";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const normalizeUaePhone = (raw) => {
+  if (!/^\+?[\d\s().-]+$/.test(raw)) return { value: "", error: "Phone numbers can only contain digits, spaces, dashes and a leading +." };
+  let digits = raw.replace(/[\s().-]/g, "");
+  if (digits.startsWith("+")) digits = digits.slice(1);
+  if (digits.startsWith("00971")) digits = digits.slice(5);
+  else if (digits.startsWith("971")) digits = digits.slice(3);
+  else if (digits.startsWith("0")) digits = digits.slice(1);
+  const value = "+971" + digits;
+  const mobile = /^\+971(50|52|54|55|56|58)\d{7}$/.test(value);
+  const landline = /^\+971[234679]\d{7}$/.test(value);
+  if (mobile || landline) return { value, error: "" };
+  if (/^(?:\+?971|0)/.test(raw.replace(/[\s().-]/g, ""))) {
+    const count = digits.length;
+    const needed = /^\+971[234679]/.test(value) ? 8 : 9;
+    return { value, error: `Enter a UAE number such as 050 123 4567 or +971 50 123 4567. You entered ${count} digits after the country code; this number needs ${needed}.` };
+  }
+  return { value, error: "Enter a UAE number such as 050 123 4567 or +971 50 123 4567." };
+};
+const normalizeEmiratesId = (raw) => raw.replace(/[\s-]/g, "");
+const formatUaePhone = (value) => value.replace(/^\+971(\d{2})(\d{3})(\d{4})$/, "+971 $1 $2 $3").replace(/^\+971([234679])(\d{3})(\d{4})$/, "+971 $1 $2 $3");
+const formatEmiratesId = (value) => value.replace(/^(\d{3})(\d{4})(\d{7})(\d)$/, "$1-$2-$3-$4");
+const ageOn = (iso, now = new Date()) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!match) return null;
+  const [, y, m, d] = match;
+  const date = new Date(Date.UTC(Number(y), Number(m) - 1, Number(d)));
+  if (date.getUTCFullYear() !== Number(y) || date.getUTCMonth() !== Number(m) - 1 || date.getUTCDate() !== Number(d)) return null;
+  return now.getFullYear() - Number(y) - (now.getMonth() + 1 < Number(m) || (now.getMonth() + 1 === Number(m) && now.getDate() < Number(d)) ? 1 : 0);
+};
+const parseDob = (raw) => {
+  const trimmed = raw.trim();
+  const localized = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(trimmed);
+  const iso = localized ? `${localized[3]}-${String(localized[2]).padStart(2, "0")}-${String(localized[1]).padStart(2, "0")}` : trimmed;
+  return ageOn(iso) === null ? null : iso;
+};
+const isoDate = (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 const sendingLabel =
   '<svg class="icon icon-spin" aria-hidden="true"><use href="#icon-loader"></use></svg> Sending…';
 
-// "Get notified" sign-up. Sent through the contact endpoint in the same shape
-// as a contact message (name, email, subject, message), so it needs no change
-// to the deployed script; the subject marks it as a sign-up.
-const notifyForm = document.getElementById("notifyForm");
-if (notifyForm) {
-  const emailInput = document.getElementById("notifyEmail");
-  const emailError = document.getElementById("notifyEmailError");
-  const notifyStatus = document.getElementById("notifyStatus");
-  const submitBtn = notifyForm.querySelector('button[type="submit"]');
-  const mailto = notifyForm.getAttribute("action");
-  const successMessage = "Thanks! We’ll email you when registration opens.";
+const registrationEndpoint =
+  "https://script.google.com/macros/s/AKfycbz0dCZwiRDXEtQoiEgSKZyPW5uMcWM62mkJInbvX1dxfx27Fn0-Ob6ksFnH3NpesggK/exec";
+const registrationForm = document.getElementById("registrationForm");
+if (registrationForm) {
+  const status = document.getElementById("registrationStatus");
+  const submit = registrationForm.querySelector('button[type="submit"]');
+  const fields = [...registrationForm.querySelectorAll("[required], [name^=curriculumOther]")];
+  const todayDate = new Date();
+  const today = isoDate(todayDate);
+  const oldestDate = new Date(todayDate.getFullYear() - 25, todayDate.getMonth(), todayDate.getDate());
+  const youngestDate = new Date(todayDate.getFullYear() - 8, todayDate.getMonth(), todayDate.getDate());
   let sending = false;
+  let schoolsLoading = false;
+  let summaryFields = [];
 
-  const setNotifyStatus = (type, html) => {
-    notifyStatus.className = "form-status" + (type ? " " + type : "");
-    notifyStatus.innerHTML = html;
+  const setStatus = (type, message) => {
+    status.className = "form-status" + (type ? " " + type : "");
+    status.textContent = message;
+  };
+  const updateSummary = () => {
+    if (!summaryFields.length) {
+      setStatus("", "");
+      return;
+    }
+    const labels = summaryFields.map((field) => {
+      const participant = field.closest("fieldset")?.querySelector("legend")?.textContent;
+      const label = field.name === "consent" ? "Parent/guardian permission" : field.labels?.[0]?.textContent?.trim() || "Field";
+      return `${participant ? participant + " — " : ""}${label}`;
+    });
+    const count = summaryFields.length;
+    const duplicate = summaryFields.some((field) => field.name === "emiratesId2" && document.getElementById(field.id + "Error").textContent.startsWith("Participant 2 has the same Emirates ID"));
+    const suffix = duplicate ? " Please enter two different participants." : "";
+    setStatus("error", `${count} ${count === 1 ? "problem" : "problems"} to fix: ${labels.join(", ")}.${suffix}`);
+  };
+  const removeFromSummaryWhenValid = (field) => {
+    const candidate = field.name === "emiratesId1" && summaryFields.includes(registrationForm.elements.emiratesId2)
+      ? registrationForm.elements.emiratesId2
+      : field;
+    if (summaryFields.includes(candidate) && validateField(candidate)) {
+      summaryFields = summaryFields.filter((item) => item !== candidate);
+      updateSummary();
+    }
   };
 
-  const validateEmail = () => {
-    const value = emailInput.value.trim();
+  const validateField = (field) => {
+    const value = field.value.trim();
     let message = "";
-    if (!value) message = "Email is required.";
-    else if (!emailPattern.test(value))
-      message = "Please enter a valid email address.";
-    const group = emailInput.closest(".form-group");
-    group.classList.toggle("error", !!message);
-    group.classList.toggle("valid", !message);
-    emailInput.setAttribute("aria-invalid", String(!!message));
-    emailError.textContent = message;
-    emailError.style.display = message ? "block" : "none";
+    if (!field.disabled) {
+      if (field.type === "checkbox") {
+        if (!field.checked) message = "Tick the box to confirm a parent or guardian has given permission.";
+      } else if (field.type === "email") {
+        if (!value) message = "Enter an email address.";
+        else if (!emailPattern.test(value)) message = "That doesn't look like an email address — check for a missing @ or domain.";
+      } else if (/^(firstName|lastName)/.test(field.name)) {
+        const first = field.name.startsWith("firstName");
+        if (!value) message = first ? "Enter the student's first name." : "Enter the student's last name.";
+        else if (value.length > 50 || !/^[\p{L}\p{M} .'-]+$/u.test(value)) message = "Names can only contain letters, spaces, hyphens and apostrophes.";
+      } else if (field.type === "tel") {
+        message = value ? normalizeUaePhone(value).error : "Enter a phone number we can reach you on.";
+      } else if (field.name.startsWith("emiratesId")) {
+        if (!value) message = "Enter the Emirates ID number printed on the card.";
+        else if (!/^[\d\s-]+$/.test(value)) message = "Use digits only; dashes and spaces are fine.";
+        else {
+          const digits = normalizeEmiratesId(value);
+          if (digits.length !== 15) message = `An Emirates ID has 15 digits (784-YYYY-NNNNNNN-C). You entered ${digits.length}.`;
+          else if (!digits.startsWith("784")) message = "UAE Emirates IDs start with 784.";
+          else if (field.name === "emiratesId2" && digits === normalizeEmiratesId(registrationForm.elements.emiratesId1.value)) message = "Participant 2 has the same Emirates ID as participant 1. Each student needs their own.";
+        }
+      } else if (field.name.startsWith("dob")) {
+        const dobValue = parseDob(value);
+        const age = dobValue ? ageOn(dobValue, todayDate) : null;
+        if (!value) message = "Enter the student's date of birth.";
+        else if (age === null) message = "Enter a valid date of birth.";
+        else if (dobValue > today) message = "Date of birth can't be in the future.";
+        else if (age < 8 || age > 25) message = `Please check the year — that date gives an age of ${age}.`;
+      } else if (field.name.startsWith("school")) {
+        if (!value) message = "Enter or choose the student's school.";
+      } else if (field.name.startsWith("curriculumOther")) {
+        if (value.length < 2 || value.length > 60) message = "Tell us which curriculum.";
+      } else if (field.name.startsWith("curriculum")) {
+        if (!value) message = "Choose a curriculum.";
+      } else if (field.name.startsWith("grade")) {
+        if (!value) message = field.closest("fieldset").querySelector('[name^="curriculum"]').value === "British" ? "Choose a year." : "Choose a grade.";
+      } else if (!value) message = "This field is required.";
+    }
+    field.closest(".form-group")?.classList.toggle("error", !!message);
+    field.setAttribute("aria-invalid", String(!!message));
+    const error = document.getElementById(field.id + "Error");
+    error.textContent = message;
+    error.style.display = message ? "block" : "none";
     return !message;
   };
 
-  emailInput.addEventListener("blur", () => {
-    if (emailInput.value.trim()) validateEmail();
-  });
+  for (const field of fields) {
+    field.addEventListener("blur", () => {
+      const valid = validateField(field);
+      const idOne = normalizeEmiratesId(registrationForm.elements.emiratesId1.value);
+      const idTwo = normalizeEmiratesId(registrationForm.elements.emiratesId2.value);
+      if (!valid && field.name === "emiratesId2" && idOne.length === 15 && idOne.startsWith("784") && idOne === idTwo) {
+        summaryFields = [field];
+        updateSummary();
+      }
+    });
+    field.addEventListener("input", () => {
+      if (field.getAttribute("aria-invalid") === "true") validateField(field);
+      removeFromSummaryWhenValid(field);
+      if (field.name.startsWith("dob")) updateDobHint(field);
+    });
+    field.addEventListener("change", () => { if (field.getAttribute("aria-invalid") === "true") validateField(field); removeFromSummaryWhenValid(field); if (field.name.startsWith("dob")) updateDobHint(field); });
+    field.addEventListener("blur", () => { if (field.type !== "checkbox") field.value = field.value.trim(); });
+  }
+  const updateDobHint = (dob) => {
+    const suffix = dob.name.slice(-1);
+    const parsed = parseDob(dob.value);
+    const age = parsed ? ageOn(parsed, todayDate) : null;
+    const grade = Number(document.getElementById("grade" + suffix).value);
+    document.getElementById(dob.id + "Hint").textContent = age !== null && grade && (age < grade + 2 || age > grade + 10) ? "Double-check the date of birth or grade." : "";
+  };
+  for (const i of [1, 2]) {
+    document.getElementById("dob" + i).max = today;
+    document.getElementById("dob" + i).min = isoDate(oldestDate);
+    document.getElementById("grade" + i).addEventListener("change", () => updateDobHint(document.getElementById("dob" + i)));
+    document.getElementById("phone" + i).addEventListener("blur", (event) => {
+      const parsed = normalizeUaePhone(event.target.value.trim());
+      if (!parsed.error) event.target.value = formatUaePhone(parsed.value);
+    });
+    document.getElementById("emiratesId" + i).addEventListener("blur", (event) => {
+      const digits = normalizeEmiratesId(event.target.value.trim());
+      if (digits.length === 15 && digits.startsWith("784")) event.target.value = formatEmiratesId(digits);
+    });
+    const curriculum = document.getElementById("curriculum" + i);
+    const other = document.getElementById("curriculumOther" + i);
+    const syncCurriculum = () => {
+      const show = curriculum.value === "Other";
+      document.getElementById(other.id + "Group").hidden = !show;
+      other.disabled = !show;
+      other.required = show;
+      if (!show) {
+        other.value = "";
+        validateField(other);
+      }
+      const british = curriculum.value === "British";
+      [...document.getElementById("grade" + i).options].slice(1).forEach((option) => {
+        option.textContent = british ? "Year " + (Number(option.value) + 1) : "Grade " + option.value;
+      });
+    };
+    curriculum.addEventListener("change", syncCurriculum);
+    registrationForm.addEventListener("reset", () => queueMicrotask(syncCurriculum));
+    document.getElementById("school" + i).addEventListener("focus", async () => {
+      if (schoolsLoading) return;
+      schoolsLoading = true;
+      try {
+        const response = await fetch("./assets/schools.json", { signal: AbortSignal.timeout(10000) });
+        if (!response.ok) {
+          schoolsLoading = false;
+          return;
+        }
+        const schools = await response.json();
+        if (!Array.isArray(schools) || !schools.every((school) => typeof school === "string")) {
+          schoolsLoading = false;
+          return;
+        }
+        const options = schools.map((school) => {
+          const option = document.createElement("option");
+          option.value = school;
+          return option;
+        });
+        document.getElementById("registrationSchools").replaceChildren(...options);
+      } catch (error) {
+        if (!(error instanceof Error)) throw error;
+        schoolsLoading = false;
+      }
+    });
+  }
 
-  notifyForm.addEventListener("submit", async (event) => {
+  registrationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (sending) return;
-    setNotifyStatus("", "");
-
-    if (!validateEmail()) {
-      setNotifyStatus("error", "Please fix the email address and try again.");
-      emailInput.focus();
+    summaryFields = [];
+    setStatus("", "");
+    if (registrationForm.elements.website.value) {
+      setStatus("success", "Thanks. Please wait for confirmation from the organisers.");
       return;
     }
-    // Honeypot: people never see this field, so a value means a bot
-    if (notifyForm.elements.website.value) {
-      setNotifyStatus("success", successMessage);
-      notifyForm.reset();
+    const idOne = normalizeEmiratesId(registrationForm.elements.emiratesId1.value.trim());
+    const idTwo = normalizeEmiratesId(registrationForm.elements.emiratesId2.value.trim());
+    if (idOne.length === 15 && idOne.startsWith("784") && idOne === idTwo) {
+      const duplicateId = registrationForm.elements.emiratesId2;
+      validateField(duplicateId);
+      summaryFields = [duplicateId];
+      updateSummary();
+      duplicateId.focus();
+      duplicateId.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
+    const invalid = fields.filter((field) => !validateField(field));
+    if (invalid.length) {
+      summaryFields = invalid;
+      updateSummary();
+      invalid[0].focus();
+      invalid[0].scrollIntoView({ block: "center", behavior: "smooth" });
       return;
     }
 
-    const name = notifyForm.elements.name.value.trim();
-    const school = notifyForm.elements.school.value.trim();
-    const payload = {
-      name: name || "Not given",
-      email: emailInput.value.trim(),
-      subject: "Notify me — MindQuest 2.0 registration",
-      message:
-        "Please notify me when MindQuest 2.0 registration opens." +
-        (school ? ` School: ${school}` : ""),
-    };
+    const body = new FormData(registrationForm);
+    for (const [key, value] of body) {
+      if (typeof value === "string") body.set(key, value.trim());
+    }
+    for (const i of [1, 2]) {
+      body.set("phone" + i, normalizeUaePhone(registrationForm.elements["phone" + i].value).value);
+      body.set("emiratesId" + i, normalizeEmiratesId(registrationForm.elements["emiratesId" + i].value));
+      body.set("dob" + i, parseDob(registrationForm.elements["dob" + i].value));
+    }
+    body.delete("website");
+    body.set("edition", "MindQuest 2.0");
+    body.set("school", body.get("school1") === body.get("school2")
+      ? body.get("school1") : body.get("school1") + " / " + body.get("school2"));
+    body.set("grade", body.get("grade1") === body.get("grade2")
+      ? body.get("grade1") : body.get("grade1") + " / " + body.get("grade2"));
 
     sending = true;
-    const originalContent = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = sendingLabel;
-
+    submit.disabled = true;
+    submit.textContent = "Sending registration…";
+    registrationForm.setAttribute("aria-busy", "true");
     try {
-      await fetch(formEndpoint, {
+      await fetch(registrationEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body,
         mode: "no-cors",
+        signal: AbortSignal.timeout(30000),
       });
-      setNotifyStatus("success", successMessage);
-      notifyForm.reset();
-      emailInput.closest(".form-group").classList.remove("valid");
-      if (readConsent() === "accepted") {
-        trackCTAClick("Notify sign-up", "Register");
-      }
-    } catch (err) {
-      setNotifyStatus(
-        "error",
-        `We could not sign you up just now. Please <a href="${mailto}">email us instead</a>.`
-      );
+      setStatus("success", "Submission sent. Please wait for confirmation from the organisers. If you do not hear from us, email register.mindquest@gmail.com.");
+      registrationForm.reset();
+      fields.forEach((field) => {
+        field.closest(".form-group").classList.remove("error");
+        field.removeAttribute("aria-invalid");
+        document.getElementById(field.id + "Error").style.display = "none";
+      });
+      if (readConsent() === "accepted") trackCTAClick("Registration submitted", "Register");
+      status.focus();
+    } catch (error) {
+      if (!(error instanceof Error)) throw error;
+      setStatus("error", "We could not send your registration. Your details are still here. Please try again or email the organisers using the link below.");
+      status.focus();
     } finally {
       sending = false;
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalContent;
+      submit.disabled = false;
+      submit.textContent = "Submit registration";
+      registrationForm.removeAttribute("aria-busy");
     }
   });
 }
@@ -543,10 +734,21 @@ if (contactForm) {
   const endpoint = formEndpoint;
   const statusContainer = document.getElementById("contactStatus");
   const fieldIds = ["contactName", "contactEmail", "subject", "message"];
+  let summaryFields = [];
+  let summaryActive = false;
 
   const setStatus = (type, message) => {
     statusContainer.className = "form-status" + (type ? " " + type : "");
     statusContainer.textContent = message;
+  };
+  const updateSummary = () => {
+    if (!summaryFields.length) {
+      setStatus("", "");
+      return;
+    }
+    const labels = summaryFields.map((input) => input.labels?.[0]?.textContent?.trim() || "Field");
+    const count = summaryFields.length;
+    setStatus("error", `${count} ${count === 1 ? "problem" : "problems"} to fix: ${labels.join(", ")}. Please fix the highlighted fields.`);
   };
 
   const setFieldState = (input, isValid, message = "") => {
@@ -567,24 +769,22 @@ if (contactForm) {
 
     switch (input.id) {
       case "contactName":
-        if (!value) errorMessage = "Name is required.";
-        else if (value.length < 3 || value.length > 50)
-          errorMessage = "Name must be between 3 and 50 characters.";
+        if (!value) errorMessage = "Enter your name.";
+        else if (value.length < 2 || value.length > 50) errorMessage = "Name must be between 2 and 50 characters.";
         break;
       case "contactEmail":
-        if (!value) errorMessage = "Email is required.";
-        else if (!emailPattern.test(value))
-          errorMessage = "Please enter a valid email address.";
+        if (!value) errorMessage = "Enter an email address.";
+        else if (!emailPattern.test(value)) errorMessage = "That doesn't look like an email address — check for a missing @ or domain.";
         break;
       case "subject":
-        if (!value) errorMessage = "Subject is required.";
-        else if (value.length < 3 || value.length > 100)
-          errorMessage = "Subject must be between 3 and 100 characters.";
+        if (!value) errorMessage = "Enter a subject.";
+        else if (value.length < 3) errorMessage = `Subject must be at least 3 characters, you have ${value.length}.`;
+        else if (value.length > 100) errorMessage = `Subject must be at most 100 characters, you have ${value.length - 100} too many.`;
         break;
       case "message":
-        if (!value) errorMessage = "Message is required.";
-        else if (value.length < 10 || value.length > 1000)
-          errorMessage = "Message must be between 10 and 1000 characters.";
+        if (!value) errorMessage = "Enter a message.";
+        else if (value.length < 10) errorMessage = `Message must be at least 10 characters, you have ${value.length}.`;
+        else if (value.length > 1000) errorMessage = `Message must be at most 1000 characters, you have ${value.length - 1000} too many.`;
         break;
     }
 
@@ -593,12 +793,31 @@ if (contactForm) {
   };
 
   const inputs = fieldIds.map((id) => document.getElementById(id));
+  const updateCount = (input) => {
+    if (input.id !== "subject" && input.id !== "message") return;
+    const limit = input.id === "subject" ? 100 : 1000;
+    const remaining = limit - input.value.length;
+    document.getElementById(input.id + "Count").textContent = remaining >= 0 ? `${remaining} characters remaining` : `${-remaining} characters over the limit`;
+  };
   inputs.forEach((input) => {
-    input.addEventListener("blur", () => validateField(input));
+    input.addEventListener("blur", () => { input.value = input.value.trim(); validateField(input); });
+    input.addEventListener("input", () => {
+      updateCount(input);
+      if (summaryActive) {
+        if (input.getAttribute("aria-invalid") === "true") validateField(input);
+        summaryFields = inputs.filter((item) => item.getAttribute("aria-invalid") === "true");
+        updateSummary();
+      } else if (input.getAttribute("aria-invalid") === "true") {
+        validateField(input);
+      }
+    });
   });
+  inputs.forEach(updateCount);
 
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    summaryFields = [];
+    summaryActive = false;
     setStatus("", "");
 
     const formIsValid = inputs.map(validateField).every(Boolean);
@@ -614,8 +833,12 @@ if (contactForm) {
           { duration: 350 }
         );
       }
-      setStatus("error", "Please fix the highlighted fields and try again.");
-      inputs.find((i) => i.getAttribute("aria-invalid") === "true")?.focus();
+      const invalid = inputs.filter((input) => input.getAttribute("aria-invalid") === "true");
+      summaryFields = invalid;
+      summaryActive = true;
+      updateSummary();
+      invalid[0]?.focus();
+      invalid[0]?.scrollIntoView({ block: "center", behavior: "smooth" });
       return;
     }
 
@@ -635,7 +858,8 @@ if (contactForm) {
       // no-cors: the Apps Script endpoint returns an opaque response (status 0)
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        redirect: "follow", // Apps Script answers through a redirect
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // text/plain avoids the preflight OPTIONS request
         body: JSON.stringify(payload),
         mode: "no-cors",
       });

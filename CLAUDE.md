@@ -17,17 +17,17 @@ This is a static website for MindQuest, a General Knowledge Quiz Competition for
 - `docs/2026-design.html` - Living design system reference for the 2026 theme (rendered with the live stylesheet, `noindex`)
 - `ad.html` + `widget/mq-widget.v1.js` - Embeddable banner snippet (documented in `WIDGET.md`)
 - `assets/` - Images and favicon resources
-  - `mindquest-logo-nav.png` - Full MindQuest logo sized for the navbar (178×112, shown at 56px tall, preloaded); a resized copy of `mindquest-wordmark.png`, artwork unchanged
-  - `mindquest-logomark.png` - Logomark; no longer used by the page
-  - `mindquest-wordmark.png` - Cropped wordmark used in the footer
+  - `mindquest-logo-nav.svg` - Official MindQuest 2.0 logo (the "2.0" is part of the artwork), cropped to its tight bounding box (viewBox only, paths unchanged), shown at 56px tall (50px on phones), preloaded
+  - `brand/` - Unmodified originals of the new logo set (`mindquestlogo-ver2-0-01` and `-tag-01`, .svg and .png, 2000×2000 with large margins); the nav and footer SVGs are derived from these. The print sources (.eps/.psd/.ai/.pdf/.jpg) are deliberately not in the repo
+  - `mindquest-wordmark.svg` - Logo with the "Unlock Your Mind, Conquer The Quest" tagline (cropped from `brand/…-tag-01.svg`), used in the footer on a white tile
   - `og-image.png` - 1200×630 social sharing card (`og:image` / `twitter:image`)
   - `2025/` - Downloadable 2025 prelims question paper and answer key (PDF)
-  - `schools.json` - UAE school list for the future registration form's school autocomplete (not read by the site yet, see "School List")
+  - `schools.json` - UAE school suggestions, loaded when a registration school field receives focus (see "School List")
   - `gecbta-loga.png` - GECBTA organizer logo
   - `ackaf-logo.png` - AKCAF organizer logo
   - `carrefour.png`, `almarai.png`, `romana-water.png`, `kidsventure.png`, `aster.png` - 2025 sponsor logos
-  - `favicon/` - Favicon package and `site.webmanifest`
-  - `mindquestlogowithtag-01.png`, `pattern-01.png`, `gecbta-loga.jpg` - Brand source files, not referenced by the site
+  - `favicon/` - Favicon package and `site.webmanifest`; the icon is a clipped crop of the book-M / lightbulb-Q symbol from `brand/mindquestlogo-ver2-0-01.svg` on a white tile (not a redraw)
+  - `pattern-01.png`, `gecbta-loga.jpg` - Brand source files, not referenced by the site (the old 2025 logo files were removed)
 - `tests/`, `playwright.config.js`, `package.json`, `Makefile` - Browser tests and helper commands (see "Testing")
 - `.github/workflows/deploy.yml` - Builds `dist` and deploys it to GitHub Pages on push to `main`. GitHub Pages publishes `index.html` and `ad.html` explicitly, the `assets/` tree, `widget/mq-widget.v1.js`, `CNAME`, `robots.txt`, `sitemap.xml` and `sw.js`. Assets are copied recursively, then `styles.css`, `script.js` and `sw.js` are minified into `dist`. Do not go back to a recursive HTML input; add public HTML pages explicitly after confirming they should be published. PDFs and `assets/schools.json` deploy under `assets/`. `docs/2026-design.html` is published explicitly by the workflow at `/docs/2026-design.html`; it is `noindex` and stays out of the sitemap
 - `scripts/verify_dist.py` - Run by the deploy workflow: validates same-origin HTML / manifest / CSS / JS / service-worker precache references against `dist` and fails the deployment on missing files, so any new same-origin file the site references must exist under `assets/`
@@ -36,7 +36,7 @@ This is a static website for MindQuest, a General Knowledge Quiz Competition for
 - Brand colors: Oxford Blue (#0A2155), Minion Yellow (#F9D84B), Slate Gray (#4F4F4F), Sky Blue (#B3D4FC)
 - Typography: Montserrat (headings, labels, buttons), Lato (body text)
 - Responsive design with mobile-first approach
-- Logo styling: Organizer logos sit on #F9D84B rounded squares for branding consistency; sponsor logos sit on plain white tiles
+- Logo styling: The MindQuest logo is never recoloured, restyled or shadowed, and sits on paper or a white tile (never directly on Oxford Blue). Organizer logos sit on #F9D84B rounded squares for branding consistency; sponsor logos sit on plain white tiles
 - Full reference: `docs/2026-design.html` (see "2026 Theme" below)
 
 ## Development Commands
@@ -66,7 +66,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Dates (`#dates`) scoreboard — every value is still "To be announced"
 - Prizes (`#prizes`) with the podium and special awards
 - Archives (`#archives`) with the 2025 prelims PDFs, a click-to-load YouTube video and Instagram embeds
-- Register (`#register`) call-to-action band — registration is not open, so there is no registration form; the band holds the "Get notified" email sign-up form, with email and Instagram links as alternatives
+- Register (`#register`) — two-participant registration form, with an email alternative
 - Partners (`#partners`) with GECBTA and AKCAF information and the 2025 sponsor wall
 - FAQ (`#faq`) using native `<details>` accordions
 - Contact (`#contact`) with contact information and message form
@@ -82,7 +82,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Lazy loading of Instagram `embed.js` when the archives near the viewport
 - Click-to-load YouTube videos in the archives (`.video-facade`)
 - Warm-up flash cards: flip, Previous and Next (`warmupQuestions`)
-- "Get notified" sign-up form and contact form: validation and submission to a Google Apps Script endpoint
+- Registration and contact forms: validation and submission to separate Google Apps Script endpoints
 - Error handling for images
 
 **CSS Features (assets/styles.css):**
@@ -105,7 +105,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Target audience: Indian diaspora high school students (Grade 8-12 Indian / Year 9-13 British) in UAE
 - MindQuest 2025 was held Oct 19, 2025 at The Millennium School, Al Qusais, Dubai
 
-**Naming:** this edition is "MindQuest 2.0" everywhere in visible copy, including sentences that used to say "MindQuest 2026" (champions, registration, sponsorship). "2026" appears only as a plain year: the page title's trailing "2026", "the 2026 champions", the © line and the search keywords. Last year's edition is "MindQuest 2025". Do not use "Season 1 / Season 2" or "'26". The navbar shows the full logo plus the yellow "2.0" badge.
+**Naming:** this edition is "MindQuest 2.0" everywhere in visible copy, including sentences that used to say "MindQuest 2026" (champions, registration, sponsorship). "2026" appears only as a plain year: the page title's trailing "2026", "the 2026 champions", the © line and the search keywords. Last year's edition is "MindQuest 2025". Do not use "Season 1 / Season 2" or "'26". The navbar shows the new logo, which carries its own "2.0", so there is no separate badge.
 
 **2026 Theme ("Quiz Board"):** light paper background, 2px Oxford Blue outlines with hard offset shadows, sections framed as quiz "Rounds", warm-up question card in the hero. `docs/2026-design.html` documents colour, typography, shape, layout, buttons, labels, cards, signature components, forms, motion, voice and accessibility; check it before adding or changing UI, and update it when the stylesheet changes.
 
@@ -120,10 +120,9 @@ This is a static HTML website with no build process. Development can be done by:
 
 **School List (`assets/schools.json`):**
 - JSON array of 225 UAE schools as strings, each exactly `School Name - Area - EMIRATE` (emirate in capitals, one of the seven), unique and sorted case-insensitively; keep that format and order when editing
-- Nothing on the site reads it yet: 2026 registration is not open and there is no school field. It is the data source for the school autocomplete when the registration form returns (in 2025 this was an inline `schoolsList` array in `assets/script.js`)
+- Registration loads it on the first school-field focus and shares one native datalist between both participants
 - The list is not exhaustive, especially outside Dubai, so the autocomplete must still accept a free-text school that is not on the list
-- Fetch it lazily when wiring it up, and add it to `STATIC_CACHE_URLS` in `sw.js` only once it is actually used
-- It deploys with the rest of `assets/`, so the site can fetch it in production once it is wired up
+- It is precached in `STATIC_CACHE_URLS` in `sw.js`; a failed suggestions fetch still allows free-text school entry
 
 **Archives:** `#archives` holds three things.
 - Downloads: `assets/2025/mindquest-2025-prelims-question-paper.pdf` and `mindquest-2025-prelims-answer-key.pdf`, also linked from the warm-up card
@@ -139,24 +138,28 @@ This is a static HTML website with no build process. Development can be done by:
 - Dates scoreboard (to be announced)
 - Prizes with podium (a trophy for each of the three places) and two special awards (Best School Delegation, Certificates of Excellence)
 - Archives with 2025 prelims PDFs, video and Instagram embeds
-- Register band with the "Get notified" email sign-up
+- Register band with the two-participant registration form
 - Partners with GECBTA and AKCAF information, 2025 sponsors and sponsorship CTA
 - FAQ with common questions and answers (mirrored in the JSON-LD `FAQPage`; keep both in sync)
 - Contact with multiple contact methods and message form
 
 **Form Handling:**
-- Two forms: the "Get notified" sign-up (`#notifyForm`, in the register band) and the contact form (`#contactForm`)
+- Two forms: registration (`#registrationForm`, in the register band) and contact (`#contactForm`)
 - Client-side validation with visual feedback and inline error messages; status messages are announced through live regions
-- Both post JSON to the same Google Apps Script web app (`formEndpoint` in `assets/script.js`) with `mode: "no-cors"`. The response is opaque, so the page can only detect a network failure, not a rejection by the script
+- Registration posts `FormData` to `registrationEndpoint`, recovered from the `2025` branch; contact posts JSON (sent as `text/plain`, `redirect: "follow"`) to `formEndpoint`. Both use `mode: "no-cors"`. The response is opaque, so the page can only detect a network failure, not a rejection by either script
+- Contact form rules: name 2–50 characters, subject 3–100, message 10–1000, with a remaining-characters counter under subject and message
 - No test may send a real request to that endpoint — it writes to the organisers' live sheet/inbox. The Playwright tests stub `fetch` in the page
 
-**"Get notified" sign-up:**
-- Fields: email (required), name and school (optional), plus a hidden honeypot (`website`); a filled honeypot shows success and sends nothing
-- It is sent as an ordinary contact message so the deployed script needs no change: `{ name, email, subject: "Notify me — MindQuest 2.0 registration", message: "Please notify me when MindQuest 2.0 registration opens. School: …" }`. `name` is `"Not given"` when left empty. Sign-ups therefore land wherever contact messages land; filter on that subject to build the mailing list
-- The Apps Script source for this endpoint is not in the repo (the `appscript-*.js` files kept beside the repo are the 2025 registration script, a different deployment), so what it validates server-side is unknown and the live round-trip has not been tested from this codebase. After deploying, submit the form once and confirm the entry arrives
-- If the request fails, the status shows a `mailto:` fallback; without JavaScript the form's `action` is the same `mailto:` address
-- "Get notified" buttons scroll to `#register` and move focus to its heading
-- The success event is sent to Analytics only when cookie consent was accepted
+**Registration:**
+- Restored from the parent of `5b5f24c` (the commit that closed 2025 registration); there are no Git tags. The historical edition is the `2025` branch
+- Each participant supplies first/last name, email, UAE phone, date of birth, Emirates ID, school, curriculum and grade. Other curricula require specification. British grades display Years 9–13; their submitted grade values remain 8–12 alongside the curriculum
+- Eligibility follows the published grade range. Do not reintroduce the old 2007–2012 birth-date limits without confirmed organiser requirements
+- UAE phone input accepts local and international formats and is submitted as normalized +971. Emirates IDs accept spaces or hyphens, are submitted as 15 plain digits, and are not checksum-validated (EIDs do carry a check digit; enforcing it is possible later if verified against real IDs). Date-of-birth checks enforce only an 8–25-year sanity range — it is not an eligibility rule and requires organiser confirmation
+- Permission consent is required; duplicate Emirates IDs are rejected. When a field is corrected, its inline error and its entry in the validation summary clear immediately. The honeypot silently drops the submission and shows a neutral message that does not claim it was sent. Submission is guarded against double clicks and has a 30-second timeout
+- The payload keeps the 2025 participant field names, includes `edition`, and adds legacy `school` and `grade` fields. When participants differ, those legacy fields join their values with ` / `. Verify that the deployed script accepts these aggregates and retains both participants’ school/curriculum data
+- The `appscript-*.js` files beside this repo are historical copies, not proof of the active deployment. One copy rejects dates outside 2007–2011 and reads only shared `school`/`grade` fields. Before publishing registration, the organiser must confirm or update the deployment, its sheet destination, eligibility validation and column mapping for MindQuest 2.0. No live submission has been made from this codebase
+- A completed network request shows "Submission sent" and asks visitors to wait for organiser confirmation; it does not claim the sheet accepted the entry. Failures preserve the form and offer email. Without JavaScript the form uses a `mailto:` action
+- "Register now" buttons scroll to `#register` and focus its heading. Submission tracking runs only with accepted analytics consent
 
 **Analytics & Consent:**
 - Google Analytics 4 (`G-NVLZZP28ME`) is loaded by `loadAnalytics()` in `assets/script.js` only after the visitor clicks "Accept" in the cookie banner, or on later visits when `localStorage.cookieConsent` is `"accepted"`
@@ -184,6 +187,7 @@ This is a static HTML website with no build process. Development can be done by:
 ## Testing
 
 - Playwright smoke suite in `tests/e2e/`, configured by `playwright.config.js` (desktop and mobile device matrix, always starts its own static server on port 8001 and fails if the port is already in use, rather than reusing a server that may be serving another directory). Run `npm install`, `npx playwright install chromium firefox webkit`, then `npm test` (or `make test`, `npm run test:mobile`, `npm run test:desktop`)
+- `tests/e2e/site.spec.js` covers the page, registration flow and logo assets; `tests/e2e/forms.spec.js` covers field-level validation for both forms (phone and Emirates ID normalisation, date-of-birth range, error clearing, honeypot, contact limits)
 - Reports and screenshots are written to `tests/artifacts/`
 - `tests/specs/` holds the older Mocha/Selenium suite for the 2025 registration form (`npm run test:legacy`); that form no longer exists on the page
 - See `tests/README.md` for details
@@ -206,6 +210,6 @@ This is a static HTML website with no build process. Development can be done by:
 - Google Analytics 4 (`gtag.js`), loaded only after cookie consent
 - Instagram `embed.js` for the archives, lazy-loaded
 - YouTube (`youtube-nocookie.com` iframe and `i.ytimg.com` thumbnail) for archive videos, loaded only on click
-- Google Apps Script endpoint for the sign-up and contact forms
+- Separate Google Apps Script endpoints for registration and contact
 - No icon font (Font Awesome was removed), no JavaScript frameworks and no build tools required
 - The Content-Security-Policy meta tag in `index.html` lists every allowed origin; update it when adding a dependency

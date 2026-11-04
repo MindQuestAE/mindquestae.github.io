@@ -87,7 +87,7 @@
     <link rel="preload" href="https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.instagram.com" />
-    <link rel="preload" href="./assets/mindquest-logo-nav.png" as="image" />
+    <link rel="preload" href="./assets/mindquest-logo-nav.svg" as="image" type="image/svg+xml" />
 
     <link
       rel="preload"
@@ -96,7 +96,7 @@
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap" /></noscript>
-    <link rel="stylesheet" href="./assets/styles.css?v=2026.10.9" />
+    <link rel="stylesheet" href="./assets/styles.css?v=2026.11.3" />
 
     <!-- JSON-LD Structured Data.
          TODO(2026): add an "Event" node with startDate/location once dates and venue are confirmed. -->
@@ -241,13 +241,12 @@
       <nav class="nav-container" aria-label="Primary">
         <a href="#home" class="brand">
           <img
-            src="./assets/mindquest-logo-nav.png"
-            alt="MindQuest"
-            width="89"
+            src="./assets/mindquest-logo-nav.svg"
+            alt="MindQuest 2.0"
+            width="161"
             height="56"
             fetchpriority="high"
           />
-          <span class="brand-year">2.0</span>
         </a>
 
         <ul class="nav-menu" id="navMenu">
@@ -259,10 +258,10 @@
           <li><a href="#partners">Partners</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li class="nav-cta-mobile"><a href="#register" class="btn btn-yellow">Get notified</a></li>
+          <li class="nav-cta-mobile"><a href="#register" class="btn btn-yellow">Register now</a></li>
         </ul>
 
-        <a href="#register" class="btn btn-ink nav-cta">Get notified</a>
+        <a href="#register" class="btn btn-ink nav-cta">Register now</a>
 
         <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
           <span></span><span></span><span></span>
@@ -302,8 +301,8 @@
             </ul>
 
             <div class="cta-group">
-              <a href="#register" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Get notified', 'Hero')">
-                <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Get notified
+              <a href="#register" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Register now', 'Hero')">
+                <svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg> Register now
               </a>
               <a href="#format" class="btn btn-outline btn-lg">
                 How it works <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
@@ -499,9 +498,8 @@
             <p class="round-tag"><span>03</span> Round three</p>
             <h2 class="section-title">Save the dates.</h2>
             <p class="section-lead">
-              Dates, venue and registration details for MindQuest 2.0 have not
-              yet been announced. Get notified and we’ll email you when
-              registration opens.
+              Register your team for MindQuest 2.0. The competition dates,
+              venue and registration deadline will be announced here.
             </p>
           </header>
 
@@ -509,8 +507,8 @@
           <ol class="scoreboard reveal">
             <li>
               <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span>
-              <span class="sb-label">Registration opens</span>
-              <span class="sb-value tba">To be announced</span>
+              <span class="sb-label">Registration</span>
+              <span class="sb-value">Open now</span>
             </li>
             <li>
               <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-hourglass"></use></svg></span>
@@ -700,65 +698,193 @@
         </div>
       </section>
 
-      <!-- Register / notify -->
       <section id="register" class="section section-tight">
         <div class="container">
-          <div class="register-band reveal">
+          <div class="register-band registration-band reveal">
             <div>
-              <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
-              <h2 class="section-title" id="registerTitle" tabindex="-1">Registration opens soon.</h2>
-              <p>
-                Registration for MindQuest 2.0 isn’t open yet. Leave your email
-                and we’ll let you know as soon as it opens — free, as always.
-              </p>
+              <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></span> Registration</p>
+              <h2 class="section-title" id="registerTitle" tabindex="-1">Register your team.</h2>
+              <p>Enter MindQuest 2.0 as a team of two. Entry is free for Indian diaspora students in UAE schools, in Grades 8–12 / Years 9–13 or equivalent.</p>
+              <p>Have both participants’ details ready. Dates, venue and the registration deadline will be announced here.</p>
             </div>
-            <form
-              id="notifyForm"
-              class="card notify-form"
-              action="mailto:register.mindquest@gmail.com?subject=Notify%20me%20-%20MindQuest%202.0%20registration"
-              method="post"
-              enctype="text/plain"
-              novalidate
-            >
+            <form id="registrationForm" class="card registration-form" action="mailto:register.mindquest@gmail.com?subject=MindQuest%202.0%20registration" method="post" enctype="text/plain" novalidate>
+              <p class="registration-intro">All fields are required. A parent’s email and phone number may be used. Choose a school suggestion or type your school’s full name and emirate.</p>
+              <fieldset class="registration-participant">
+                <legend>Participant 1</legend>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="firstName1">First name</label>
+                    <input type="text" id="firstName1" name="firstName1" required autocomplete="section-participant1 given-name" maxlength="50" aria-describedby="firstName1Error" />
+                    <p class="form-error" id="firstName1Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName1">Last name</label>
+                    <input type="text" id="lastName1" name="lastName1" required autocomplete="section-participant1 family-name" maxlength="50" aria-describedby="lastName1Error" />
+                    <p class="form-error" id="lastName1Error"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="email1">Email</label>
+                    <input type="email" id="email1" name="email1" required autocomplete="section-participant1 email" maxlength="254" aria-describedby="email1Error" />
+                    <p class="form-error" id="email1Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone1">UAE phone number</label>
+                    <input type="tel" id="phone1" name="phone1" required autocomplete="tel" inputmode="tel" placeholder="050 123 4567" maxlength="32" aria-describedby="phone1Error" />
+                    <p class="form-error" id="phone1Error"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="dob1">Date of birth</label>
+                    <input type="date" id="dob1" name="dob1" required autocomplete="section-participant1 bday" aria-describedby="dob1Error" />
+                    <p class="form-error" id="dob1Error"></p>
+                    <p class="form-hint" id="dob1Hint" aria-live="polite"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="emiratesId1">Emirates ID (15 digits)</label>
+                    <input type="text" id="emiratesId1" name="emiratesId1" required inputmode="numeric" maxlength="20" autocomplete="off" aria-describedby="emiratesId1Error" />
+                    <p class="form-error" id="emiratesId1Error"></p>
+                  </div>
+                </div>
+                  <div class="form-group">
+                    <label for="school1">UAE school</label>
+                    <input type="text" id="school1" name="school1" required list="registrationSchools" maxlength="100" autocomplete="off" aria-describedby="school1Error" />
+                    <p class="form-error" id="school1Error"></p>
+                  </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="curriculum1">Curriculum</label>
+                    <select id="curriculum1" name="curriculum1" required aria-describedby="curriculum1Error">
+                      <option value="">Select curriculum</option>
+                      <option>Indian (CBSE)</option>
+                      <option>Indian (ICSE/ISC)</option>
+                      <option>British</option>
+                      <option>American</option>
+                      <option>International Baccalaureate (IB)</option>
+                      <option>Other</option>
+                    </select>
+                    <p class="form-error" id="curriculum1Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="grade1">Grade / year</label>
+                    <select id="grade1" name="grade1" required aria-describedby="grade1Error">
+                      <option value="">Choose grade/year</option>
+                      <option value="8">Grade 8 / Year 9</option>
+                      <option value="9">Grade 9 / Year 10</option>
+                      <option value="10">Grade 10 / Year 11</option>
+                      <option value="11">Grade 11 / Year 12</option>
+                      <option value="12">Grade 12 / Year 13</option>
+                    </select>
+                    <p class="form-error" id="grade1Error"></p>
+                  </div>
+                </div>
+                <div class="form-group" id="curriculumOther1Group" hidden>
+                  <label for="curriculumOther1">Specify curriculum</label>
+                  <input type="text" id="curriculumOther1" name="curriculumOther1" maxlength="100" disabled aria-describedby="curriculumOther1Error" />
+                  <p class="form-error" id="curriculumOther1Error"></p>
+                </div>
+              </fieldset>
+              <fieldset class="registration-participant">
+                <legend>Participant 2</legend>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="firstName2">First name</label>
+                    <input type="text" id="firstName2" name="firstName2" required autocomplete="section-participant2 given-name" maxlength="50" aria-describedby="firstName2Error" />
+                    <p class="form-error" id="firstName2Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName2">Last name</label>
+                    <input type="text" id="lastName2" name="lastName2" required autocomplete="section-participant2 family-name" maxlength="50" aria-describedby="lastName2Error" />
+                    <p class="form-error" id="lastName2Error"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="email2">Email</label>
+                    <input type="email" id="email2" name="email2" required autocomplete="section-participant2 email" maxlength="254" aria-describedby="email2Error" />
+                    <p class="form-error" id="email2Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone2">UAE phone number</label>
+                    <input type="tel" id="phone2" name="phone2" required autocomplete="tel" inputmode="tel" placeholder="050 123 4567" maxlength="32" aria-describedby="phone2Error" />
+                    <p class="form-error" id="phone2Error"></p>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="dob2">Date of birth</label>
+                    <input type="date" id="dob2" name="dob2" required autocomplete="section-participant2 bday" aria-describedby="dob2Error" />
+                    <p class="form-error" id="dob2Error"></p>
+                    <p class="form-hint" id="dob2Hint" aria-live="polite"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="emiratesId2">Emirates ID (15 digits)</label>
+                    <input type="text" id="emiratesId2" name="emiratesId2" required inputmode="numeric" maxlength="20" autocomplete="off" aria-describedby="emiratesId2Error" />
+                    <p class="form-error" id="emiratesId2Error"></p>
+                  </div>
+                </div>
+                  <div class="form-group">
+                    <label for="school2">UAE school</label>
+                    <input type="text" id="school2" name="school2" required list="registrationSchools" maxlength="100" autocomplete="off" aria-describedby="school2Error" />
+                    <p class="form-error" id="school2Error"></p>
+                  </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="curriculum2">Curriculum</label>
+                    <select id="curriculum2" name="curriculum2" required aria-describedby="curriculum2Error">
+                      <option value="">Select curriculum</option>
+                      <option>Indian (CBSE)</option>
+                      <option>Indian (ICSE/ISC)</option>
+                      <option>British</option>
+                      <option>American</option>
+                      <option>International Baccalaureate (IB)</option>
+                      <option>Other</option>
+                    </select>
+                    <p class="form-error" id="curriculum2Error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="grade2">Grade / year</label>
+                    <select id="grade2" name="grade2" required aria-describedby="grade2Error">
+                      <option value="">Choose grade/year</option>
+                      <option value="8">Grade 8 / Year 9</option>
+                      <option value="9">Grade 9 / Year 10</option>
+                      <option value="10">Grade 10 / Year 11</option>
+                      <option value="11">Grade 11 / Year 12</option>
+                      <option value="12">Grade 12 / Year 13</option>
+                    </select>
+                    <p class="form-error" id="grade2Error"></p>
+                  </div>
+                </div>
+                <div class="form-group" id="curriculumOther2Group" hidden>
+                  <label for="curriculumOther2">Specify curriculum</label>
+                  <input type="text" id="curriculumOther2" name="curriculumOther2" maxlength="100" disabled aria-describedby="curriculumOther2Error" />
+                  <p class="form-error" id="curriculumOther2Error"></p>
+                </div>
+              </fieldset>
+              <datalist id="registrationSchools"></datalist>
               <div class="form-group">
-                <label for="notifyEmail">Email</label>
-                <input type="email" id="notifyEmail" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="notifyEmailError" />
-                <p class="form-error" id="notifyEmailError"></p>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="notifyName">Name <span class="optional">(optional)</span></label>
-                  <input type="text" id="notifyName" name="name" autocomplete="name" maxlength="50" />
-                </div>
-                <div class="form-group">
-                  <label for="notifySchool">School <span class="optional">(optional)</span></label>
-                  <input type="text" id="notifySchool" name="school" autocomplete="organization" maxlength="100" />
-                </div>
+                <label class="registration-consent" for="consent">
+                  <input type="checkbox" id="consent" name="consent" value="yes" required aria-describedby="consentError" />
+                  <span>I confirm that both participants meet the eligibility criteria, the information is correct, and I have their parent or guardian’s permission to submit these details for MindQuest 2.0 registration.</span>
+                </label>
+                <p class="form-error" id="consentError"></p>
               </div>
               <div class="hp-field" aria-hidden="true">
-                <label for="notifyWebsite">Leave this field empty</label>
-                <input type="text" id="notifyWebsite" name="website" tabindex="-1" autocomplete="off" />
+                <label for="registrationWebsite">Leave this field empty</label>
+                <input type="text" id="registrationWebsite" name="website" tabindex="-1" autocomplete="off" />
               </div>
-              <div class="form-status" id="notifyStatus" role="status" aria-live="polite"></div>
-              <button type="submit" class="btn btn-ink btn-lg btn-block">
-                <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Notify me
-              </button>
-              <p class="notify-note">
-                We only use your details to tell you when MindQuest
-                registration opens. A parent’s or school email is fine too.
-              </p>
-              <p class="notify-note">
-                Prefer not to use the form?
-                <a href="mailto:register.mindquest@gmail.com?subject=Notify%20me%20-%20MindQuest%202.0%20registration" onclick="trackCTAClick('Notify email', 'Register')">Email us</a>
-                or follow
-                <a href="https://www.instagram.com/mindquest_official/" target="_blank" rel="noopener noreferrer" onclick="trackCTAClick('Instagram', 'Register')">@mindquest_official</a>.
-              </p>
+              <div class="form-status" id="registrationStatus" role="status" aria-live="polite" tabindex="-1"></div>
+              <button type="submit" class="btn btn-ink btn-lg btn-block">Submit registration</button>
+              <p class="notify-note">Your details are used to organise MindQuest 2.0 and contact you about your registration. Please wait for confirmation from the organisers.</p>
+              <p class="notify-note">Need help? <a href="mailto:register.mindquest@gmail.com?subject=MindQuest%202.0%20registration">Email the organisers</a>.</p>
+              <noscript><p>JavaScript is needed for online submission. You can also email the organisers to register.</p></noscript>
             </form>
           </div>
         </div>
       </section>
 
-      <!-- Organisers & partners -->
       <section id="partners" class="section">
         <div class="container">
           <header class="section-head reveal">
@@ -915,24 +1041,26 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="contactName">Name</label>
-                  <input type="text" id="contactName" name="contactName" required autocomplete="name" placeholder="Your full name" />
+                  <input type="text" id="contactName" name="contactName" required autocomplete="name" placeholder="Your full name" aria-describedby="contactNameError" />
                   <p class="form-error" id="contactNameError"></p>
                 </div>
                 <div class="form-group">
                   <label for="contactEmail">Email</label>
-                  <input type="email" id="contactEmail" name="contactEmail" required autocomplete="email" placeholder="you@example.com" />
+                  <input type="email" id="contactEmail" name="contactEmail" required autocomplete="email" placeholder="you@example.com" aria-describedby="contactEmailError" />
                   <p class="form-error" id="contactEmailError"></p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required placeholder="What’s it about?" />
+                <input type="text" id="subject" name="subject" required placeholder="What’s it about?" aria-describedby="subjectError subjectCount" />
                 <p class="form-error" id="subjectError"></p>
+                <p class="form-hint" id="subjectCount" aria-live="polite">100 characters remaining</p>
               </div>
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" required rows="5" placeholder="Your message"></textarea>
+                <textarea id="message" name="message" required rows="5" placeholder="Your message" aria-describedby="messageError messageCount"></textarea>
                 <p class="form-error" id="messageError"></p>
+                <p class="form-hint" id="messageCount" aria-live="polite">1000 characters remaining</p>
               </div>
               <div class="form-status" id="contactStatus" role="status" aria-live="polite"></div>
               <button type="submit" class="btn btn-ink btn-lg btn-block">
@@ -982,7 +1110,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img src="./assets/mindquest-wordmark.png" alt="MindQuest — Unlock Your Mind, Conquer The Quest" width="240" height="154" loading="lazy" />
+            <img src="./assets/mindquest-wordmark.svg" alt="MindQuest 2.0 — Unlock Your Mind, Conquer The Quest" width="240" height="99" loading="lazy" />
             <p>
               The General Knowledge Quiz Competition for high school students of
               the Indian diaspora in the UAE.
@@ -1001,7 +1129,7 @@
           <div>
             <h3>Get involved</h3>
             <ul class="footer-links">
-              <li><a href="#register">Get notified</a></li>
+              <li><a href="#register">Register now</a></li>
               <li><a href="#partners">Sponsor</a></li>
               <li><a href="#faq">FAQ</a></li>
               <li><a href="#contact">Contact</a></li>
@@ -1024,7 +1152,7 @@
       </div>
     </footer>
 
-    <script src="./assets/script.js?v=2026.10.9" defer></script>
+    <script src="./assets/script.js?v=2026.11.3" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

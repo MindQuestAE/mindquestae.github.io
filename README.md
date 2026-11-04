@@ -32,8 +32,9 @@ MindQuest is the 1st Annual General Knowledge Quiz Competition organized by GECB
 │   ├── styles.css         # Complete CSS styling
 │   ├── script.js          # JavaScript functionality
 │   ├── favicon/           # Favicon package for all devices
-│   ├── mindquest-logomark.png     # Navigation logo
-│   ├── mindquestlogowithtag-01.png # Hero logo
+│   ├── mindquest-logo-nav.svg     # Navigation logo (MindQuest 2.0)
+│   ├── mindquest-wordmark.svg     # Footer logo with tagline
+│   ├── brand/             # Original MindQuest 2.0 logo files
 │   ├── pattern-01.png     # Background pattern
 │   ├── gecbta-loga.png    # GECBTA organizer logo
 │   └── ackaf-logo.png     # AKCAF organizer logo

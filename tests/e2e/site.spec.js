@@ -28,6 +28,9 @@ test.beforeEach(async ({ page }) => {
     if (request.url() === 'https://www.instagram.com/embed.js') instagram.push(request.url());
   });
 
+  // Safety net: nothing in this suite may reach the organisers' live Apps Script endpoints.
+  // Tests that need to observe a submission register a later route, which takes precedence.
+  await page.route(/^https:\/\/script\.google(usercontent)?\.com\//, (route) => route.abort());
   // Keep embed behavior observable without depending on Instagram's availability or content.
   await page.route('https://www.instagram.com/**', (route) =>
     route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }),
@@ -121,7 +124,7 @@ test('desktop navigation is visible without a toggle', async ({ page }, testInfo
 test('mobile navigation and primary actions meet 44px tap target minimums', async ({ page }, testInfo) => {
   test.skip(!isMobileProject(testInfo.project.name));
   const menuButton = page.locator('#hamburger');
-  const primaryButton = page.getByRole('link', { name: /Get notified/ }).first();
+  const primaryButton = page.getByRole('link', { name: /Register now/ }).first();
   for (const target of [menuButton, primaryButton]) {
     const box = await target.boundingBox();
     expect(box, 'tap target should have a visible box').not.toBeNull();
@@ -275,120 +278,164 @@ test('empty required fields show validation without contacting the form endpoint
   expect(endpointRequests).toEqual([]);
 });
 
-// The sign-up posts to a live Google Apps Script that writes to the organisers' sheet, so these
-// tests never let a request leave the page: fetch is stubbed in the page (WebKit exposes neither the
-// body of a no-cors request nor an aborted route to page.route) and page.route is kept as a backstop.
-async function openNotifyForm(page, { fail = false, delay = 0 } = {}) {
-  await page.route('https://script.google.com/**', (route) => route.fulfill({ status: 200, body: '' }));
+async function openRegistrationForm(page, { fail = false, delay = 0 } = {}) {
+  await page.route('https://script.google.com/**', (route) => route.abort());
   await page.addInitScript(({ fail, delay }) => {
-    window.__notifyCalls = [];
+    window.__registrationCalls = [];
     const realFetch = window.fetch.bind(window);
     window.fetch = (url, options = {}) => {
       if (!String(url).startsWith('https://script.google.com/')) return realFetch(url, options);
-      window.__notifyCalls.push({ method: options.method, mode: options.mode, body: JSON.parse(options.body) });
+      window.__registrationCalls.push({
+        url: String(url), method: options.method, mode: options.mode,
+        body: Object.fromEntries(options.body),
+      });
       return new Promise((resolve, reject) => {
         setTimeout(() => (fail ? reject(new TypeError('Failed to fetch')) : resolve(new Response(''))), delay);
       });
     };
   }, { fail, delay });
   await page.reload();
-  const declineCookies = page.getByRole('button', { name: 'Decline' });
-  if (await declineCookies.isVisible()) await declineCookies.click();
-  await page.locator('#notifyForm').scrollIntoViewIfNeeded();
-  return page.locator('#notifyForm');
+  const decline = page.getByRole('button', { name: 'Decline' });
+  if (await decline.isVisible()) await decline.click();
+  await page.locator('#registrationForm').scrollIntoViewIfNeeded();
+  return page.locator('#registrationForm');
 }
-const notifyCalls = (page) => page.evaluate(() => window.__notifyCalls);
 
-test('sign-up form blocks an empty or invalid email with a visible, announced error and sends nothing', async ({ page }) => {
-  const form = await openNotifyForm(page);
-  const email = form.locator('#notifyEmail');
-  const error = page.locator('#notifyEmailError');
-  await expect(email).toHaveAttribute('aria-describedby', 'notifyEmailError');
-  await expect(email).toHaveAttribute('autocomplete', 'email');
-  await expect(page.locator('#notifyStatus')).toHaveAttribute('aria-live', 'polite');
-  await form.locator('button[type="submit"]').click();
-  await expect(email).toHaveAttribute('aria-invalid', 'true');
-  await expect(error).toBeVisible();
-  await expect(error).toHaveText('Email is required.');
-  await expect(page.locator('#notifyStatus')).toContainText('Please fix');
-  await expect(email).toBeFocused();
-  await email.fill('not-an-email');
-  await form.locator('button[type="submit"]').click();
-  await expect(error).toHaveText('Please enter a valid email address.');
-  expect(await notifyCalls(page)).toEqual([]);
+async function fillRegistration(page) {
+  for (const i of [1, 2]) {
+    await page.locator('#firstName' + i).fill(i === 1 ? 'Asha' : 'Ravi');
+    await page.locator('#lastName' + i).fill('Menon');
+    await page.locator('#email' + i).fill('parent@example.com');
+    await page.locator('#phone' + i).fill('+971501234567');
+    await page.locator('#dob' + i).fill('2012-03-10');
+    await page.locator('#emiratesId' + i).fill('78420121234567' + i);
+    await page.locator('#school' + i).fill('A UAE school outside the suggestions - AJMAN');
+    await page.locator('#curriculum' + i).selectOption('Indian (CBSE)');
+    await page.locator('#grade' + i).selectOption('8');
+  }
+  await page.locator('#consent').check();
+}
+
+test('registration focuses the first missing field and sends nothing', async ({ page }) => {
+  const form = await openRegistrationForm(page);
+  await form.getByRole('button', { name: 'Submit registration' }).click();
+  await expect(page.locator('#firstName1')).toBeFocused();
+  await expect(page.locator('#firstName1')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#firstName1Error')).toBeVisible();
+  await expect(page.locator('#registrationStatus')).toHaveClass(/error/);
+  expect(await page.evaluate(() => window.__registrationCalls)).toEqual([]);
 });
 
-test('sign-up form sends exactly one request with the expected payload and shows success', async ({ page }) => {
-  const form = await openNotifyForm(page, { delay: 400 });
+test('registration waits for one submission and sends both participants to the registration deployment', async ({ page }) => {
+  const form = await openRegistrationForm(page, { delay: 800 });
+  await fillRegistration(page);
   const submit = form.locator('button[type="submit"]');
-  await form.locator('#notifyEmail').fill('parent@example.com');
-  await form.locator('#notifyName').fill('Asha Menon');
-  await form.locator('#notifySchool').fill('The Indian High School');
+  const initialBox = await submit.boundingBox();
   await submit.click();
   await expect(submit).toBeDisabled();
-  // A second submit while the first is in flight must not send again
+  await expect(page.locator('#registrationStatus')).not.toHaveClass(/success/);
+  const sendingBox = await submit.boundingBox();
+  expect(sendingBox.width).toBeCloseTo(initialBox.width, 1);
+  expect(sendingBox.height).toBeCloseTo(initialBox.height, 1);
   await form.evaluate((element) => element.requestSubmit());
-  await expect(page.locator('#notifyStatus')).toHaveText('Thanks! We’ll email you when registration opens.');
-  await expect(page.locator('#notifyStatus')).toHaveClass(/success/);
-  await expect(submit).toBeEnabled();
-  await expect(form.locator('#notifyEmail')).toHaveValue('');
-  expect(await notifyCalls(page)).toEqual([
-    {
-      method: 'POST',
-      mode: 'no-cors',
-      body: {
-        name: 'Asha Menon',
-        email: 'parent@example.com',
-        subject: 'Notify me — MindQuest 2.0 registration',
-        message: 'Please notify me when MindQuest 2.0 registration opens. School: The Indian High School',
-      },
+  await expect(page.locator('#registrationStatus')).toHaveClass(/success/);
+  await expect(page.locator('#registrationStatus')).toContainText('wait for confirmation');
+  await expect(page.locator('#firstName1')).toHaveValue('');
+  const calls = await page.evaluate(() => window.__registrationCalls);
+  expect(calls).toHaveLength(1);
+  expect(calls[0]).toMatchObject({
+    url: 'https://script.google.com/macros/s/AKfycbz0dCZwiRDXEtQoiEgSKZyPW5uMcWM62mkJInbvX1dxfx27Fn0-Ob6ksFnH3NpesggK/exec',
+    method: 'POST', mode: 'no-cors',
+    body: {
+      firstName1: 'Asha', firstName2: 'Ravi',
+      email1: 'parent@example.com', email2: 'parent@example.com',
+      school1: 'A UAE school outside the suggestions - AJMAN',
+      school2: 'A UAE school outside the suggestions - AJMAN',
+      school: 'A UAE school outside the suggestions - AJMAN',
+      grade: '8', grade1: '8', grade2: '8',
+      curriculum1: 'Indian (CBSE)', curriculum2: 'Indian (CBSE)',
+      consent: 'yes', edition: 'MindQuest 2.0',
     },
-  ]);
+  });
+  expect(calls[0].body).not.toHaveProperty('website');
 });
 
-test('sign-up form works with only an email', async ({ page }) => {
-  const form = await openNotifyForm(page);
-  await form.locator('#notifyEmail').fill('student@example.com');
-  await form.locator('#notifyEmail').press('Enter');
-  await expect(page.locator('#notifyStatus')).toHaveClass(/success/);
-  expect((await notifyCalls(page)).map((call) => call.body)).toEqual([
-    {
-      name: 'Not given',
-      email: 'student@example.com',
-      subject: 'Notify me — MindQuest 2.0 registration',
-      message: 'Please notify me when MindQuest 2.0 registration opens.',
-    },
-  ]);
+test('registration preserves entries and offers email when submission fails', async ({ page }) => {
+  const form = await openRegistrationForm(page, { fail: true });
+  await fillRegistration(page);
+  await form.getByRole('button', { name: 'Submit registration' }).click();
+  await expect(page.locator('#registrationStatus')).toHaveClass(/error/);
+  await expect(page.locator('#registrationStatus')).toContainText('Your details are still here');
+  await expect(page.locator('#firstName1')).toHaveValue('Asha');
+  await expect(form.getByRole('button', { name: 'Submit registration' })).toBeEnabled();
+  await expect(form.getByRole('link', { name: 'Email the organisers' })).toHaveAttribute('href', /^mailto:register\.mindquest@gmail\.com/);
 });
 
-test('sign-up form shows an error with a mailto fallback when the request fails', async ({ page }) => {
-  const form = await openNotifyForm(page, { fail: true });
-  await form.locator('#notifyEmail').fill('parent@example.com');
-  await form.locator('button[type="submit"]').click();
-  const status = page.locator('#notifyStatus');
-  await expect(status).toHaveClass(/error/);
-  await expect(status).toContainText('We could not sign you up');
-  await expect(status.locator('a')).toHaveAttribute('href', /^mailto:register\.mindquest@gmail\.com\?subject=/);
-  await expect(form.locator('#notifyEmail')).toHaveValue('parent@example.com');
-  await expect(form.locator('button[type="submit"]')).toBeEnabled();
-  // Without JavaScript the form itself still posts to the same mailto address
-  await expect(form).toHaveAttribute('action', /^mailto:register\.mindquest@gmail\.com/);
+for (const [field, value] of [
+  ['email1', 'bad-email'],
+  ['phone2', '+97112'],
+  ['emiratesId1', '123'],
+  ['dob2', '2099-01-01'],
+  ['consent', false],
+]) {
+  test('registration rejects invalid ' + field, async ({ page }) => {
+    const form = await openRegistrationForm(page);
+    await fillRegistration(page);
+    if (value === false) await page.locator('#' + field).uncheck();
+    else await page.locator('#' + field).fill(value);
+    await form.getByRole('button', { name: 'Submit registration' }).click();
+    await expect(page.locator('#' + field)).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#' + field + 'Error')).toBeVisible();
+    expect(await page.evaluate(() => window.__registrationCalls)).toEqual([]);
+  });
+}
+
+test('registration requires different participants', async ({ page }) => {
+  const form = await openRegistrationForm(page);
+  await fillRegistration(page);
+  await page.locator('#emiratesId2').fill('784201212345671');
+  await form.getByRole('button', { name: 'Submit registration' }).click();
+  await expect(page.locator('#registrationStatus')).toContainText('two different participants');
+  expect(await page.evaluate(() => window.__registrationCalls)).toEqual([]);
 });
 
-test('sign-up form sends nothing when the honeypot field is filled', async ({ page }) => {
-  const form = await openNotifyForm(page);
-  await expect(form.locator('#notifyWebsite')).not.toBeInViewport();
-  await form.locator('#notifyEmail').fill('bot@example.com');
-  await form.locator('#notifyWebsite').evaluate((element) => { element.value = 'https://spam.example'; });
-  await form.locator('button[type="submit"]').click();
-  await expect(page.locator('#notifyStatus')).toHaveClass(/success/);
-  await page.waitForTimeout(300);
-  expect(await notifyCalls(page)).toEqual([]);
+test('registration loads school suggestions on focus and adapts curriculum fields', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__schoolLoads = 0;
+    const realFetch = window.fetch.bind(window);
+    window.fetch = (url, options) => {
+      if (!String(url).endsWith('/assets/schools.json')) return realFetch(url, options);
+      window.__schoolLoads += 1;
+      return Promise.resolve(new Response(JSON.stringify(['A School - Dubai - DUBAI'])));
+    };
+  });
+  await openRegistrationForm(page);
+  expect(await page.evaluate(() => window.__schoolLoads)).toBe(0);
+  await page.locator('#school1').focus();
+  await expect(page.locator('#registrationSchools option')).toHaveCount(1);
+  await page.locator('#school2').focus();
+  expect(await page.evaluate(() => window.__schoolLoads)).toBe(1);
+  await page.locator('#curriculum1').selectOption('British');
+  await expect(page.locator('#grade1 option[value="8"]')).toHaveText('Year 9');
+  await expect(page.locator('#grade1 option[value="12"]')).toHaveText('Year 13');
+  await page.locator('#curriculum1').selectOption('Other');
+  await expect(page.locator('#curriculumOther1')).toBeVisible();
+  await expect(page.locator('#curriculumOther1')).toHaveAttribute('required', '');
+  await page.locator('#curriculum1').selectOption('Indian (CBSE)');
+  await expect(page.locator('#curriculumOther1')).toBeDisabled();
+  await expect(page.locator('#curriculumOther1')).toBeHidden();
 });
 
-test('"Get notified" brings the sign-up form into view and moves focus to its heading', async ({ page }) => {
-  const declineCookies = page.getByRole('button', { name: 'Decline' });
-  if (await declineCookies.isVisible()) await declineCookies.click();
+test('registration honeypot sends nothing', async ({ page }) => {
+  const form = await openRegistrationForm(page);
+  await page.locator('#registrationWebsite').evaluate((element) => { element.value = 'spam'; });
+  await form.getByRole('button', { name: 'Submit registration' }).click();
+  expect(await page.evaluate(() => window.__registrationCalls)).toEqual([]);
+});
+
+test('Register now moves focus to the registration heading', async ({ page }) => {
+  const decline = page.getByRole('button', { name: 'Decline' });
+  if (await decline.isVisible()) await decline.click();
   await page.locator('.cta-group a[href="#register"]').click();
   await expect(page.locator('#registerTitle')).toBeFocused();
   await expect(page.locator('#register')).toBeInViewport({ ratio: 0.05 });
@@ -463,4 +510,111 @@ test('captures one full-page review screenshot for this project', async ({ page 
   await fs.mkdir(screenshotDir, { recursive: true });
   const name = testInfo.project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   await page.screenshot({ path: path.join(screenshotDir, `${name}.png`), fullPage: true, animations: 'disabled' });
+});
+
+function pngSize(buffer) {
+  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+}
+
+test.describe('MindQuest 2.0 logo set', () => {
+  test('nav and footer logos are loaded, undistorted, named and carry no separate 2.0 badge', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await expect(page.locator('.brand-year')).toHaveCount(0);
+    await page.waitForFunction(() => [...document.querySelectorAll('.brand img, .footer-brand img')].every((img) => img.complete && img.naturalWidth > 0));
+    const logos = await page.locator('.brand img, .footer-brand img').evaluateAll((imgs) =>
+      imgs.map((img) => ({
+        src: img.getAttribute('src'), alt: img.alt, complete: img.complete,
+        nw: img.naturalWidth, nh: img.naturalHeight,
+        rw: parseFloat(getComputedStyle(img).width) - (getComputedStyle(img).boxSizing === 'border-box' ? parseFloat(getComputedStyle(img).paddingLeft) + parseFloat(getComputedStyle(img).paddingRight) : 0),
+        rh: parseFloat(getComputedStyle(img).height) - (getComputedStyle(img).boxSizing === 'border-box' ? parseFloat(getComputedStyle(img).paddingTop) + parseFloat(getComputedStyle(img).paddingBottom) : 0),
+        attrW: Number(img.getAttribute('width')), attrH: Number(img.getAttribute('height')),
+        effects: getComputedStyle(img).filter + getComputedStyle(img).boxShadow,
+      })));
+    expect(logos).toHaveLength(2);
+    for (const logo of logos) {
+      expect(logo.complete && logo.nw > 0, logo.src).toBe(true);
+      expect(logo.alt).toMatch(/^MindQuest 2\.0/);
+      expect(Math.abs(logo.rw / logo.rh - logo.nw / logo.nh) * logo.rh, 'rendered ratio').toBeLessThan(1);
+      expect(Math.abs(logo.attrW / logo.attrH - logo.nw / logo.nh) * logo.attrH, 'attribute ratio').toBeLessThan(1);
+      expect(logo.effects).toBe('nonenone');
+    }
+    expect(logos[0].rh).toBeGreaterThanOrEqual(24);
+    await expect(page.locator('.brand')).toHaveAttribute('href', '#home');
+  });
+
+  test('nav logo does not collide with the menu or the hamburger and the page does not overflow', async ({ page }) => {
+    await page.goto('/');
+    const box = await page.locator('.brand img').boundingBox();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
+    const toggle = page.locator('#navToggle, .nav-toggle, button[aria-controls="navMenu"]').first();
+    if (await toggle.isVisible()) {
+      const t = await toggle.boundingBox();
+      expect(box.x + box.width).toBeLessThan(t.x);
+    } else {
+      const first = await page.locator('.nav-menu a').first().boundingBox();
+      expect(box.x + box.width).toBeLessThan(first.x);
+    }
+  });
+
+  test('nav logo stays visible and undistorted at 320, 360 and 375 wide', async ({ page }) => {
+    for (const width of [320, 360, 375]) {
+      await page.setViewportSize({ width, height: 700 });
+      await page.goto('/');
+      const m = await page.evaluate(() => {
+        const r = document.querySelector('.brand img').getBoundingClientRect();
+        const t = document.querySelector('button[aria-controls="navMenu"]');
+        return { right: r.right, h: r.height, toggle: t ? t.getBoundingClientRect().left : Infinity,
+          overflow: document.documentElement.scrollWidth - innerWidth };
+      });
+      expect(m.overflow).toBeLessThanOrEqual(0);
+      expect(m.right).toBeLessThan(m.toggle);
+      expect(m.h).toBeGreaterThanOrEqual(24);
+    }
+  });
+
+  test('footer logo sits on an opaque white tile over the dark band', async ({ page }) => {
+    await page.goto('/');
+    const bg = await page.locator('.footer-brand img').evaluate((img) => getComputedStyle(img).backgroundColor);
+    expect(bg).toBe('rgb(255, 255, 255)');
+  });
+
+  test('favicons, manifest icons, touch icon and og:image are served with the right type and size', async ({ request, page }) => {
+    await page.goto('/');
+    const expectPng = async (url, width, height) => {
+      const response = await request.get(url);
+      expect(response.status(), url).toBe(200);
+      expect(response.headers()['content-type'], url).toMatch(/image\/png/);
+      expect(pngSize(await response.body()), url).toEqual({ width, height });
+    };
+    await expectPng('/assets/favicon/favicon-96x96.png', 96, 96);
+    await expectPng('/assets/favicon/apple-touch-icon.png', 180, 180);
+    await expectPng('/assets/og-image.png', 1200, 630);
+    const manifest = await (await request.get('/assets/favicon/site.webmanifest')).json();
+    for (const icon of manifest.icons) {
+      const [w, h] = icon.sizes.split('x').map(Number);
+      await expectPng(icon.src, w, h);
+    }
+    for (const url of ['/assets/favicon/favicon.svg', '/assets/mindquest-logo-nav.svg', '/assets/mindquest-wordmark.svg']) {
+      const response = await request.get(url);
+      expect(response.status(), url).toBe(200);
+      expect(response.headers()['content-type'], url).toMatch(/image\/svg\+xml/);
+    }
+    const ico = await request.get('/assets/favicon/favicon.ico');
+    expect(ico.status()).toBe(200);
+    const ogUrl = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(ogUrl).toBe('https://mindquestquiz.com/assets/og-image.png');
+  });
+
+  test('every service worker precache entry exists', async ({ request }) => {
+    // Read the source worker: the deployed copy is minified and its list is mangled.
+    const source = await fs.readFile(path.join(__dirname, '../../sw.js'), 'utf8');
+    const block = source.match(/STATIC_CACHE_URLS\s*=\s*\[([\s\S]*?)\]/)[1];
+    const urls = [...block.matchAll(/'(\/[^']*)'/g)].map((m) => m[1]);
+    expect(urls.length).toBeGreaterThan(5);
+    for (const url of urls) {
+      expect((await request.get(url.split('?')[0])).status(), url).toBe(200);
+    }
+  });
 });

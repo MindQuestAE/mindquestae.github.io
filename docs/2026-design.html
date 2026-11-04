@@ -14,7 +14,7 @@
     />
     <!-- Components below are rendered with the live site stylesheet, so this
          page always reflects the real implementation. -->
-    <link rel="stylesheet" href="../assets/styles.css?v=2026.10.9" />
+    <link rel="stylesheet" href="../assets/styles.css?v=2026.11.3" />
     <style>
       /* Documentation-only chrome (prefixed ds-). Not part of the design system. */
       .ds-header {
@@ -145,8 +145,7 @@
     <header class="ds-header">
       <div class="container">
         <a href="../index.html" class="brand" title="Back to the MindQuest site">
-          <img src="../assets/mindquest-logo-nav.png" alt="MindQuest" width="89" height="56" />
-          <span class="brand-year">2.0</span>
+          <img src="../assets/mindquest-logo-nav.svg" alt="MindQuest 2.0" width="161" height="56" />
         </a>
         <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-card"></use></svg></span> Design system · 2026</p>
         <h1>The <span class="hl">Quiz Board</span> theme.</h1>
@@ -454,11 +453,10 @@
           <h3 class="ds-sub">Brand lockup</h3>
           <div class="ds-demo ds-demo-row">
             <span class="brand">
-              <img src="../assets/mindquest-logo-nav.png" alt="MindQuest" width="89" height="56" />
-          <span class="brand-year">2.0</span>
+              <img src="../assets/mindquest-logo-nav.svg" alt="MindQuest 2.0" width="161" height="56" />
             </span>
           </div>
-          <p class="ds-caption">The full MindQuest logo (<code>assets/mindquest-logo-nav.png</code>, 56px tall) + tilted yellow edition badge (<code>.brand-year</code>). The edition is “2.0”, never “’26” or “Season 2”.</p>
+          <p class="ds-caption">The official MindQuest 2.0 logo (<code>assets/mindquest-logo-nav.svg</code>, 56px tall, 50px on phones). The “2.0” is part of the artwork, so there is no separate edition badge. Never recolour, restyle or add a shadow to the logo; on dark bands it sits on a white tile (<code>assets/mindquest-wordmark.svg</code>, with tagline, in the footer). The edition is “2.0”, never “’26” or “Season 2”.</p>
         </div>
       </section>
 
@@ -608,7 +606,7 @@
             <div class="register-band">
               <div>
                 <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
-                <h2 class="section-title">Registration opens soon.</h2>
+                <h2 class="section-title">Register your team.</h2>
                 <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page. Forms inside it sit on a white <code>.card</code> so inputs and focus shadows keep their contrast; optional fields are marked with <code>.optional</code>.</p>
               </div>
               <div class="card notify-form">
@@ -639,7 +637,8 @@
       <section class="ds-section" id="forms">
         <div class="container">
           <h2>Forms</h2>
-          <p>Inputs are paper-filled with the ink outline. Focus adds a yellow offset shadow; errors turn the outline red with a message below.</p>
+          <p>Inputs and native selects are paper-filled with the ink outline. Focus adds a yellow offset shadow; errors turn the outline red with a message below. Registration uses the same controls and a single-column <code>.registration-band</code>, with two <code>fieldset.registration-participant</code> groups. Each legend is Montserrat 800 at 1.5rem. Paired fields use <code>.form-row</code> and stack below 600px; the consent label has a 44px minimum hit area. The submit control keeps a 60px minimum height while sending.</p>
+          <p>Layout: registration — a long team form uses the existing stacked form pattern; the document owns scrolling. Participant groups remain in source order with no nested scroller. Required fields, permission, sending, error and submission status are shown in the form. School suggestions are optional: free text is always accepted. Placeholder text uses <code>--text</code> at full opacity for readable contrast on paper. Inline errors clear as soon as the field is corrected, and limited fields (contact subject and message) show a <code>.form-hint</code> remaining-characters counter below the control.</p>
           <div class="ds-demo" style="margin-top: 1.5rem">
             <div class="card" style="max-width: 560px">
               <div class="form-group">
@@ -650,6 +649,10 @@
                 <label for="dsEmail">Error</label>
                 <input type="email" id="dsEmail" value="not-an-email" aria-invalid="true" />
                 <p class="form-error" style="display: block">Please enter a valid email address.</p>
+              </div>
+              <div class="form-group">
+                <label for="dsCurriculum">Curriculum</label>
+                <select id="dsCurriculum"><option>Select curriculum</option><option>Indian (CBSE)</option><option>British</option></select>
               </div>
               <div class="form-status success">Success status — <code>.form-status.success</code></div>
               <div class="form-status error">Error status — <code>.form-status.error</code></div>
