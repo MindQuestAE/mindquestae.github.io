@@ -1,12 +1,12 @@
 // Service Worker for GitHub Pages Caching
-// Version 2026.11.5
+// Version 2026.11.7
 //
 // Bump the version on every release with `make bump-version` or
 // `make bump-version-to VERSION=x.y.z`. That rewrites the two occurrences in
 // this file and the ?v= query on styles.css and script.js in index.html. The
 // query makes returning visitors miss the previous worker's cache, so new HTML
 // is never paired with stale CSS/JS.
-const CACHE_NAME = 'mindquest-v2026.11.5';
+const CACHE_NAME = 'mindquest-v2026.11.7';
 const VERSION = CACHE_NAME.replace('mindquest-v', '');
 const STATIC_CACHE_URLS = [
   '/',

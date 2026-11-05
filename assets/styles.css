@@ -2173,3 +2173,8 @@ a.contact-item:hover {
     visibility: hidden;
   }
 }
+
+.awards-single {
+  grid-template-columns: 1fr;
+  max-width: 420px;
+}

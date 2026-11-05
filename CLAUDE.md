@@ -101,7 +101,7 @@ This is a static HTML website with no build process. Development can be done by:
 **Event Information (MindQuest 2.0, 2026):**
 - No cash prizes in 2026 (trophies and certificates only). MindQuest 2025 cash prizes are mentioned as history only, and the amounts are deliberately not published anywhere on the site (they invited disputes from parents) — do not add AED figures back
 - Official launch: Sunday 8 November 2026, 3:00 PM, Sharjah Expo Centre (Sharjah Book Fair), Hall 07, Stall ZD4
-- The quiz: Sunday 29 November 2026, from 2:00 PM, The Millennium School, Al Qusais (the poster says only "Dubai"; the user confirmed Al Qusais, shown as in the 2025 recap; no street address). Registration is open and limited to 120 teams, first come, first served: say so, never state how many places remain, and do not add a registration deadline or counter. Both events are Event nodes in the JSON-LD (no end date, offers or performers). There is no finals time or schedule yet, so none appears
+- The quiz: Sunday 29 November 2026, prelims 2:30 PM and finals (Grand Finale) 5:00 PM, The Millennium School, Al Qusais (the poster says only "Dubai"; the user confirmed Al Qusais, shown as in the 2025 recap; no street address). Registration is open and limited to 120 teams, first come, first served: say so, never state how many places remain, and do not add a counter. Registration closes Tuesday 24 November 2026 (organiser, 4 Nov 2026). Both events are Event nodes in the JSON-LD (no end date, offers or performers). The quiz Event `startDate` is the 2:30 PM prelims start
 - Organizers: GECBTA in association with AKCAF
 - Target audience: Indian diaspora high school students (Grade 8-12 Indian / Year 9-13 British) in UAE
 - MindQuest 2025 was held Oct 19, 2025 at The Millennium School, Al Qusais, Dubai
@@ -139,7 +139,7 @@ This is a static HTML website with no build process. Development can be done by:
 - About with competition benefits and 2025 recap
 - Format with stages, eligibility and rules
 - Dates scoreboard (launch and quiz day, with venues)
-- Prizes with podium (a trophy for each of the three places) and two special awards (Best School Delegation, Certificates of Excellence)
+- Prizes with podium (a trophy for each of the three places) and one special award (Certificates of Excellence); Best School Delegation was removed at the user's request, do not add it back
 - Archives with 2025 prelims PDFs, video and Instagram embeds
 - Register band with the two-participant registration form
 - Partners with GECBTA and AKCAF information, 2025 sponsors and sponsorship CTA

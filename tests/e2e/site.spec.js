@@ -640,7 +640,7 @@ test.describe('Event details', () => {
     await page.goto('/');
     const dates = page.locator('#dates');
     await expect(dates).toContainText('Sunday 29 November 2026');
-    await expect(dates).toContainText('from 2:00 PM');
+    await expect(dates).toContainText('Prelims 2:30 PM');
     await expect(dates).toContainText('The Millennium School, Al Qusais');
     await expect(dates).toContainText('Sunday 8 November 2026');
     await expect(dates).toContainText('3:00 PM');
@@ -662,7 +662,7 @@ test.describe('Event details', () => {
     const graph = await page.evaluate(() =>
       JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)['@graph']);
     const events = Object.fromEntries(graph.filter((n) => n['@type'] === 'Event').map((n) => [n['@id'].split('#')[1], n]));
-    expect(events['event-quiz'].startDate).toBe('2026-11-29T14:00:00+04:00');
+    expect(events['event-quiz'].startDate).toBe('2026-11-29T14:30:00+04:00');
     expect(events['event-launch'].startDate).toBe('2026-11-08T15:00:00+04:00');
     for (const event of Object.values(events)) {
       expect(weekday(event.startDate)).toBe('Sunday');
@@ -694,7 +694,7 @@ test.describe('Event details', () => {
 
   test('sitemap lastmod is the content update date', async ({ request }) => {
     const sitemap = await (await request.get('/sitemap.xml')).text();
-    expect(sitemap).toMatch(/<lastmod>2026-11-04<\/lastmod>/);
+    expect(sitemap).toMatch(/<lastmod>2026-11-05<\/lastmod>/);
   });
 
   test('registration is presented as open with the 120-team notice', async ({ page }) => {
