@@ -37,8 +37,11 @@ CURRENT_VERSION = $(shell sed -n "s/^const CACHE_NAME = 'mindquest-v\(.*\)';/\1/
 
 bump-version:
 	@echo "Current version: $(CURRENT_VERSION)"
-	@echo "Bump type: [patch/minor/major] (default: patch)"
-	@read BUMP_TYPE; \
+	@BUMP_TYPE="$(BUMP)"; \
+	if [ -z "$$BUMP_TYPE" ]; then \
+		printf "Bump type [patch/minor/major], press Enter for patch: "; \
+		read BUMP_TYPE; \
+	fi; \
 	BUMP_TYPE=$${BUMP_TYPE:-patch}; \
 	MAJOR=$$(echo "$(CURRENT_VERSION)" | cut -d. -f1); \
 	MINOR=$$(echo "$(CURRENT_VERSION)" | cut -d. -f2); \
@@ -87,7 +90,7 @@ help:
 	@echo "  test-ci            - Run Playwright in CI mode"
 	@echo ""
 	@echo "Version Management:"
-	@echo "  bump-version       - Interactively bump the release version in sw.js and index.html (patch/minor/major)"
+	@echo "  bump-version       - Interactively bump the release version in sw.js and index.html (patch/minor/major, or BUMP=patch to skip the prompt)"
 	@echo "  bump-version-to    - Set specific version: make bump-version-to VERSION=1.2.3"
 	@echo ""
 	@echo "Maintenance:"
