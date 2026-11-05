@@ -3,11 +3,14 @@ name: Deploy to GitHub Pages with Optimization
 on:
   push:
     branches: [ main, master ]
+  # Manual deploy from the Actions tab (pick main or master)
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write   # delete the Pages artifact after deploying
 
 concurrency:
   group: "pages"
@@ -98,6 +101,7 @@ jobs:
       uses: actions/configure-pages@v5
 
     - name: Upload artifact
+      id: upload
       uses: actions/upload-pages-artifact@v4
       with:
         path: './dist'
@@ -109,3 +113,9 @@ jobs:
       uses: actions/deploy-pages@v4
       with:
         artifact_name: github-pages-${{ github.run_attempt }}
+
+    - name: Delete the Pages artifact
+      if: always() && steps.upload.outputs.artifact_id
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/${{ steps.upload.outputs.artifact_id }}"
