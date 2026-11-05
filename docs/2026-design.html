@@ -14,7 +14,7 @@
     />
     <!-- Components below are rendered with the live site stylesheet, so this
          page always reflects the real implementation. -->
-    <link rel="stylesheet" href="../assets/styles.css?v=2026.11.3" />
+    <link rel="stylesheet" href="../assets/styles.css?v=2026.11.5" />
     <style>
       /* Documentation-only chrome (prefixed ds-). Not part of the design system. */
       .ds-header {
@@ -559,10 +559,11 @@
           <div class="ds-demo">
             <ol class="scoreboard">
               <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span><span class="sb-label">Registration opens</span><span class="sb-value tba">To be announced</span></li>
-              <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></span><span class="sb-label">Grand Finale &amp; awards</span><span class="sb-value">Confirmed date goes here</span></li>
+              <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></span><span class="sb-label">Official launch</span><span class="sb-value">Sunday 8 November 2026 · 3:00 PM</span></li>
+              <li><span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg></span><span class="sb-label">Quiz venue</span><span class="sb-value">The Millennium School, Al Qusais</span></li>
             </ol>
           </div>
-          <p class="ds-caption">Unknown values use the dashed <code>.tba</code> pill; confirmed values drop the class and show as plain bold text.</p>
+          <p class="ds-caption">Unknown values use the dashed <code>.tba</code> pill (no live row uses it now that the dates are confirmed); confirmed values drop the class and show as plain bold text, and may wrap onto two lines. On phones the value moves under the label.</p>
 
           <h3 class="ds-sub">Podium — <code>.podium</code> (on ink)</h3>
           <div class="ds-demo ds-demo-ink">
@@ -607,7 +608,7 @@
               <div>
                 <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg></span> Registration</p>
                 <h2 class="section-title">Register your team.</h2>
-                <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page. Forms inside it sit on a white <code>.card</code> so inputs and focus shadows keep their contrast; optional fields are marked with <code>.optional</code>.</p>
+                <p>Yellow fill, dot grid, 28px radius and the 10px shadow. One per page. The live band also carries a <code>.registration-limit</code> white pill (“Limited to 120 teams. First come, first served.”) under the intro. Forms inside it sit on a white <code>.card</code> so inputs and focus shadows keep their contrast; optional fields are marked with <code>.optional</code>.</p>
               </div>
               <div class="card notify-form">
                 <div class="form-group">
@@ -618,7 +619,7 @@
                   <label for="dsNotifyName">Name <span class="optional">(optional)</span></label>
                   <input type="text" id="dsNotifyName" />
                 </div>
-                <button type="button" class="btn btn-ink btn-lg btn-block"><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Notify me</button>
+                <button type="button" class="btn btn-ink btn-lg btn-block"><svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg> Submit registration</button>
                 <p class="notify-note"><code>.notify-note</code> — one plain line on how the details are used, then the secondary links.</p>
               </div>
             </div>
@@ -704,6 +705,7 @@
                 <li>End headlines with a full stop.</li>
                 <li>Write sentence case everywhere except uppercase labels.</li>
                 <li>Mark unknown facts “To be announced” rather than guessing.</li>
+                <li>The hero lead opens with the organisers’ tagline, “UAE’s Biggest High School Quiz for the Indian Diaspora”. Do not add other superlatives.</li>
                 <li>Call this edition “MindQuest 2.0” (2026 is the year, not the name); call last year’s “MindQuest 2025”. Do not use “Season 1 / Season 2”.</li>
               </ul>
             </article>

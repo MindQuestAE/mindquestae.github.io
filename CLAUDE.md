@@ -63,7 +63,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Category ticker
 - About (`#about`) with a bento of feature highlights and the 2025 recap strip
 - Format (`#format`) with the three step cards, eligibility and house rules
-- Dates (`#dates`) scoreboard — every value is still "To be announced"
+- Dates (`#dates`) scoreboard — registration state, the official launch (date, venue) and the quiz day (date, venue)
 - Prizes (`#prizes`) with the podium and special awards
 - Archives (`#archives`) with the 2025 prelims PDFs, a click-to-load YouTube video and Instagram embeds
 - Register (`#register`) — two-participant registration form, with an email alternative
@@ -100,12 +100,15 @@ This is a static HTML website with no build process. Development can be done by:
 
 **Event Information (MindQuest 2.0, 2026):**
 - No cash prizes in 2026 (trophies and certificates only). MindQuest 2025 cash prizes are mentioned as history only, and the amounts are deliberately not published anywhere on the site (they invited disputes from parents) — do not add AED figures back
-- Dates and venue: to be announced (marked `TODO(2026)` in `index.html`; add an Event node to the JSON-LD once confirmed)
+- Official launch: Sunday 8 November 2026, 3:00 PM, Sharjah Expo Centre (Sharjah Book Fair), Hall 07, Stall ZD4
+- The quiz: Sunday 29 November 2026, from 2:00 PM, The Millennium School, Al Qusais (the poster says only "Dubai"; the user confirmed Al Qusais, shown as in the 2025 recap; no street address). Registration is open and limited to 120 teams, first come, first served: say so, never state how many places remain, and do not add a registration deadline or counter. Both events are Event nodes in the JSON-LD (no end date, offers or performers). There is no finals time or schedule yet, so none appears
 - Organizers: GECBTA in association with AKCAF
 - Target audience: Indian diaspora high school students (Grade 8-12 Indian / Year 9-13 British) in UAE
 - MindQuest 2025 was held Oct 19, 2025 at The Millennium School, Al Qusais, Dubai
 
-**Naming:** this edition is "MindQuest 2.0" everywhere in visible copy, including sentences that used to say "MindQuest 2026" (champions, registration, sponsorship). "2026" appears only as a plain year: the page title's trailing "2026", "the 2026 champions", the © line and the search keywords. Last year's edition is "MindQuest 2025". Do not use "Season 1 / Season 2" or "'26". The navbar shows the new logo, which carries its own "2.0", so there is no separate badge.
+**Tagline:** the hero lead opens with the poster's line "UAE's Biggest High School Quiz for the Indian Diaspora", also used in the page title, meta, Open Graph and Twitter descriptions (the user wants this claim). Do not add other superlatives.
+
+**Naming:** this edition is "MindQuest 2.0" everywhere in visible copy, including sentences that used to say "MindQuest 2026" (champions, registration, sponsorship). "2026" appears only as a plain year: the page title's trailing "2026", "the 2026 champions" and the © line. Last year's edition is "MindQuest 2025". Do not use "Season 1 / Season 2" or "'26". The navbar shows the new logo, which carries its own "2.0", so there is no separate badge.
 
 **2026 Theme ("Quiz Board"):** light paper background, 2px Oxford Blue outlines with hard offset shadows, sections framed as quiz "Rounds", warm-up question card in the hero. `docs/2026-design.html` documents colour, typography, shape, layout, buttons, labels, cards, signature components, forms, motion, voice and accessibility; check it before adding or changing UI, and update it when the stylesheet changes.
 
@@ -135,7 +138,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Hero with event overview, quick actions and warm-up flash cards
 - About with competition benefits and 2025 recap
 - Format with stages, eligibility and rules
-- Dates scoreboard (to be announced)
+- Dates scoreboard (launch and quiz day, with venues)
 - Prizes with podium (a trophy for each of the three places) and two special awards (Best School Delegation, Certificates of Excellence)
 - Archives with 2025 prelims PDFs, video and Instagram embeds
 - Register band with the two-participant registration form
@@ -159,6 +162,7 @@ This is a static HTML website with no build process. Development can be done by:
 - The payload keeps the 2025 participant field names, includes `edition`, and adds legacy `school` and `grade` fields. When participants differ, those legacy fields join their values with ` / `. Verify that the deployed script accepts these aggregates and retains both participants’ school/curriculum data
 - The `appscript-*.js` files beside this repo are historical copies, not proof of the active deployment. One copy rejects dates outside 2007–2011 and reads only shared `school`/`grade` fields. Before publishing registration, the organiser must confirm or update the deployment, its sheet destination, eligibility validation and column mapping for MindQuest 2.0. No live submission has been made from this codebase
 - A completed network request shows "Submission sent" and asks visitors to wait for organiser confirmation; it does not claim the sheet accepted the entry. Failures preserve the form and offer email. Without JavaScript the form uses a `mailto:` action
+- Registration is OPEN (user decision, November 2026): the form is the live action in `#register`, every CTA says "Register now", and the page says nothing like "not open yet" or "get notified". Still unverified: that the deployed Apps Script accepts the aggregate fields, its sheet destination and its eligibility validation. Before deploying, an organiser must submit ONE clearly labelled test registration with fake data from the live page and confirm the row arrives in the sheet
 - "Register now" buttons scroll to `#register` and focus its heading. Submission tracking runs only with accepted analytics consent
 
 **Analytics & Consent:**
@@ -176,7 +180,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Title, meta description (keep it ≤ 160 characters), canonical, `og:url`, `sitemap.xml` and `robots.txt` all use `https://mindquestquiz.com/`
 - Update `<lastmod>` in `sitemap.xml` when content changes
 - `og:image` / `twitter:image` point to `assets/og-image.png` (1200×630)
-- JSON-LD (`WebSite`, two `Organization` nodes, `FAQPage`) must not state 2026 dates or venue until they are confirmed
+- JSON-LD (`WebSite`, two `Organization` nodes, two `Event` nodes for the launch and the quiz, `FAQPage`): the Event dates and venues are confirmed; do not add an end date, offers or performers, and keep them in step with the visible Dates section. `startDate` carries the +04:00 offset
 - `ad.html` and `docs/2026-design.html` are `noindex`
 
 **Performance:**

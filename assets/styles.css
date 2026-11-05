@@ -1377,6 +1377,16 @@ button {
   margin-top: 0.9rem;
   max-width: 36rem;
 }
+.register-band .registration-limit {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  background: var(--white);
+  border: var(--border);
+  border-radius: 999px;
+  font-family: var(--font-title);
+  font-weight: 800;
+  color: var(--ink);
+}
 .register-band .section-title:focus-visible {
   outline: none;
   box-shadow: none;
