@@ -84,6 +84,9 @@ test('all in-page links target an existing id', async ({ page }) => {
 });
 
 test('primary navigation links bring their sections into view', async ({ page }, testInfo) => {
+  // The page honours reduced motion with an instant jump, which keeps this test independent of
+  // smooth-scroll timing in WebKit when the machine is busy.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   const links = page.locator('#navMenu a[href^="#"]:not([href="#register"])');
   const hrefs = await links.evaluateAll((elements) => elements.map((element) => element.getAttribute('href')));
   // The consent dialog is intentionally interactive; dismiss it before exercising every nav item.
@@ -96,6 +99,15 @@ test('primary navigation links bring their sections into view', async ({ page },
       if (await toggle.isVisible()) await toggle.click();
     }
     await page.locator(`#navMenu a[href="${href}"]`).click();
+    // Wait for the scroll to settle (two identical readings in a row), then assert where it landed.
+    // This replaces a single IntersectionObserver read that could race an unfinished scroll.
+    let previous = null;
+    await expect.poll(async () => {
+      const y = await page.evaluate(() => Math.round(window.scrollY));
+      const settled = y === previous;
+      previous = y;
+      return settled;
+    }, { timeout: 15_000, intervals: [150] }).toBe(true);
     await expect(page.locator(decodeURIComponent(href))).toBeInViewport({ ratio: 0.05 });
   }
 });
@@ -225,7 +237,9 @@ test('archive video makes no YouTube request until it is clicked, then loads the
   if (await declineCookies.isVisible()) await declineCookies.click();
   const facade = page.locator('#archives .video-facade');
   await expect(facade).toHaveCount(1);
+  // The thumbnail is decorative (alt=""), so the link's name is just its visible caption.
   await expect(facade).toHaveAccessibleName('Play video: MindQuest 2025 — event highlights');
+  await expect(facade.locator('img')).toHaveAttribute('alt', '');
   await expect(facade).toHaveAttribute('title', /^MindQuest Quiz Competition 2025 \| High School Students UAE/);
   const caption = facade.locator('.video-title');
   expect(await caption.evaluate((element) => element.scrollWidth <= element.clientWidth), 'caption fits on one line without truncation').toBe(true);
@@ -616,5 +630,92 @@ test.describe('MindQuest 2.0 logo set', () => {
     for (const url of urls) {
       expect((await request.get(url.split('?')[0])).status(), url).toBe(200);
     }
+  });
+});
+
+test.describe('Event details', () => {
+  const weekday = (iso) => new Date(iso).toLocaleDateString('en-US', { weekday: 'long', timeZone: 'Asia/Dubai' });
+
+  test('dates section shows the launch and the quiz with times and venues', async ({ page }) => {
+    await page.goto('/');
+    const dates = page.locator('#dates');
+    await expect(dates).toContainText('Sunday 29 November 2026');
+    await expect(dates).toContainText('from 2:00 PM');
+    await expect(dates).toContainText('The Millennium School, Al Qusais');
+    await expect(dates).toContainText('Sunday 8 November 2026');
+    await expect(dates).toContainText('3:00 PM');
+    await expect(dates).toContainText('Sharjah Expo Centre');
+    await expect(dates).toContainText('Hall 07');
+    await expect(dates).toContainText('Stall ZD4');
+    await expect(dates).toContainText('Limited to 120 teams');
+  });
+
+  test('no placeholder or unannounced wording remains on the page', async ({ page }) => {
+    await page.goto('/');
+    const html = await page.content();
+    expect(html).not.toMatch(/to be announced|not yet been announced|will be announced|TODO\(|being finalised|isn.t open yet|not open|opens soon|get notified|notify me/i);
+    await expect(page.locator('.sb-value.tba')).toHaveCount(0);
+  });
+
+  test('JSON-LD has the two Event nodes with exact dates and Sunday weekdays', async ({ page }) => {
+    await page.goto('/');
+    const graph = await page.evaluate(() =>
+      JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)['@graph']);
+    const events = Object.fromEntries(graph.filter((n) => n['@type'] === 'Event').map((n) => [n['@id'].split('#')[1], n]));
+    expect(events['event-quiz'].startDate).toBe('2026-11-29T14:00:00+04:00');
+    expect(events['event-launch'].startDate).toBe('2026-11-08T15:00:00+04:00');
+    for (const event of Object.values(events)) {
+      expect(weekday(event.startDate)).toBe('Sunday');
+      expect(event.name).toBeTruthy();
+      expect(event.location.name).toBeTruthy();
+      expect(event.location.address.addressCountry).toBe('AE');
+      expect(event).not.toHaveProperty('endDate');
+      expect(event).not.toHaveProperty('offers');
+    }
+    expect(events['event-quiz'].location.name).toBe('The Millennium School');
+    expect(events['event-quiz'].location.address.addressLocality).toBe('Al Qusais');
+    expect(events['event-quiz'].location.address.addressRegion).toBe('Dubai');
+    expect(events['event-launch'].location.name).toBe('Sharjah Expo Centre');
+    expect(events['event-launch'].description).toContain('Hall 07, Stall ZD4');
+  });
+
+  test('visible FAQ answers equal their JSON-LD twins', async ({ page }) => {
+    await page.goto('/');
+    const pairs = await page.evaluate(() => {
+      const graph = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)['@graph'];
+      const norm = (text) => text.replace(/\s+/g, ' ').trim();
+      const visible = Object.fromEntries([...document.querySelectorAll('.faq-item')].map((item) =>
+        [norm(item.querySelector('summary').textContent), norm(item.querySelector('p').textContent)]));
+      return graph.find((n) => n['@type'] === 'FAQPage').mainEntity.map((q) => [q.name, norm(q.acceptedAnswer.text), visible[norm(q.name)]]);
+    });
+    expect(pairs.length).toBeGreaterThan(5);
+    for (const [name, json, html] of pairs) expect(html, name).toBe(json);
+  });
+
+  test('sitemap lastmod is the content update date', async ({ request }) => {
+    const sitemap = await (await request.get('/sitemap.xml')).text();
+    expect(sitemap).toMatch(/<lastmod>2026-11-04<\/lastmod>/);
+  });
+
+  test('registration is presented as open with the 120-team notice', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#registrationForm')).toBeVisible();
+    await expect(page.locator('#register .registration-limit')).toHaveText('Limited to 120 teams. First come, first served.');
+    // Count in the DOM: the desktop nav button and the mobile menu entry are hidden on one layout or the other.
+    expect(await page.locator('a[href="#register"]', { hasText: 'Register now' }).count()).toBeGreaterThanOrEqual(4);
+    await expect(page.getByText(/get notified|not open|opens soon/i)).toHaveCount(0);
+    await expect(page.locator('#faq summary', { hasText: 'How do I register?' })).toHaveCount(1);
+  });
+
+  test('page title and descriptions carry the poster tagline', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveTitle(/^MindQuest 2\.0 — UAE’s Biggest High School Quiz/);
+    expect((await page.title()).length).toBeLessThanOrEqual(60);
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) {
+      const content = await page.locator(selector).getAttribute('content');
+      expect(content, selector).toContain('UAE’s Biggest High School Quiz for the Indian Diaspora');
+      expect(content.length, selector).toBeLessThanOrEqual(160);
+    }
+    await expect(page.locator('.hero-lead')).toContainText('UAE’s Biggest High School Quiz for the Indian Diaspora');
   });
 });
