@@ -20,26 +20,43 @@ MindQuest is the 1st Annual General Knowledge Quiz Competition organized by GECB
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Styling**: Modern CSS with custom properties, Grid, and Flexbox
-- **Icons**: Font Awesome 6.0.0
+- **Icons**: Inline SVG sprite
 - **Fonts**: Google Fonts (Montserrat, Lato)
 - **Architecture**: Static Single Page Application
 
 ### File Structure
 
 ```
-├── index.html              # Main HTML structure
+├── index.html                 # Single-page site (SEO meta, JSON-LD, inline SVG icon sprite)
+├── ad.html                    # Embeddable banner demo (noindex)
+├── sw.js                      # Service worker (precache and runtime caching, versioned)
+├── robots.txt, sitemap.xml, CNAME   # SEO and hosting files
 ├── assets/
-│   ├── styles.css         # Complete CSS styling
-│   ├── script.js          # JavaScript functionality
-│   ├── favicon/           # Favicon package for all devices
-│   ├── mindquest-logo-nav.svg     # Navigation logo (MindQuest 2.0)
-│   ├── mindquest-wordmark.svg     # Footer logo with tagline
-│   ├── brand/             # Original MindQuest 2.0 logo files
-│   ├── pattern-01.png     # Background pattern
-│   ├── gecbta-loga.png    # GECBTA organizer logo
-│   └── ackaf-logo.png     # AKCAF organizer logo
-├── CLAUDE.md              # Development documentation
-└── README.md              # Project documentation
+│   ├── styles.css             # Complete CSS (the Quiz Board design system)
+│   ├── script.js              # All JavaScript (forms, flash cards, consent, analytics)
+│   ├── schools.json           # UAE school suggestions for the registration form
+│   ├── og-image.png           # 1200×630 social sharing card
+│   ├── mindquest-logo-nav.svg # MindQuest 2.0 logo (navbar)
+│   ├── mindquest-wordmark.svg # Logo with tagline (footer)
+│   ├── brand/                 # Original MindQuest 2.0 logo files (SVG and PNG)
+│   ├── favicon/               # Favicons, touch icon, web manifest icons
+│   ├── 2025/                  # 2025 prelims PDFs and the 2025 sponsor logos (logos no longer shown)
+│   ├── 2026/                  # The 11 sponsor logos shown on the page
+│   ├── gecbta-loga.png        # GECBTA organizer logo (gecbta-loga.jpg is unused)
+│   ├── ackaf-logo.png         # AKCAF organizer logo
+│   ├── almarai.png, aster.png # Kept originals, not referenced
+│   └── pattern-01.png         # Brand pattern, not referenced
+├── docs/2026-design.html      # Design system reference (noindex)
+├── widget/mq-widget.v1.js     # Embeddable banner script (see WIDGET.md)
+├── scripts/verify_dist.py     # Deploy check: every referenced file must exist in dist
+├── tests/
+│   ├── e2e/                   # Playwright suite (site, forms, sponsors)
+│   └── specs/, helpers/       # Legacy Mocha/Selenium tests for the 2025 form
+├── playwright.config.js, package.json, Makefile   # Test config, scripts, version bump
+├── .github/workflows/deploy.yml   # Build, verify and deploy to GitHub Pages
+├── WIDGET.md                  # Widget documentation
+├── CLAUDE.md                  # Development documentation (AGENTS.md links to it)
+└── README.md                  # Project documentation
 ```
 
 ## 🎨 Design System
@@ -60,7 +77,7 @@ MindQuest is the 1st Annual General Knowledge Quiz Competition organized by GECB
 
 ### Logo Styling
 
-All logos are surrounded by #F9D84B rounded squares for consistent branding.
+Organizer logos sit on #F9D84B rounded squares; the MindQuest logo and sponsor logos sit on white.
 
 ## 🌟 Features
 

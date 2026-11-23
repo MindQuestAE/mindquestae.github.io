@@ -448,6 +448,9 @@ test('registration honeypot sends nothing', async ({ page }) => {
 });
 
 test('Register now moves focus to the registration heading', async ({ page }) => {
+  // Smooth scrolling over the whole page can outlast the assertion timeout on a busy WebKit run;
+  // the page honours reduced motion with an instant jump, so test the destination, not the animation.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   const decline = page.getByRole('button', { name: 'Decline' });
   if (await decline.isVisible()) await decline.click();
   await page.locator('.cta-group a[href="#register"]').click();

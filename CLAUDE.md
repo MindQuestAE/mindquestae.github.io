@@ -21,14 +21,19 @@ This is a static website for MindQuest, a General Knowledge Quiz Competition for
   - `brand/` - Unmodified originals of the new logo set (`mindquestlogo-ver2-0-01` and `-tag-01`, .svg and .png, 2000×2000 with large margins); the nav and footer SVGs are derived from these. The print sources (.eps/.psd/.ai/.pdf/.jpg) are deliberately not in the repo
   - `mindquest-wordmark.svg` - Logo with the "Unlock Your Mind, Conquer The Quest" tagline (cropped from `brand/…-tag-01.svg`), used in the footer on a white tile
   - `og-image.png` - 1200×630 social sharing card (`og:image` / `twitter:image`)
-  - `2025/` - Downloadable 2025 prelims question paper and answer key (PDF)
   - `schools.json` - UAE school suggestions, loaded when a registration school field receives focus (see "School List")
-  - `gecbta-loga.png` - GECBTA organizer logo
+  - `gecbta-loga.png` - GECBTA organizer logo (`gecbta-loga.jpg` is an unused variant)
   - `ackaf-logo.png` - AKCAF organizer logo
-  - `carrefour.png`, `almarai.png`, `romana-water.png`, `kidsventure.png`, `aster.png` - 2025 sponsor logos
+  - `2025/` - Downloadable 2025 prelims PDFs plus the five 2025 sponsor logos (`carrefour`, `almarai`, `romana-water`, `kidsventure`, `aster`, 200×200). The logos are kept but no longer shown on the page
+  - `2026/` - The 11 MindQuest 2.0 sponsor logos shown in the `#partners` wall (`al-nahda-auto`, `almarai`, `aster`, `autosmart`, `ct-engineers`, `liwa-ac-systems`, `middleeast-general-trading`, `noova`, `origa-designs`, `star-academies`, `verdastones`; 400×400, `almarai`/`aster` 200×200). Source files are used as supplied, never edited. They are not precached by `sw.js`
+  - `almarai.png`, `aster.png` - Originals of the files copied into `2025/` and `2026/`; kept, not referenced
   - `favicon/` - Favicon package and `site.webmanifest`; the icon is a clipped crop of the book-M / lightbulb-Q symbol from `brand/mindquestlogo-ver2-0-01.svg` on a white tile (not a redraw)
   - `pattern-01.png`, `gecbta-loga.jpg` - Brand source files, not referenced by the site (the old 2025 logo files were removed)
-- `tests/`, `playwright.config.js`, `package.json`, `Makefile` - Browser tests and helper commands (see "Testing")
+- `tests/`, `playwright.config.js`, `package.json`, `Makefile` - Browser tests and helper commands (see "Testing"). `tests/e2e/` (`site.spec.js`, `forms.spec.js`, `sponsors.spec.js`) is the Playwright suite; `tests/specs/`, `tests/helpers/`, `tests/setup.js`, `tests/run-tests.sh` and `.mocharc.json` belong to the legacy Mocha/Selenium suite; `tests/artifacts/` and `tests/screenshots/` are git-ignored output
+- `WIDGET.md`, `README.md` - Widget documentation and the project README; `AGENTS.md` is a symlink to this file
+- `.github/dependabot.yml`, `.github/workflows/test.ymldisabled` - Dependency updates, and a disabled test workflow (not run)
+- `7f2c3e91a48d6b52c9f04e81b37d25fa.txt` - Empty file at the repo root, not copied to `dist` by the deploy workflow; leave it alone
+- `.claude/`, `.omo/`, `.playwright-mcp/` - Local tool state, not part of the site
 - `.github/workflows/deploy.yml` - Builds `dist` and deploys it to GitHub Pages on push to `main` or `master`, or manually (`workflow_dispatch`); both branches are allowed in the `github-pages` environment. The Pages artifact is named per run attempt (so "Re-run jobs" works) and deleted after the deploy. GitHub Pages publishes `index.html` and `ad.html` explicitly, the `assets/` tree, `widget/mq-widget.v1.js`, `CNAME`, `robots.txt`, `sitemap.xml` and `sw.js`. Assets are copied recursively, then `styles.css`, `script.js` and `sw.js` are minified into `dist`. Do not go back to a recursive HTML input; add public HTML pages explicitly after confirming they should be published. PDFs and `assets/schools.json` deploy under `assets/`. `docs/2026-design.html` is published explicitly by the workflow at `/docs/2026-design.html`; it is `noindex` and stays out of the sitemap
 - `scripts/verify_dist.py` - Run by the deploy workflow: validates same-origin HTML / manifest / CSS / JS / service-worker precache references against `dist` and fails the deployment on missing files, so any new same-origin file the site references must exist under `assets/`
 
@@ -36,7 +41,7 @@ This is a static website for MindQuest, a General Knowledge Quiz Competition for
 - Brand colors: Oxford Blue (#0A2155), Minion Yellow (#F9D84B), Slate Gray (#4F4F4F), Sky Blue (#B3D4FC)
 - Typography: Montserrat (headings, labels, buttons), Lato (body text)
 - Responsive design with mobile-first approach
-- Logo styling: The MindQuest logo is never recoloured, restyled or shadowed, and sits on paper or a white tile (never directly on Oxford Blue). Organizer logos sit on #F9D84B rounded squares for branding consistency; sponsor logos sit on plain white tiles
+- Logo styling: The MindQuest logo is never recoloured, restyled or shadowed, and sits on paper or a white tile (never directly on Oxford Blue). Organizer logos sit on #F9D84B rounded squares for branding consistency; sponsor logos sit on plain white tiles (the 2026 wall is a centred flex wall of equal square tiles, 6 per row on desktop, 4/3/2 on smaller screens)
 - Full reference: `docs/2026-design.html` (see "2026 Theme" below)
 
 ## Development Commands
@@ -67,7 +72,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Prizes (`#prizes`) with the podium and special awards
 - Archives (`#archives`) with the 2025 prelims PDFs, a click-to-load YouTube video and Instagram embeds
 - Register (`#register`) — two-participant registration form, with an email alternative
-- Partners (`#partners`) with GECBTA and AKCAF information and the 2025 sponsor wall
+- Partners (`#partners`) with GECBTA and AKCAF information and the 2026 sponsor wall
 - FAQ (`#faq`) using native `<details>` accordions
 - Contact (`#contact`) with contact information and message form
 - Footer with organized navigation links
@@ -132,6 +137,8 @@ This is a static HTML website with no build process. Development can be done by:
 - Videos: each video is an `<a class="video-facade">` in `index.html` — a plain link to YouTube with a lazy-loaded thumbnail. `assets/script.js` replaces it with a `youtube-nocookie.com` iframe on click, so no YouTube code loads before that. To add a video, copy the block and change the video ID in `href`, `data-video-id` and the thumbnail URL, set `data-video-title` and `title` to the video's real title (from `https://www.youtube.com/oembed?url=…&format=json`), and write a short one-line caption as the visible text. A single video is shown wide and centred; two or more fall into the three-column grid. `https://www.youtube-nocookie.com` must stay in the CSP `frame-src`
 - Photos: official Instagram post embeds (`blockquote.instagram-media` with a permalink); `embed.js` is lazy-loaded by `assets/script.js`. To swap photos, change the permalinks — no image files are stored locally. Instagram must stay allowed in the CSP `script-src` and `frame-src`
 
+**Sponsors:** the `#partners` wall lists the 2026 sponsors alphabetically with alt text taken from the company names read off each logo. There are no sponsor tiers, titles or links for 2026; do not invent any. 2025 sponsors are not mentioned on the page. Origa Design's logo has a full-bleed navy background, and the Liwa A/C Systems and Middle East General Trading logos are small inside their tiles; the files are used as supplied.
+
 **Hall of Fame:** planned but deferred until the organisers supply the winners' names and schools; do not add the section or guess names.
 
 **Sections Included:**
@@ -142,7 +149,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Prizes with podium (a trophy for each of the three places) and one special award (Certificates of Excellence); Best School Delegation was removed at the user's request, do not add it back
 - Archives with 2025 prelims PDFs, video and Instagram embeds
 - Register band with the two-participant registration form
-- Partners with GECBTA and AKCAF information, 2025 sponsors and sponsorship CTA
+- Partners with GECBTA and AKCAF information, the 2026 sponsor wall (11 logos, no links, no tiers) and sponsorship CTA
 - FAQ with common questions and answers (mirrored in the JSON-LD `FAQPage`; keep both in sync)
 - Contact with multiple contact methods and message form
 
