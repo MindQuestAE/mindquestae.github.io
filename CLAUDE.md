@@ -25,7 +25,7 @@ This is a static website for MindQuest, a General Knowledge Quiz Competition for
   - `gecbta-loga.png` - GECBTA organizer logo (`gecbta-loga.jpg` is an unused variant)
   - `ackaf-logo.png` - AKCAF organizer logo
   - `2025/` - Downloadable 2025 prelims PDFs plus the five 2025 sponsor logos (`carrefour`, `almarai`, `romana-water`, `kidsventure`, `aster`, 200×200). The logos are kept but no longer shown on the page
-  - `2026/` - The 11 MindQuest 2.0 sponsor logos shown in the `#partners` wall (`al-nahda-auto`, `almarai`, `aster`, `autosmart`, `ct-engineers`, `liwa-ac-systems`, `middleeast-general-trading`, `noova`, `origa-designs`, `star-academies`, `verdastones`; 400×400, `almarai`/`aster` 200×200). Source files are used as supplied, never edited. They are not precached by `sw.js`
+  - `2026/` - The 13 MindQuest 2.0 sponsor logos shown in the `#partners` wall (`al-nahda-auto`, `almarai`, `aster`, `aster-volunteers`, `autosmart`, `ct-engineers`, `liwa-ac-systems`, `middleeast-general-trading`, `noova`, `origa-designs`, `star-academies`, `uae-vartha`, `verdastones`; 400×400, `almarai`/`aster` 200×200), resized with PhotoCraft from the organiser originals. `liwa-ac-systems` was rearranged (emblem moved above the text), and `middleeast-general-trading`, `noova` and `origa-designs` were recropped tighter (Origa to a square around its emblem and wordmark), all at the user's request (Nov 2026). They are not precached by `sw.js`
   - `almarai.png`, `aster.png` - Originals of the files copied into `2025/` and `2026/`; kept, not referenced
   - `favicon/` - Favicon package and `site.webmanifest`; the icon is a clipped crop of the book-M / lightbulb-Q symbol from `brand/mindquestlogo-ver2-0-01.svg` on a white tile (not a redraw)
   - `pattern-01.png`, `gecbta-loga.jpg` - Brand source files, not referenced by the site (the old 2025 logo files were removed)
@@ -137,7 +137,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Videos: each video is an `<a class="video-facade">` in `index.html` — a plain link to YouTube with a lazy-loaded thumbnail. `assets/script.js` replaces it with a `youtube-nocookie.com` iframe on click, so no YouTube code loads before that. To add a video, copy the block and change the video ID in `href`, `data-video-id` and the thumbnail URL, set `data-video-title` and `title` to the video's real title (from `https://www.youtube.com/oembed?url=…&format=json`), and write a short one-line caption as the visible text. A single video is shown wide and centred; two or more fall into the three-column grid. `https://www.youtube-nocookie.com` must stay in the CSP `frame-src`
 - Photos: official Instagram post embeds (`blockquote.instagram-media` with a permalink); `embed.js` is lazy-loaded by `assets/script.js`. To swap photos, change the permalinks — no image files are stored locally. Instagram must stay allowed in the CSP `script-src` and `frame-src`
 
-**Sponsors:** the `#partners` wall lists the 2026 sponsors alphabetically with alt text taken from the company names read off each logo. There are no sponsor tiers, titles or links for 2026; do not invent any. 2025 sponsors are not mentioned on the page. Origa Design's logo has a full-bleed navy background, and the Liwa A/C Systems and Middle East General Trading logos are small inside their tiles; the files are used as supplied.
+**Sponsors:** the `#partners` wall lists the 2026 sponsors alphabetically with alt text taken from the company names read off each logo. There are no sponsor tiers, titles or links for 2026; do not invent any. 2025 sponsors are not mentioned on the page. Origa Design's logo has a full-bleed navy background.
 
 **Hall of Fame:** planned but deferred until the organisers supply the winners' names and schools; do not add the section or guess names.
 
@@ -149,7 +149,7 @@ This is a static HTML website with no build process. Development can be done by:
 - Prizes with podium (a trophy for each of the three places) and one special award (Certificates of Excellence); Best School Delegation was removed at the user's request, do not add it back
 - Archives with 2025 prelims PDFs, video and Instagram embeds
 - Register band with the two-participant registration form
-- Partners with GECBTA and AKCAF information, the 2026 sponsor wall (11 logos, no links, no tiers) and sponsorship CTA
+- Partners with GECBTA and AKCAF information, the 2026 sponsor wall (13 logos, no links, no tiers) and sponsorship CTA
 - FAQ with common questions and answers (mirrored in the JSON-LD `FAQPage`; keep both in sync)
 - Contact with multiple contact methods and message form
 
