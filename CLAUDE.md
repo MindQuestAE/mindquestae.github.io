@@ -167,6 +167,7 @@ This is a static HTML website with no build process. Development can be done by:
 
 **Analytics & Consent:**
 - Google Analytics 4 (`G-NVLZZP28ME`) is loaded by `loadAnalytics()` in `assets/script.js` only after the visitor clicks "Accept" in the cookie banner, or on later visits when `localStorage.cookieConsent` is `"accepted"`
+- The Meta Pixel (`1628468662629851`) is loaded by `loadMetaPixel()`, called from `loadAnalytics()`, so it has the same consent gate. Meta's `<noscript>` image is deliberately omitted (it would track without consent). Form events go through `trackPixel()` (consent-checked): `CompleteRegistration` after a registration request completes, `Contact` after a contact message is sent; never on the honeypot path, on validation failure or network error, and never with form field values (participants are minors). `connect.facebook.net` is in the CSP `script-src`, `www.facebook.com` in `connect-src`
 - First-time visitors who ignore or decline the banner send nothing to Google; there is no `gtag.js` script tag in `index.html`
 - `trackCTAClick()` and the warm-up card events only push to `dataLayer`; they are sent if and when analytics loads during that page view
 
@@ -211,7 +212,7 @@ This is a static HTML website with no build process. Development can be done by:
 ## External Dependencies
 
 - Google Fonts: Montserrat (600–900) and Lato (400, 700, 900)
-- Google Analytics 4 (`gtag.js`), loaded only after cookie consent
+- Google Analytics 4 (`gtag.js`) and the Meta Pixel (`fbevents.js`), loaded only after cookie consent
 - Instagram `embed.js` for the archives, lazy-loaded
 - YouTube (`youtube-nocookie.com` iframe and `i.ytimg.com` thumbnail) for archive videos, loaded only on click
 - Separate Google Apps Script endpoints for registration and contact

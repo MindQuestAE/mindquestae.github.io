@@ -74,7 +74,8 @@ self.addEventListener('fetch', event => {
   // Skip external API calls and analytics
   if (event.request.url.includes('googletagmanager') ||
       event.request.url.includes('google-analytics') ||
-      event.request.url.includes('gtag')) {
+      event.request.url.includes('gtag') ||
+      event.request.url.includes('facebook')) {
     return;
   }
 
