@@ -10,7 +10,7 @@ function isFilteredThirdPartyConsoleNoise(message) {
   const url = message.location().url || '';
   // Third-party requests can fail because of consent, throttling, or the test network;
   // those vendor-owned diagnostics do not indicate an uncaught error in our page code.
-  return /instagram\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager\.com|google-analytics\.com/i.test(url);
+  return /instagram\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager\.com|google-analytics\.com|facebook\.(com|net)/i.test(url);
 }
 
 test.beforeEach(async ({ page }) => {

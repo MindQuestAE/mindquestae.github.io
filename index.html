@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://*.google-analytics.com https://www.googletagmanager.com https://script.google.com https://script.googleusercontent.com; frame-src https://www.instagram.com https://www.youtube-nocookie.com https://www.google.com;"
+      content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.instagram.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://*.google-analytics.com https://www.googletagmanager.com https://script.google.com https://script.googleusercontent.com https://www.facebook.com; frame-src https://www.instagram.com https://www.youtube-nocookie.com https://www.google.com;"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#0a2155" />
@@ -92,7 +92,7 @@
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap" /></noscript>
-    <link rel="stylesheet" href="./assets/styles.css?v=2026.11.7" />
+    <link rel="stylesheet" href="./assets/styles.css?v=2026.11.8" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -274,8 +274,8 @@
     <!-- Cookie Consent -->
     <div id="cookieConsent" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
       <p>
-        We use cookies to understand how visitors use this site. You can
-        accept or decline analytics cookies.
+        We use cookies (Google Analytics and Meta Pixel) to understand how
+        visitors use this site and reach us. You can accept or decline them.
       </p>
       <div class="cookie-actions">
         <button type="button" class="btn btn-sm btn-ghost-light" onclick="declineCookies()">Decline</button>
@@ -1204,7 +1204,7 @@
       </div>
     </footer>
 
-    <script src="./assets/script.js?v=2026.11.7" defer></script>
+    <script src="./assets/script.js?v=2026.11.8" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

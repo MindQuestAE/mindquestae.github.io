@@ -25,6 +25,34 @@ function loadAnalytics() {
   analyticsScript.src =
     "https://www.googletagmanager.com/gtag/js?id=G-NVLZZP28ME";
   document.head.append(analyticsScript);
+  loadMetaPixel();
+}
+
+// Meta Pixel, loaded only with analytics consent (from Meta's base code)
+function loadMetaPixel() {
+  if (window.fbq) return;
+  const fbq = function () {
+    fbq.callMethod
+      ? fbq.callMethod.apply(fbq, arguments)
+      : fbq.queue.push(arguments);
+  };
+  window.fbq = fbq;
+  if (!window._fbq) window._fbq = fbq;
+  fbq.push = fbq;
+  fbq.loaded = true;
+  fbq.version = "2.0";
+  fbq.queue = [];
+  const pixelScript = document.createElement("script");
+  pixelScript.async = true;
+  pixelScript.src = "https://connect.facebook.net/en_US/fbevents.js";
+  document.head.append(pixelScript);
+  fbq("init", "1628468662629851");
+  fbq("track", "PageView");
+}
+
+// Meta Pixel standard event; no form data is sent (participants are minors)
+function trackPixel(eventName, params) {
+  if (readConsent() === "accepted" && window.fbq) window.fbq("track", eventName, params);
 }
 
 // Track CTA clicks
@@ -714,6 +742,7 @@ if (registrationForm) {
         document.getElementById(field.id + "Error").style.display = "none";
       });
       if (readConsent() === "accepted") trackCTAClick("Registration submitted", "Register");
+      trackPixel("CompleteRegistration", { content_name: "MindQuest 2.0 team registration" });
       status.focus();
     } catch (error) {
       if (!(error instanceof Error)) throw error;
@@ -866,6 +895,7 @@ if (contactForm) {
 
       if (response.status === 0 || response.ok) {
         setStatus("success", "Thanks! Your message has been sent — we’ll get back to you soon.");
+        trackPixel("Contact", { content_name: "Contact form" });
         contactForm.reset();
         inputs.forEach((input) => setFieldState(input, true));
       } else {
