@@ -58,6 +58,8 @@ const acceptedPhones = [
 ];
 
 test('UAE phone formats normalize in the field and submitted payload', async ({ page }) => {
+  // Loops over many full form fills; measured at 9–33 s against the 30 s default, so give it the 3x budget.
+  test.slow();
   for (const [raw, expected] of acceptedPhones) {
     await fillRegistration(page);
     await page.locator('#phone1').fill(raw);
@@ -76,6 +78,8 @@ test('UAE phone formats normalize in the field and submitted payload', async ({ 
 });
 
 test('invalid UAE phone formats show their specific errors and do not submit', async ({ page }) => {
+  // Loops over many full form fills; measured at 9–33 s against the 30 s default, so give it the 3x budget.
+  test.slow();
   const cases = [
     ['letters', 'abc123', 'Phone numbers can only contain digits, spaces, dashes and a leading +.'],
     ['short local number', '12345', 'Enter a UAE number such as 050 123 4567 or +971 50 123 4567.'],
@@ -95,6 +99,8 @@ test('invalid UAE phone formats show their specific errors and do not submit', a
 });
 
 test('Emirates ID formats normalize for display and payload; malformed IDs are rejected', async ({ page }) => {
+  // Loops over many full form fills; measured at 9–33 s against the 30 s default, so give it the 3x budget.
+  test.slow();
   for (const value of ['784-2000-1234567-1', '784 2000 1234567 1', '784200012345671']) {
     await fillRegistration(page);
     await page.locator('#emiratesId1').fill(value);
@@ -132,6 +138,8 @@ test('duplicate Emirates IDs are rejected after normalizing mixed formats', asyn
 });
 
 test('DOB sanity validation rejects future, implausible and impossible dates but not eligibility years', async ({ page }) => {
+  // Loops over many full form fills; measured at 9–33 s against the 30 s default, so give it the 3x budget.
+  test.slow();
   const today = new Date();
   const dateAtAge = (age) => {
     const date = new Date(today.getFullYear() - age, today.getMonth(), today.getDate());
