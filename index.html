@@ -92,7 +92,7 @@
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap" /></noscript>
-    <link rel="stylesheet" href="./assets/styles.css?v=2026.11.8" />
+    <link rel="stylesheet" href="./assets/styles.css?v=2026.11.9" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -192,7 +192,7 @@
                 "name": "How do I register?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Register on this page: fill in the form for both team members (a team is two students) and submit it. Entry is free. Registration closes on Tuesday 24 November 2026 and is limited to 120 teams, first come, first served. If you need help, email register.mindquest@gmail.com."
+                  "text": "Registration for MindQuest 2.0 closed on Tuesday 24 November 2026. Registered teams should wait for confirmation from the organisers. For questions, email register.mindquest@gmail.com."
                 }
               },
               {
@@ -307,10 +307,10 @@
           <li><a href="#partners">Partners</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li class="nav-cta-mobile"><a href="#register" class="btn btn-yellow">Register now</a></li>
+          <li class="nav-cta-mobile"><a href="#dates" class="btn btn-yellow">Quiz day</a></li>
         </ul>
 
-        <a href="#register" class="btn btn-ink nav-cta">Register now</a>
+        <a href="#dates" class="btn btn-ink nav-cta">Quiz day</a>
 
         <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
           <span></span><span></span><span></span>
@@ -349,8 +349,8 @@
             </ul>
 
             <div class="cta-group">
-              <a href="#register" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Register now', 'Hero')">
-                <svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg> Register now
+              <a href="#dates" class="btn btn-yellow btn-lg" onclick="trackCTAClick('Quiz day', 'Hero')">
+                <svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg> Quiz day details
               </a>
               <a href="#format" class="btn btn-outline btn-lg">
                 How it works <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
@@ -546,8 +546,8 @@
             <p class="round-tag"><span>03</span> Round three</p>
             <h2 class="section-title">Save the dates.</h2>
             <p class="section-lead">
-              Register your team for MindQuest 2.0. Join us at the official launch
-              on 8 November, then compete on quiz day, 29 November 2026.
+              Registration for MindQuest 2.0 is closed. The official launch was
+              on 8 November; quiz day is 29 November 2026.
             </p>
           </header>
 
@@ -555,7 +555,7 @@
             <li>
               <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg></span>
               <span class="sb-label">Registration</span>
-              <span class="sb-value">Open now · Closes Tuesday 24 November 2026 · Limited to 120 teams, first-come, first-served</span>
+              <span class="sb-value">Closed · Tuesday 24 November 2026</span>
             </li>
             <li>
               <span class="sb-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></span>
@@ -745,186 +745,14 @@
           <div class="register-band registration-band reveal">
             <div>
               <p class="round-tag"><span><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></span> Registration</p>
-              <h2 class="section-title" id="registerTitle" tabindex="-1">Register your team.</h2>
-              <p>Enter MindQuest 2.0 as a team of two. Entry is free for Indian diaspora students in UAE schools, in Grades 8–12 / Years 9–13 or equivalent.</p>
-              <p>Have both participants’ details ready. The quiz is on Sunday 29 November 2026 at The Millennium School, Al Qusais.</p>
-              <p>Registration closes on Tuesday 24 November 2026.</p>
-              <p class="registration-limit">Limited to 120 teams. First come, first served.</p>
+              <h2 class="section-title" id="registerTitle" tabindex="-1">Registration is closed.</h2>
+              <p>Registration for MindQuest 2.0 closed on Tuesday 24 November 2026.</p>
+              <p>The quiz is on Sunday 29 November 2026 at The Millennium School, Al Qusais.</p>
             </div>
-            <form id="registrationForm" class="card registration-form" action="mailto:register.mindquest@gmail.com?subject=MindQuest%202.0%20registration" method="post" enctype="text/plain" novalidate>
-              <p class="registration-intro">All fields are required. A parent’s email and phone number may be used. Choose a school suggestion or type your school’s full name and emirate.</p>
-              <fieldset class="registration-participant">
-                <legend>Participant 1</legend>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="firstName1">First name</label>
-                    <input type="text" id="firstName1" name="firstName1" required autocomplete="section-participant1 given-name" maxlength="50" aria-describedby="firstName1Error" />
-                    <p class="form-error" id="firstName1Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="lastName1">Last name</label>
-                    <input type="text" id="lastName1" name="lastName1" required autocomplete="section-participant1 family-name" maxlength="50" aria-describedby="lastName1Error" />
-                    <p class="form-error" id="lastName1Error"></p>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="email1">Email</label>
-                    <input type="email" id="email1" name="email1" required autocomplete="section-participant1 email" maxlength="254" aria-describedby="email1Error" />
-                    <p class="form-error" id="email1Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="phone1">UAE phone number</label>
-                    <input type="tel" id="phone1" name="phone1" required autocomplete="tel" inputmode="tel" placeholder="050 123 4567" maxlength="32" aria-describedby="phone1Error" />
-                    <p class="form-error" id="phone1Error"></p>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="dob1">Date of birth</label>
-                    <input type="date" id="dob1" name="dob1" required autocomplete="section-participant1 bday" aria-describedby="dob1Error" />
-                    <p class="form-error" id="dob1Error"></p>
-                    <p class="form-hint" id="dob1Hint" aria-live="polite"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="emiratesId1">Emirates ID (15 digits)</label>
-                    <input type="text" id="emiratesId1" name="emiratesId1" required inputmode="numeric" maxlength="20" autocomplete="off" aria-describedby="emiratesId1Error" />
-                    <p class="form-error" id="emiratesId1Error"></p>
-                  </div>
-                </div>
-                  <div class="form-group">
-                    <label for="school1">UAE school</label>
-                    <input type="text" id="school1" name="school1" required list="registrationSchools" maxlength="100" autocomplete="off" aria-describedby="school1Error" />
-                    <p class="form-error" id="school1Error"></p>
-                  </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="curriculum1">Curriculum</label>
-                    <select id="curriculum1" name="curriculum1" required aria-describedby="curriculum1Error">
-                      <option value="">Select curriculum</option>
-                      <option>Indian (CBSE)</option>
-                      <option>Indian (ICSE/ISC)</option>
-                      <option>British</option>
-                      <option>American</option>
-                      <option>International Baccalaureate (IB)</option>
-                      <option>Other</option>
-                    </select>
-                    <p class="form-error" id="curriculum1Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="grade1">Grade / year</label>
-                    <select id="grade1" name="grade1" required aria-describedby="grade1Error">
-                      <option value="">Choose grade/year</option>
-                      <option value="8">Grade 8 / Year 9</option>
-                      <option value="9">Grade 9 / Year 10</option>
-                      <option value="10">Grade 10 / Year 11</option>
-                      <option value="11">Grade 11 / Year 12</option>
-                      <option value="12">Grade 12 / Year 13</option>
-                    </select>
-                    <p class="form-error" id="grade1Error"></p>
-                  </div>
-                </div>
-                <div class="form-group" id="curriculumOther1Group" hidden>
-                  <label for="curriculumOther1">Specify curriculum</label>
-                  <input type="text" id="curriculumOther1" name="curriculumOther1" maxlength="100" disabled aria-describedby="curriculumOther1Error" />
-                  <p class="form-error" id="curriculumOther1Error"></p>
-                </div>
-              </fieldset>
-              <fieldset class="registration-participant">
-                <legend>Participant 2</legend>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="firstName2">First name</label>
-                    <input type="text" id="firstName2" name="firstName2" required autocomplete="section-participant2 given-name" maxlength="50" aria-describedby="firstName2Error" />
-                    <p class="form-error" id="firstName2Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="lastName2">Last name</label>
-                    <input type="text" id="lastName2" name="lastName2" required autocomplete="section-participant2 family-name" maxlength="50" aria-describedby="lastName2Error" />
-                    <p class="form-error" id="lastName2Error"></p>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="email2">Email</label>
-                    <input type="email" id="email2" name="email2" required autocomplete="section-participant2 email" maxlength="254" aria-describedby="email2Error" />
-                    <p class="form-error" id="email2Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="phone2">UAE phone number</label>
-                    <input type="tel" id="phone2" name="phone2" required autocomplete="tel" inputmode="tel" placeholder="050 123 4567" maxlength="32" aria-describedby="phone2Error" />
-                    <p class="form-error" id="phone2Error"></p>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="dob2">Date of birth</label>
-                    <input type="date" id="dob2" name="dob2" required autocomplete="section-participant2 bday" aria-describedby="dob2Error" />
-                    <p class="form-error" id="dob2Error"></p>
-                    <p class="form-hint" id="dob2Hint" aria-live="polite"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="emiratesId2">Emirates ID (15 digits)</label>
-                    <input type="text" id="emiratesId2" name="emiratesId2" required inputmode="numeric" maxlength="20" autocomplete="off" aria-describedby="emiratesId2Error" />
-                    <p class="form-error" id="emiratesId2Error"></p>
-                  </div>
-                </div>
-                  <div class="form-group">
-                    <label for="school2">UAE school</label>
-                    <input type="text" id="school2" name="school2" required list="registrationSchools" maxlength="100" autocomplete="off" aria-describedby="school2Error" />
-                    <p class="form-error" id="school2Error"></p>
-                  </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="curriculum2">Curriculum</label>
-                    <select id="curriculum2" name="curriculum2" required aria-describedby="curriculum2Error">
-                      <option value="">Select curriculum</option>
-                      <option>Indian (CBSE)</option>
-                      <option>Indian (ICSE/ISC)</option>
-                      <option>British</option>
-                      <option>American</option>
-                      <option>International Baccalaureate (IB)</option>
-                      <option>Other</option>
-                    </select>
-                    <p class="form-error" id="curriculum2Error"></p>
-                  </div>
-                  <div class="form-group">
-                    <label for="grade2">Grade / year</label>
-                    <select id="grade2" name="grade2" required aria-describedby="grade2Error">
-                      <option value="">Choose grade/year</option>
-                      <option value="8">Grade 8 / Year 9</option>
-                      <option value="9">Grade 9 / Year 10</option>
-                      <option value="10">Grade 10 / Year 11</option>
-                      <option value="11">Grade 11 / Year 12</option>
-                      <option value="12">Grade 12 / Year 13</option>
-                    </select>
-                    <p class="form-error" id="grade2Error"></p>
-                  </div>
-                </div>
-                <div class="form-group" id="curriculumOther2Group" hidden>
-                  <label for="curriculumOther2">Specify curriculum</label>
-                  <input type="text" id="curriculumOther2" name="curriculumOther2" maxlength="100" disabled aria-describedby="curriculumOther2Error" />
-                  <p class="form-error" id="curriculumOther2Error"></p>
-                </div>
-              </fieldset>
-              <datalist id="registrationSchools"></datalist>
-              <div class="form-group">
-                <label class="registration-consent" for="consent">
-                  <input type="checkbox" id="consent" name="consent" value="yes" required aria-describedby="consentError" />
-                  <span>I confirm that both participants meet the eligibility criteria, the information is correct, and I have their parent or guardian’s permission to submit these details for MindQuest 2.0 registration.</span>
-                </label>
-                <p class="form-error" id="consentError"></p>
-              </div>
-              <div class="hp-field" aria-hidden="true">
-                <label for="registrationWebsite">Leave this field empty</label>
-                <input type="text" id="registrationWebsite" name="website" tabindex="-1" autocomplete="off" />
-              </div>
-              <div class="form-status" id="registrationStatus" role="status" aria-live="polite" tabindex="-1"></div>
-              <button type="submit" class="btn btn-ink btn-lg btn-block">Submit registration</button>
-              <p class="notify-note">Your details are used to organise MindQuest 2.0 and contact you about your registration. Please wait for confirmation from the organisers.</p>
-              <p class="notify-note">Need help? <a href="mailto:register.mindquest@gmail.com?subject=MindQuest%202.0%20registration">Email the organisers</a>.</p>
-              <noscript><p>JavaScript is needed for online submission. You can also email the organisers to register.</p></noscript>
-            </form>
+            <div class="card registration-closed">
+              <p><strong>Registration is now closed.</strong> Thank you to every team that signed up.</p>
+              <p>Registered teams: please wait for confirmation from the organisers. For questions, <a href="mailto:register.mindquest@gmail.com?subject=MindQuest%202.0%20registration">email the organisers</a>.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -1056,7 +884,7 @@
             </details>
             <details class="faq-item reveal" name="faq">
               <summary>How do I register?</summary>
-              <p>Register on this page: fill in the form for both team members (a team is two students) and submit it. Entry is free. Registration closes on Tuesday 24 November 2026 and is limited to 120 teams, first come, first served. If you need help, email register.mindquest@gmail.com.</p>
+              <p>Registration for MindQuest 2.0 closed on Tuesday 24 November 2026. Registered teams should wait for confirmation from the organisers. For questions, email register.mindquest@gmail.com.</p>
             </details>
             <details class="faq-item reveal" name="faq">
               <summary>Is there a registration fee?</summary>
@@ -1193,7 +1021,7 @@
           <div>
             <h3>Get involved</h3>
             <ul class="footer-links">
-              <li><a href="#register">Register now</a></li>
+              <li><a href="#register">Registration</a></li>
               <li><a href="#partners">Sponsor</a></li>
               <li><a href="#faq">FAQ</a></li>
               <li><a href="#contact">Contact</a></li>
@@ -1216,7 +1044,7 @@
       </div>
     </footer>
 
-    <script src="./assets/script.js?v=2026.11.8" defer></script>
+    <script src="./assets/script.js?v=2026.11.9" defer></script>
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

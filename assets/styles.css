@@ -1398,6 +1398,9 @@ button {
 .registration-form {
   min-width: 0;
 }
+.registration-closed p + p {
+  margin-top: 0.75rem;
+}
 .registration-intro {
   margin-bottom: 1.5rem;
 }
